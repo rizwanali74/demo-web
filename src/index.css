@@ -1,0 +1,99 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --font-serif: 'Cormorant Garamond', Georgia, serif;
+    --font-heading: 'Cinzel', serif;
+    --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-script: 'Pinyon Script', cursive;
+    --font-arabic: 'Amiri', serif;
+
+    --color-sand: #F8F6F0;
+    --color-cream: #F3EFE6;
+    --color-linen: #EAE4D6;
+    --color-stone: #DCD5C5;
+    --color-charcoal: #1A1815;
+    --color-muted: #6B655D;
+    --color-gold: #B89758;
+    --color-olive: #4E5340;
+    --color-terracotta: #B96647;
+  }
+
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    font-family: var(--font-sans);
+    background-color: var(--color-sand);
+    color: var(--color-charcoal);
+  }
+
+  body {
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+}
+
+/* Custom Typography Utilities */
+.font-serif-luxury {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+}
+
+.font-heading-cinzel {
+  font-family: 'Cinzel', serif;
+}
+
+.font-script-editorial {
+  font-family: 'Pinyon Script', cursive;
+}
+
+.font-arabic-heritage {
+  font-family: 'Amiri', serif;
+}
+
+/* Custom Editorial Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #F3EFE6;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #D5CEBE;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #B89758;
+}
+
+/* Image zoom effect */
+.img-zoom-container {
+  overflow: hidden;
+}
+
+.img-zoom-container img {
+  transition: transform 1.2s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.img-zoom-container:hover img {
+  transform: scale(1.05);
+}
+
+/* Shimmer animation for luxury accents */
+@keyframes shimmer {
+  0% { opacity: 0.8; }
+  50% { opacity: 1; }
+  100% { opacity: 0.8; }
+}
+
+.animate-subtle-pulse {
+  animation: shimmer 4s infinite ease-in-out;
+}
