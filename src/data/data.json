@@ -1,0 +1,399 @@
+{
+  "brand": {
+    "name": "HUJRAH",
+    "arabicName": "حجره",
+    "tagline": "Sculptural Living & Minimalist Forms",
+    "description": "A contemporary furniture studio and curated sanctuary of architectural objects, bespoke seating, and refined interior pieces crafted for timeless modern spaces.",
+    "showroom": "Showroom: Al Ain & Dubai Design District (d3), UAE",
+    "whatsappNumber": "+971501234567",
+    "email": "concierge@hujrah.ae",
+    "freeDeliveryThresholdAED": 1500
+  },
+  "categories": [
+    { "id": "all", "name": "All Objects", "count": 12 },
+    { "id": "sofas-seating", "name": "Sofas & Seating", "count": 3 },
+    { "id": "lounge-chairs", "name": "Lounge Chairs", "count": 2 },
+    { "id": "tables", "name": "Coffee & Dining Tables", "count": 3 },
+    { "id": "lighting", "name": "Lighting & Lamps", "count": 2 },
+    { "id": "decor-objects", "name": "Objects & Mirrors", "count": 2 }
+  ],
+  "products": [
+    {
+      "id": "huj-01",
+      "sku": "HUJ-SOF-001",
+      "name": "Dune Low Modular Sofa",
+      "arabicName": "كنبة ديون المعيارية المنخفضة",
+      "category": "sofas-seating",
+      "categoryName": "Sofas & Seating",
+      "priceAED": 14500,
+      "compareAtPriceAED": 16800,
+      "inStock": true,
+      "isNew": true,
+      "isBestSeller": true,
+      "isBespoke": true,
+      "materials": "High-density foam core, tactile textured bouclé, FSC-certified solid beech frame",
+      "dimensions": "280 × 110 × 68 cm (Seat Height: 38 cm)",
+      "leadTime": "In Stock — 48h UAE Delivery",
+      "colors": [
+        { "name": "Oatmeal Bouclé", "hex": "#EFEBE4" },
+        { "name": "Warm Sand", "hex": "#D8CEBE" },
+        { "name": "Charcoal Velvet", "hex": "#302E2B" }
+      ],
+      "image": "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=1200&q=80",
+      "secondaryImage": "https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?auto=format&fit=crop&w=1200&q=80",
+      "shortDescription": "Low-slung modular sofa with architectural curves and deeply plush textured bouclé upholstery.",
+      "description": "Embodying the quiet restraint of sculptural minimalism, the Dune Modular Sofa balances grounded low proportions with supreme ergonomic comfort. Each module is crafted with an inner solid beech structure and wrapped in stain-resistant tactile bouclé.",
+      "specs": {
+        "Origin": "Handcrafted in the UAE",
+        "Upholstery": "Belgian Heavy Bouclé (95% Wool, 5% Poly)",
+        "Firmness": "Medium Soft Plush",
+        "Customization": "Custom module configurations & bespoke fabrics available"
+      }
+    },
+    {
+      "id": "huj-02",
+      "sku": "HUJ-CHR-002",
+      "name": "Palla Sculptural Lounge Chair",
+      "arabicName": "كرسي بالا النحتي المريح",
+      "category": "lounge-chairs",
+      "categoryName": "Lounge Chairs",
+      "priceAED": 4900,
+      "compareAtPriceAED": null,
+      "inStock": true,
+      "isNew": true,
+      "isBestSeller": true,
+      "isBespoke": true,
+      "materials": "Curved tubular chrome steel & textured off-white wool bouclé",
+      "dimensions": "86 × 84 × 74 cm",
+      "leadTime": "Ready for Dispatch — 24-48h",
+      "colors": [
+        { "name": "Cloud Bouclé", "hex": "#F4F1EA" },
+        { "name": "Olive Wool", "hex": "#4D5343" },
+        { "name": "Terracotta", "hex": "#A85D44" }
+      ],
+      "image": "https://images.unsplash.com/photo-1580481077195-c3a821a58875?auto=format&fit=crop&w=1200&q=80",
+      "secondaryImage": "https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?auto=format&fit=crop&w=1200&q=80",
+      "shortDescription": "An iconic spherical silhouette nestled within a bent steel framework.",
+      "description": "A striking focal point for conversation areas and modern salons. The Palla chair pairs generous curvilinear cushioning with a gleaming polished chrome undercarriage.",
+      "specs": {
+        "Frame": "Mirror-Polished Stainless Steel",
+        "Filling": "Multi-layer CertiPUR memory foam",
+        "Weight": "24 kg",
+        "Warranty": "5-Year Structural Guarantee"
+      }
+    },
+    {
+      "id": "huj-03",
+      "sku": "HUJ-TBL-003",
+      "name": "Roma Honed Travertine Coffee Table",
+      "arabicName": "طاولة قهوة من الترافرتين الروماني",
+      "category": "tables",
+      "categoryName": "Coffee & Dining Tables",
+      "priceAED": 7200,
+      "compareAtPriceAED": 8100,
+      "inStock": true,
+      "isNew": false,
+      "isBestSeller": true,
+      "isBespoke": false,
+      "materials": "Solid Roman beige travertine stone with natural open veining",
+      "dimensions": "120 × 70 × 36 cm",
+      "leadTime": "White Glove Delivery across UAE",
+      "colors": [
+        { "name": "Natural Roman Beige", "hex": "#DED3C4" },
+        { "name": "Noce Walnut Travertine", "hex": "#B5A18C" }
+      ],
+      "image": "https://images.unsplash.com/photo-1615066390971-03e4e1c36ddf?auto=format&fit=crop&w=1200&q=80",
+      "secondaryImage": "https://images.unsplash.com/photo-1533090161767-e6ffed986c88?auto=format&fit=crop&w=1200&q=80",
+      "shortDescription": "Carved from monolithic blocks of natural honed travertine with softened architectural edges.",
+      "description": "Each Roma table reveals thousands of years of geological formation. Honed to a velvety matte finish, the table top rests securely upon two geometric pedestal plinths.",
+      "specs": {
+        "Material": "100% Solid Natural Travertine Stone",
+        "Finish": "Honed Matte with Organic Pores Preserved",
+        "Weight": "68 kg (2-Person Delivery included)",
+        "Care": "Sealed for stain resistance; wipe with damp microfiber"
+      }
+    },
+    {
+      "id": "huj-04",
+      "sku": "HUJ-TBL-004",
+      "name": "Komorebi Burl Wood Low Table",
+      "arabicName": "طاولة خشب البورل المنخفضة كوموريبي",
+      "category": "tables",
+      "categoryName": "Coffee & Dining Tables",
+      "priceAED": 5800,
+      "compareAtPriceAED": null,
+      "inStock": true,
+      "isNew": true,
+      "isBestSeller": false,
+      "isBespoke": true,
+      "materials": "Californian walnut burl veneer on solid birch core, hand-buffed wax finish",
+      "dimensions": "100 × 100 × 32 cm",
+      "leadTime": "Handcrafted to Order (14 Days)",
+      "colors": [
+        { "name": "Amber Burl", "hex": "#9E6436" },
+        { "name": "Smoked Walnut", "hex": "#4D382B" }
+      ],
+      "image": "https://images.unsplash.com/photo-1533090161767-e6ffed986c88?auto=format&fit=crop&w=1200&q=80",
+      "secondaryImage": "https://images.unsplash.com/photo-1615066390971-03e4e1c36ddf?auto=format&fit=crop&w=1200&q=80",
+      "shortDescription": "Mesmerizing swirl patterns of genuine natural burl root veneer in a cube silhouette.",
+      "description": "A tribute to nature's complex organic tapestry. The Komorebi table showcases dramatic bookmatched root burl veneers, protected with organic hard-wax oil.",
+      "specs": {
+        "Wood": "Natural Figured Walnut Burl",
+        "Coating": "Zero-VOC Hand-rubbed Osmo Wax",
+        "Origin": "Hand-finished in Dubai Studio"
+      }
+    },
+    {
+      "id": "huj-05",
+      "sku": "HUJ-CHR-005",
+      "name": "Nara Minimalist Dining Chair",
+      "arabicName": "كرسي طعام نارا البسيط",
+      "category": "lounge-chairs",
+      "categoryName": "Lounge Chairs",
+      "priceAED": 1950,
+      "compareAtPriceAED": 2400,
+      "inStock": true,
+      "isNew": false,
+      "isBestSeller": true,
+      "isBespoke": false,
+      "materials": "Solid Japanese white oak and natural woven Danish paper cord",
+      "dimensions": "54 × 51 × 78 cm (Seat Height: 45 cm)",
+      "leadTime": "Immediate Dispatch (24h)",
+      "colors": [
+        { "name": "Bleached White Oak", "hex": "#E3D5C1" },
+        { "name": "Ebonized Black Oak", "hex": "#1F1D1B" }
+      ],
+      "image": "https://images.unsplash.com/photo-1503602642458-232111445657?auto=format&fit=crop&w=1200&q=80",
+      "secondaryImage": "https://images.unsplash.com/photo-1580481077195-c3a821a58875?auto=format&fit=crop&w=1200&q=80",
+      "shortDescription": "Sculpted solid oak backrest paired with ancestral hand-woven cord seating.",
+      "description": "Engineered with subtle joint work and harmonious proportions, the Nara dining chair provides ergonomic lumbar support for extended evening gatherings.",
+      "specs": {
+        "Joinery": "Mortise and Tenon",
+        "Seat": "Hand-strung Danish Paper Cord (120m)",
+        "Stackable": "No"
+      }
+    },
+    {
+      "id": "huj-06",
+      "sku": "HUJ-LGT-006",
+      "name": "Alabaster Dome Table Lamp",
+      "arabicName": "مصباح قبة الألباستر المكتبي",
+      "category": "lighting",
+      "categoryName": "Lighting & Lamps",
+      "priceAED": 2450,
+      "compareAtPriceAED": null,
+      "inStock": true,
+      "isNew": true,
+      "isBestSeller": true,
+      "isBespoke": false,
+      "materials": "Solid carved Spanish alabaster stone with spun unlacquered brass accents",
+      "dimensions": "Ø 28 × H 38 cm",
+      "leadTime": "In Stock — 48h UAE Delivery",
+      "colors": [
+        { "name": "Milky White Alabaster", "hex": "#F7F6F2" }
+      ],
+      "image": "https://images.unsplash.com/photo-1507473885765-e6ed057f782c?auto=format&fit=crop&w=1200&q=80",
+      "secondaryImage": "https://images.unsplash.com/photo-1513506003901-1e6a229e2d15?auto=format&fit=crop&w=1200&q=80",
+      "shortDescription": "Translucent mineral stone that casts an ethereal, candle-warm ambient glow.",
+      "description": "Turned on a wood lathe from raw blocks of natural alabaster. When illuminated, the light penetrates the stone to reveal its crystalline subterranean veining.",
+      "specs": {
+        "Light Source": "Warm 2700K Dimmable LED (Included)",
+        "Cord": "1.8m Braided Linen Wire with In-line Brass Dimmer",
+        "Voltage": "220-240V (GCC Standard Plug)"
+      }
+    },
+    {
+      "id": "huj-07",
+      "sku": "HUJ-OBJ-007",
+      "name": "Solitude Asymmetric Wall Mirror",
+      "arabicName": "مرآة سوليتيود الجدارية غير المتماثلة",
+      "category": "decor-objects",
+      "categoryName": "Objects & Mirrors",
+      "priceAED": 3200,
+      "compareAtPriceAED": 3800,
+      "inStock": true,
+      "isNew": false,
+      "isBestSeller": false,
+      "isBespoke": true,
+      "materials": "Ultra-clear lead-free float glass, brushed champagne aluminum frame",
+      "dimensions": "165 × 75 × 3 cm",
+      "leadTime": "Specialized Fragile Art Courier (2-3 Days)",
+      "colors": [
+        { "name": "Champagne Brass", "hex": "#D1C3A5" },
+        { "name": "Matte Anodized Black", "hex": "#202020" }
+      ],
+      "image": "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=1200&q=80",
+      "secondaryImage": "https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?auto=format&fit=crop&w=1200&q=80",
+      "shortDescription": "Freeform organic outline inspired by desert oasis waterlines.",
+      "description": "An architectural wall sculpture that expands room volume and reflects natural light. Can be mounted vertically or horizontally with included safety brackets.",
+      "specs": {
+        "Glass": "5mm HD Copper-free Eco Glass",
+        "Backing": "Shatterproof Safety Membrane",
+        "Mounting": "Multi-directional Heavy-Duty French Cleats"
+      }
+    },
+    {
+      "id": "huj-08",
+      "sku": "HUJ-SOF-008",
+      "name": "Curve Wave 3-Seater Chaise",
+      "arabicName": "أريكة كيرف ويف ثلاثية المقاعد",
+      "category": "sofas-seating",
+      "categoryName": "Sofas & Seating",
+      "priceAED": 18200,
+      "compareAtPriceAED": null,
+      "inStock": false,
+      "isNew": true,
+      "isBestSeller": false,
+      "isBespoke": true,
+      "materials": "Hardwood structural internal skeleton, layered organic wool batting, chenille weave",
+      "dimensions": "320 × 140 × 72 cm",
+      "leadTime": "Made to Order (3-4 Weeks)",
+      "colors": [
+        { "name": "Chalk Chenille", "hex": "#EDEBE6" },
+        { "name": "Desert Taupe", "hex": "#A39786" }
+      ],
+      "image": "https://images.unsplash.com/photo-1550581190-9c1c48d21d6c?auto=format&fit=crop&w=1200&q=80",
+      "secondaryImage": "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=1200&q=80",
+      "shortDescription": "Sweeping organic curve designed for open-plan villas and contemporary penthouses.",
+      "description": "Seamlessly sculptural from every viewing angle, allowing the sofa to float effortlessly in the center of grand living rooms without wall confinement.",
+      "specs": {
+        "Customization": "Left or Right orientation available upon request",
+        "Suspension": "Italian Pirelli Elastic Webbing",
+        "Lead Time": "Handmade in our Al Ain workshop"
+      }
+    },
+    {
+      "id": "huj-09",
+      "sku": "HUJ-OBJ-009",
+      "name": "Sculpted Desert Clay Totem",
+      "arabicName": "إناء الطين الصحراوي المنحوت",
+      "category": "decor-objects",
+      "categoryName": "Objects & Mirrors",
+      "priceAED": 1850,
+      "compareAtPriceAED": null,
+      "inStock": true,
+      "isNew": false,
+      "isBestSeller": true,
+      "isBespoke": false,
+      "materials": "Hand-thrown coarse desert stoneware, open pit reduction firing",
+      "dimensions": "Ø 24 × H 42 cm",
+      "leadTime": "Immediate Delivery (24h)",
+      "colors": [
+        { "name": "Scorched Earth", "hex": "#6C594A" },
+        { "name": "Raw Sand Ochre", "hex": "#C29B72" }
+      ],
+      "image": "/images/vessel_art.jpg",
+      "secondaryImage": "/images/craft_atelier.jpg",
+      "shortDescription": "One-of-a-kind sculptural vessel with natural fire markings and raw tactile texture.",
+      "description": "Crafted by hand using ancestral coil techniques. The surface is left unglazed to celebrate the authentic texture and warmth of UAE terracotta clays.",
+      "specs": {
+        "Technique": "Hand-coiled, Pit-fired at 1050°C",
+        "Waterproof": "Decorative / Dry stems recommended",
+        "Origin": "Sharjah Atelier Studio"
+      }
+    },
+    {
+      "id": "huj-10",
+      "sku": "HUJ-TBL-010",
+      "name": "Pillar Fluted Travertine Side Table",
+      "arabicName": "طاولة بيلار الجانبية المحفورة",
+      "category": "tables",
+      "categoryName": "Coffee & Dining Tables",
+      "priceAED": 3400,
+      "compareAtPriceAED": 3900,
+      "inStock": true,
+      "isNew": false,
+      "isBestSeller": true,
+      "isBespoke": false,
+      "materials": "CNC fluted honed travertine with weighted solid base",
+      "dimensions": "Ø 42 × H 52 cm",
+      "leadTime": "In Stock — 48h UAE Delivery",
+      "colors": [
+        { "name": "Cream Travertine", "hex": "#E5DCCE" }
+      ],
+      "image": "https://images.unsplash.com/photo-1533090161767-e6ffed986c88?auto=format&fit=crop&w=1200&q=80",
+      "secondaryImage": "https://images.unsplash.com/photo-1615066390971-03e4e1c36ddf?auto=format&fit=crop&w=1200&q=80",
+      "shortDescription": "Fluted architectural column side table designed for pairing with low lounge chairs.",
+      "description": "Drawing inspiration from classical architectural colonnades, the Pillar side table features vertical ribbing carved with exacting stone milling machines.",
+      "specs": {
+        "Weight": "32 kg",
+        "Finish": "Satin smooth sealant",
+        "Base": "Non-scratch felt glides pre-installed"
+      }
+    },
+    {
+      "id": "huj-11",
+      "sku": "HUJ-LGT-011",
+      "name": "Kite Sculptural Paper Floor Lamp",
+      "arabicName": "مصباح كايت الأرضي الورقي النحتي",
+      "category": "lighting",
+      "categoryName": "Lighting & Lamps",
+      "priceAED": 3800,
+      "compareAtPriceAED": null,
+      "inStock": true,
+      "isNew": true,
+      "isBestSeller": false,
+      "isBespoke": false,
+      "materials": "Handmade washi mulberry paper, cast iron tripod base, bamboo ribs",
+      "dimensions": "Ø 55 × H 155 cm",
+      "leadTime": "Ready for Dispatch — 48h",
+      "colors": [
+        { "name": "Natural Mulberry", "hex": "#FAF6EE" }
+      ],
+      "image": "https://images.unsplash.com/photo-1513506003901-1e6a229e2d15?auto=format&fit=crop&w=1200&q=80",
+      "secondaryImage": "https://images.unsplash.com/photo-1507473885765-e6ed057f782c?auto=format&fit=crop&w=1200&q=80",
+      "shortDescription": "Lantern-inspired sculptural standing luminaire that diffuses serene illumination.",
+      "description": "Constructed with traditional Japanese paper-stretching methods over lightweight bamboo armatures, supported by a heavy cast iron tripod.",
+      "specs": {
+        "Socket": "2 × E27 LED Compatible",
+        "Switch": "Foot pedal cord switch",
+        "Packaging": "Flat packed with quick tool-free setup"
+      }
+    },
+    {
+      "id": "huj-12",
+      "sku": "HUJ-SOF-012",
+      "name": "Brutalist Stone & Leather Daybed",
+      "arabicName": "سرير النهار الحجري مع جلد الجمل",
+      "category": "sofas-seating",
+      "categoryName": "Sofas & Seating",
+      "priceAED": 15800,
+      "compareAtPriceAED": null,
+      "inStock": true,
+      "isNew": true,
+      "isBestSeller": true,
+      "isBespoke": true,
+      "materials": "Solid carved fossil limestone plinth, vegetable-tanned full-grain leather bolster",
+      "dimensions": "200 × 85 × 42 cm",
+      "leadTime": "Handcrafted to Order (14-21 Days)",
+      "colors": [
+        { "name": "Cognac Leather & Limestone", "hex": "#8E512A" },
+        { "name": "Sand Dune Suede", "hex": "#C7B299" }
+      ],
+      "image": "/images/hero.jpg",
+      "secondaryImage": "/images/living_scene.jpg",
+      "shortDescription": "Monolithic stone foundation elevated with hand-stitched leather cushion and brass tether.",
+      "description": "An architectural dialogue between the raw permanence of stone and the supple warmth of patinated leather. Perfectly suited as a room divider or gallery bench.",
+      "specs": {
+        "Plinth": "Jebel Hafeet Fossil Limestone",
+        "Leather": "Locally tanned vegetable saddle leather",
+        "Limited": "Edition of 12"
+      }
+    }
+  ],
+  "editorialStories": [
+    {
+      "title": "Tactile Sanctuary",
+      "subtitle": "The Philosophy of Understated Living",
+      "description": "Quiet luxury is born when honest materials—honed travertine, porous terracotta, and heavy bouclé—are stripped of ornamentation and celebrated for their raw tactile form.",
+      "image": "/images/living_scene.jpg"
+    },
+    {
+      "title": "Bespoke & Commercial Trade",
+      "subtitle": "For Architects & Interior Designers",
+      "description": "We collaborate with leading architectural firms and private clients across the UAE and GCC to engineer bespoke dimensions, custom upholstery, and whole-villa furniture collections.",
+      "image": "/images/craft_atelier.jpg"
+    }
+  ]
+}
+

@@ -1,170 +1,210 @@
 import React, { useState } from 'react';
-import { 
-  ShoppingBag, 
-  Search, 
-  MessageCircle, 
-  Menu, 
-  X, 
-  Globe 
+import {
+  ShoppingBag,
+  Search,
+  Menu,
+  X,
+  ChevronDown,
+  ArrowRight
 } from 'lucide-react';
 
-export default function Header({ 
-  cartCount, 
-  onOpenCart, 
-  activeCurrency, 
+export default function Header({
+  cartCount,
+  onOpenCart,
+  activeCurrency,
   onChangeCurrency,
-  onOpenWhatsAppConcierge,
+  onNavigateHome,
+  onNavigateShop,
+  onNavigateContact,
   onSearch,
   searchQuery,
-  onNavigateSection
+  currentPage
 }) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [shopDropdownOpen, setShopDropdownOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
 
+  const categories = [
+    { id: 'all', name: 'All Objects' },
+    { id: 'sofas-seating', name: 'Sofas & Modular' },
+    { id: 'lounge-chairs', name: 'Lounge Chairs' },
+    { id: 'tables', name: 'Coffee & Dining Tables' },
+    { id: 'lighting', name: 'Architectural Lighting' },
+    { id: 'decor-objects', name: 'Objects & Mirrors' },
+    { id: 'in-stock', name: 'Ready to Ship (UAE 48h)' }
+  ];
+
+  const handleCategorySelect = (catId) => {
+    onNavigateShop(catId);
+    setShopDropdownOpen(false);
+    setMobileMenuOpen(false);
+  };
+
   return (
-    <header className="sticky top-0 z-40 bg-[#F8F6F0]/95 backdrop-blur-md border-b border-[#E8E2D4] transition-all">
-      {/* Minimal Top Bar */}
-      <div className="bg-[#1C1A17] text-[#EDE8DF] text-[11px] py-1.5 px-4 tracking-wider uppercase">
+    <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-[#EAE8E4] transition-all">
+      {/* Minimal Top Announcement Bar */}
+      {/* <div className="bg-[#141414] text-[#E8E6E1] text-[10.5px] py-1 px-4 tracking-wider uppercase">
         <div className="max-w-7xl mx-auto flex justify-between items-center">
-          <div className="flex items-center gap-2">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#B89758]"></span>
-            <span className="text-[#C8C2B5] font-light">White Glove Delivery across UAE • Apple Pay & WhatsApp</span>
+          <div className="flex items-center gap-2 overflow-hidden text-ellipsis whitespace-nowrap">
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+            <span className="text-[10px] sm:text-[11px] tracking-[0.16em]">
+              Complimentary UAE Delivery Over 1,500 AED • Custom Sizing Available
+            </span>
           </div>
 
-          <div className="flex items-center gap-4">
-            {/* Quick Currency Selector */}
-            <div className="flex items-center gap-1.5 text-[11px]">
+          <div className="flex items-center gap-4 text-[11px] shrink-0">
+            <div className="flex items-center gap-1.5">
               <button 
                 onClick={() => onChangeCurrency('AED')} 
-                className={`transition-colors cursor-pointer ${activeCurrency === 'AED' ? 'text-[#B89758] font-bold' : 'text-[#8E887E] hover:text-white'}`}
+                className={`transition-colors cursor-pointer ${activeCurrency === 'AED' ? 'text-white font-semibold' : 'text-[#8E8B84] hover:text-white'}`}
               >
                 AED
               </button>
               <span className="text-[#444]">|</span>
               <button 
                 onClick={() => onChangeCurrency('USD')} 
-                className={`transition-colors cursor-pointer ${activeCurrency === 'USD' ? 'text-[#B89758] font-bold' : 'text-[#8E887E] hover:text-white'}`}
+                className={`transition-colors cursor-pointer ${activeCurrency === 'USD' ? 'text-white font-semibold' : 'text-[#8E8B84] hover:text-white'}`}
               >
                 USD ($)
               </button>
+              <span className="text-[#444]">|</span>
+              <button 
+                onClick={() => onChangeCurrency('EUR')} 
+                className={`transition-colors cursor-pointer ${activeCurrency === 'EUR' ? 'text-white font-semibold' : 'text-[#8E8B84] hover:text-white'}`}
+              >
+                EUR (€)
+              </button>
             </div>
-
-            <button
-              onClick={onOpenWhatsAppConcierge}
-              className="hidden sm:flex items-center gap-1 text-[#25D366] hover:text-white transition-colors cursor-pointer"
-            >
-              <MessageCircle className="w-3 h-3" />
-              <span>WhatsApp</span>
-            </button>
           </div>
         </div>
-      </div>
+      </div> */}
 
       {/* Main Luxury Navigation Bar */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-18">
-          
+        <div className="flex items-center justify-between h-14 sm:h-15">
+
           {/* Mobile Menu Button */}
-          <button 
+          <button
             type="button"
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)} 
-            className="md:hidden p-2 text-[#1C1A17] hover:text-[#B89758]"
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            className="md:hidden p-2 -ml-2 text-[#141414] hover:text-neutral-500 transition-colors"
             aria-label="Toggle navigation menu"
           >
-            {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+            {mobileMenuOpen ? <X className="w-6 h-6 stroke-[1.5]" /> : <Menu className="w-6 h-6 stroke-[1.5]" />}
           </button>
 
-          {/* Desktop Left Links */}
-          <nav className="hidden md:flex items-center gap-6 text-xs tracking-[0.16em] uppercase text-[#554E44]">
-            <button 
-              onClick={() => onNavigateSection('collection')} 
-              className="hover:text-[#1C1A17] transition-colors cursor-pointer"
+          {/* EXACTLY 3 NAVITEMS: HOME, SHOP, CONTACT US */}
+          <nav className="hidden md:flex items-center gap-8 text-[11px] uppercase tracking-[0.22em] font-medium text-[#4A4742]">
+
+            {/* 1. HOME */}
+            <button
+              onClick={onNavigateHome}
+              className={`hover:text-black transition-colors cursor-pointer pb-0.5 ${currentPage === 'home' ? 'text-black font-semibold border-b border-black' : ''
+                }`}
             >
-              Collection
+              Home
             </button>
-            <button 
-              onClick={() => onNavigateSection('emirati-craft')} 
-              className="flex items-center gap-1 text-[#1C1A17] font-semibold hover:text-[#B89758] transition-colors cursor-pointer"
+
+            {/* 2. SHOP (with Category Dropdown) */}
+            <div
+              className="relative"
+              onMouseEnter={() => setShopDropdownOpen(true)}
+              onMouseLeave={() => setShopDropdownOpen(false)}
             >
-              <span>🇦🇪 Made in UAE</span>
-            </button>
-            <button 
-              onClick={() => onNavigateSection('rare-imports')} 
-              className="hover:text-[#1C1A17] transition-colors cursor-pointer"
+              <button
+                onClick={() => onNavigateShop('all')}
+                className={`flex items-center gap-1 hover:text-black transition-colors cursor-pointer pb-0.5 ${currentPage === 'shop' ? 'text-black font-semibold border-b border-black' : ''
+                  }`}
+              >
+                <span>Shop</span>
+                <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${shopDropdownOpen ? 'rotate-180' : ''}`} />
+              </button>
+
+              {/* Clean Dropdown Menu */}
+              {shopDropdownOpen && (
+                <div className="absolute left-0 top-full pt-3 w-60 z-50 animate-fadeIn">
+                  <div className="bg-white border border-[#EAE8E4] shadow-xl py-2 px-1 rounded-sm">
+                    {categories.map((cat) => (
+                      <button
+                        key={cat.id}
+                        onClick={() => handleCategorySelect(cat.id)}
+                        className="w-full text-left px-4 py-2.5 text-[11px] uppercase tracking-[0.16em] text-[#555] hover:text-black hover:bg-[#F8F7F4] transition-colors cursor-pointer rounded-xs flex items-center justify-between"
+                      >
+                        <span>{cat.name}</span>
+                        <ArrowRight className="w-3 h-3 text-neutral-300 opacity-0 group-hover:opacity-100" />
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {/* 3. CONTACT US */}
+            <button
+              onClick={onNavigateContact}
+              className={`hover:text-black transition-colors cursor-pointer pb-0.5 ${currentPage === 'contact' ? 'text-black font-semibold border-b border-black' : ''
+                }`}
             >
-              Imports
-            </button>
-            <button 
-              onClick={() => onNavigateSection('spaces')} 
-              className="hover:text-[#1C1A17] transition-colors cursor-pointer"
-            >
-              Spaces
+              Contact Us
             </button>
           </nav>
 
-          {/* Center Brand Identity */}
-          <div 
-            className="flex flex-col items-center justify-center cursor-pointer select-none text-center" 
-            onClick={() => onNavigateSection('hero')}
+          {/* Center Brand Identity with Provided HUJRAH Logo */}
+          <div
+            className="flex items-center justify-center cursor-pointer select-none py-1"
+            onClick={onNavigateHome}
           >
-            <span className="font-heading-cinzel text-xl sm:text-2xl tracking-[0.24em] font-semibold text-[#1C1A17]">
-              AL-ATHAR
-            </span>
-            <span className="font-arabic-heritage text-xs text-[#8C8476] tracking-widest -mt-1">
-              دار الأثر
-            </span>
+            <img
+              src="/images/logo.png"
+              alt="HUJRAH // حجره"
+              className="h-7 sm:h-8 md:h-9 w-auto object-contain transition-transform duration-300 hover:opacity-85"
+            />
           </div>
 
           {/* Right Action Icons */}
-          <div className="flex items-center gap-4 text-[#1C1A17]">
-            {/* Minimal Search Button */}
+          <div className="flex items-center gap-3 sm:gap-4 text-[#141414]">
+            {/* Search Button */}
             <div className="relative">
-              <button 
-                onClick={() => setSearchOpen(!searchOpen)} 
-                className="p-1.5 hover:text-[#B89758] transition-colors cursor-pointer"
-                aria-label="Search"
+              <button
+                onClick={() => setSearchOpen(!searchOpen)}
+                className="p-2 hover:text-neutral-500 transition-colors cursor-pointer"
+                aria-label="Search collection"
               >
-                <Search className="w-4 h-4 stroke-[1.75]" />
+                <Search className="w-5 h-5 stroke-[1.5]" />
               </button>
 
               {searchOpen && (
-                <div className="absolute right-0 top-10 w-72 bg-white p-3 shadow-xl rounded-sm border border-[#E5DFD3] z-50 animate-fadeIn">
-                  <div className="flex items-center gap-2 border-b border-[#D8D1C2] pb-1.5">
-                    <Search className="w-3.5 h-3.5 text-[#8C8578]" />
-                    <input 
-                      type="text" 
-                      placeholder="Search bench, terracotta, sofa..." 
+                <div className="absolute right-0 top-12 w-72 sm:w-80 bg-white p-3.5 shadow-2xl rounded-sm border border-[#EAE8E4] z-50 animate-fadeIn">
+                  <div className="flex items-center gap-2 border-b border-[#E0DCD5] pb-2">
+                    <Search className="w-4 h-4 text-neutral-400" />
+                    <input
+                      type="text"
+                      placeholder="Search sofa, travertine, lamp, mirror..."
                       value={searchQuery}
-                      onChange={(e) => onSearch(e.target.value)}
+                      onChange={(e) => {
+                        onSearch(e.target.value);
+                        if (currentPage !== 'shop') onNavigateShop('all');
+                      }}
                       autoFocus
-                      className="w-full text-xs bg-transparent focus:outline-none text-[#1C1A17]"
+                      className="w-full text-xs bg-transparent focus:outline-none text-[#141414] placeholder:text-neutral-400"
                     />
                     {searchQuery && (
-                      <button onClick={() => onSearch('')} className="text-xs text-[#8C8578]">✕</button>
+                      <button onClick={() => onSearch('')} className="text-xs text-neutral-400 hover:text-black">✕</button>
                     )}
                   </div>
                 </div>
               )}
             </div>
 
-            {/* Direct WhatsApp Concierge Button */}
-            <button 
-              onClick={onOpenWhatsAppConcierge}
-              className="hidden lg:flex items-center gap-1.5 text-xs tracking-wider uppercase border border-[#D5CEBE] px-3 py-1.5 rounded-sm hover:border-[#25D366] hover:text-[#25D366] transition-all cursor-pointer font-medium"
-            >
-              <MessageCircle className="w-3.5 h-3.5 text-[#25D366]" />
-              <span>WhatsApp</span>
-            </button>
-
-            {/* Bag Icon with count badge */}
-            <button 
-              onClick={onOpenCart} 
-              className="relative p-1.5 hover:text-[#B89758] transition-colors cursor-pointer flex items-center"
+            {/* Shopping Bag Icon with count badge */}
+            <button
+              onClick={onOpenCart}
+              className="relative p-2 hover:text-neutral-500 transition-colors cursor-pointer flex items-center"
               aria-label="Shopping Bag"
             >
-              <ShoppingBag className="w-4 h-4 stroke-[1.75]" />
+              <ShoppingBag className="w-5 h-5 stroke-[1.5]" />
               {cartCount > 0 && (
-                <span className="absolute -top-1 -right-1 bg-[#1C1A17] text-[#FAF8F5] text-[10px] w-4 h-4 rounded-full flex items-center justify-center font-bold">
+                <span className="absolute top-0 right-0 bg-[#141414] text-white text-[9px] w-4 h-4 rounded-full flex items-center justify-center font-bold">
                   {cartCount}
                 </span>
               )}
@@ -173,42 +213,44 @@ export default function Header({
         </div>
       </div>
 
-      {/* Mobile Menu Dropdown */}
+      {/* Mobile Drawer Menu: Exactly Home, Shop categories, Contact Us */}
       {mobileMenuOpen && (
-        <div className="md:hidden bg-[#F3EFE6] border-b border-[#E0D9CB] px-6 py-5 transition-all">
-          <nav className="flex flex-col gap-3 text-xs tracking-widest uppercase">
-            <button 
-              onClick={() => { onNavigateSection('collection'); setMobileMenuOpen(false); }}
-              className="text-left py-2 border-b border-[#E6E0D2] text-[#1C1A17]"
-            >
-              The Collection
-            </button>
-            <button 
-              onClick={() => { onNavigateSection('emirati-craft'); setMobileMenuOpen(false); }}
-              className="text-left py-2 border-b border-[#E6E0D2] text-[#B89758] font-bold flex items-center justify-between"
-            >
-              <span>🇦🇪 Made in UAE</span>
-              <span className="text-[10px] bg-[#B89758]/15 text-[#8C6D32] px-2 py-0.5 rounded">Spotlight</span>
-            </button>
-            <button 
-              onClick={() => { onNavigateSection('rare-imports'); setMobileMenuOpen(false); }}
-              className="text-left py-2 border-b border-[#E6E0D2] text-[#1C1A17]"
-            >
-              Rare Imports
-            </button>
-            <button 
-              onClick={() => { onNavigateSection('spaces'); setMobileMenuOpen(false); }}
-              className="text-left py-2 border-b border-[#E6E0D2] text-[#1C1A17]"
-            >
-              Spaces In Situ
-            </button>
-            
+        <div className="md:hidden bg-[#FAFAF9] border-b border-[#E8E5DF] px-6 py-6 transition-all animate-fadeIn">
+          <nav className="flex flex-col gap-4 text-xs tracking-[0.18em] uppercase">
             <button
-              onClick={() => { onOpenWhatsAppConcierge(); setMobileMenuOpen(false); }}
-              className="mt-2 w-full flex items-center justify-center gap-2 bg-[#25D366] text-white py-2.5 rounded-sm font-semibold tracking-wider text-xs"
+              onClick={() => { onNavigateHome(); setMobileMenuOpen(false); }}
+              className={`text-left py-2 border-b border-[#EAE8E4] ${currentPage === 'home' ? 'font-bold text-black' : 'text-[#141414]'}`}
             >
-              <MessageCircle className="w-4 h-4" />
-              <span>Contact via WhatsApp</span>
+              Home
+            </button>
+
+            {/* Shop Accordion */}
+            <div className="border-b border-[#EAE8E4] pb-2">
+              <div
+                onClick={() => onNavigateShop('all')}
+                className="py-2 text-[#141414] font-semibold flex justify-between items-center cursor-pointer"
+              >
+                <span>Shop</span>
+                <span className="text-[10px] text-neutral-400">View All</span>
+              </div>
+              <div className="pl-3 space-y-2 pt-1 pb-2">
+                {categories.map((c) => (
+                  <button
+                    key={c.id}
+                    onClick={() => handleCategorySelect(c.id)}
+                    className="block text-left py-1 text-[11px] text-[#666] hover:text-black cursor-pointer"
+                  >
+                    {c.name}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            <button
+              onClick={() => { onNavigateContact(); setMobileMenuOpen(false); }}
+              className={`text-left py-2 border-b border-[#EAE8E4] ${currentPage === 'contact' ? 'font-bold text-black' : 'text-[#141414]'}`}
+            >
+              Contact Us
             </button>
           </nav>
         </div>

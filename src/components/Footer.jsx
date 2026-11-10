@@ -1,100 +1,180 @@
 import React, { useState } from 'react';
-import { 
-  MessageCircle, 
-  MapPin, 
-  Phone, 
-  ArrowRight, 
-  Check 
-} from 'lucide-react';
+import { ArrowUp } from 'lucide-react';
 
 export default function Footer({ onOpenWhatsAppConcierge, onNavigateSection }) {
   const [email, setEmail] = useState('');
-  const [subscribed, setSubscribed] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
 
-  const handleSubscribe = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     if (email) {
-      setSubscribed(true);
+      setSubmitted(true);
       setTimeout(() => {
-        setSubscribed(false);
+        setSubmitted(false);
         setEmail('');
       }, 3000);
     }
   };
 
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   return (
-    <footer className="bg-[#1A1815] text-[#EDE8DF] pt-12 pb-10 border-t border-[#332F2A]">
+    <footer className="bg-white text-[#141414] border-t border-[#EAE8E4] pt-14 pb-16 relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        {/* Minimal Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-8 pb-10 border-b border-white/10">
+        {/* 3 Columns matching Forma Object screenshot */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-10 lg:gap-16">
           
-          {/* Brand */}
-          <div className="md:col-span-5 space-y-3">
-            <span className="font-heading-cinzel text-xl tracking-[0.22em] font-semibold text-white block">
-              AL-ATHAR // دار الأثر
-            </span>
-            <p className="text-xs text-[#A8A196] max-w-sm leading-relaxed">
-              UAE-based collectible design and furniture gallery. One-of-a-kind handmade Emirati creations and rare imported works.
-            </p>
-            <div className="text-xs text-[#C5BBAE] flex items-center gap-2">
-              <MapPin className="w-3.5 h-3.5 text-[#B89758]" />
-              <span>Dubai Design District (d3), UAE</span>
+          {/* Column 1: Get the latest updates */}
+          <div>
+            <h4 className="text-[11px] uppercase tracking-[0.18em] font-semibold text-[#141414] mb-4">
+              GET THE LATEST UPDATES
+            </h4>
+            
+            <form onSubmit={handleSubmit} className="w-full">
+              <div className="flex items-center border border-[#D5D0C7] bg-white px-3 py-2 text-xs">
+                <input 
+                  type="email" 
+                  placeholder="E-mail address*"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  required
+                  className="w-full bg-transparent focus:outline-none text-xs text-[#141414] placeholder:text-neutral-400"
+                />
+                <button
+                  type="submit"
+                  className="text-[11px] uppercase tracking-[0.16em] font-semibold text-[#141414] hover:opacity-60 transition-opacity ml-2 shrink-0 cursor-pointer"
+                >
+                  {submitted ? 'SENT' : 'SEND'}
+                </button>
+              </div>
+            </form>
+          </div>
+
+          {/* Column 2: Quick Links */}
+          <div className="md:pl-6">
+            <h4 className="text-[11px] uppercase tracking-[0.18em] font-semibold text-[#141414] mb-4">
+              QUICK LINKS
+            </h4>
+            
+            <ul className="space-y-2 text-xs text-[#555] font-light">
+              <li>
+                <button 
+                  onClick={() => onNavigateSection('contact-custom')} 
+                  className="hover:text-black transition-colors cursor-pointer"
+                >
+                  About us
+                </button>
+              </li>
+              <li>
+                <button 
+                  onClick={onOpenWhatsAppConcierge} 
+                  className="hover:text-black transition-colors cursor-pointer"
+                >
+                  FAQ
+                </button>
+              </li>
+              <li>
+                <button 
+                  onClick={onOpenWhatsAppConcierge} 
+                  className="hover:text-black transition-colors cursor-pointer"
+                >
+                  Shipping policy
+                </button>
+              </li>
+              <li>
+                <button 
+                  onClick={onOpenWhatsAppConcierge} 
+                  className="hover:text-black transition-colors cursor-pointer"
+                >
+                  Refund policy
+                </button>
+              </li>
+              <li>
+                <button 
+                  onClick={() => onNavigateSection('contact-custom')} 
+                  className="hover:text-black transition-colors cursor-pointer"
+                >
+                  Contact
+                </button>
+              </li>
+              <li>
+                <button 
+                  onClick={onOpenWhatsAppConcierge} 
+                  className="hover:text-black transition-colors cursor-pointer"
+                >
+                  Store Location
+                </button>
+              </li>
+            </ul>
+          </div>
+
+          {/* Column 3: Contact */}
+          <div>
+            <h4 className="text-[11px] uppercase tracking-[0.18em] font-semibold text-[#141414] mb-4">
+              CONTACT
+            </h4>
+            
+            <div className="space-y-2 text-xs text-[#444] font-light">
+              <p className="tracking-wide">+971 50 123 4567</p>
+              <p>info@hujrah.ae</p>
+              
+              <div className="pt-1">
+                <button
+                  onClick={onOpenWhatsAppConcierge}
+                  className="inline-block text-xs text-[#141414] font-normal underline hover:opacity-70 transition-opacity cursor-pointer"
+                >
+                  Chat on WhatsApp
+                </button>
+              </div>
+
+              {/* Social Icons matching Forma Object */}
+              <div className="flex items-center gap-3.5 pt-3 text-[#141414]">
+                {/* Instagram Icon */}
+                <a 
+                  href="https://instagram.com" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="hover:opacity-60 transition-opacity"
+                  aria-label="Instagram"
+                >
+                  <svg className="w-4 h-4 fill-none stroke-current stroke-[1.8]" viewBox="0 0 24 24">
+                    <rect width="20" height="20" x="2" y="2" rx="5" ry="5"/>
+                    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+                    <line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/>
+                  </svg>
+                </a>
+                
+                {/* TikTok Icon */}
+                <a 
+                  href="https://tiktok.com" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="hover:opacity-60 transition-opacity"
+                  aria-label="TikTok"
+                >
+                  <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
+                    <path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-1.01-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.24 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/>
+                  </svg>
+                </a>
+              </div>
             </div>
           </div>
 
-          {/* Links */}
-          <div className="md:col-span-3 space-y-2">
-            <h4 className="text-xs uppercase tracking-wider text-[#B89758] font-semibold">
-              Navigation
-            </h4>
-            <div className="flex flex-col gap-1.5 text-xs text-[#A8A196]">
-              <button onClick={() => onNavigateSection('collection')} className="text-left hover:text-white transition-colors cursor-pointer">
-                The Collection
-              </button>
-              <button onClick={() => onNavigateSection('emirati-craft')} className="text-left hover:text-white transition-colors cursor-pointer text-[#B89758]">
-                🇦🇪 Made in UAE
-              </button>
-              <button onClick={() => onNavigateSection('rare-imports')} className="text-left hover:text-white transition-colors cursor-pointer">
-                Rare Imports
-              </button>
-              <button onClick={() => onNavigateSection('spaces')} className="text-left hover:text-white transition-colors cursor-pointer">
-                Spaces In Situ
-              </button>
-            </div>
-          </div>
-
-          {/* WhatsApp & Contact */}
-          <div className="md:col-span-4 space-y-3">
-            <h4 className="text-xs uppercase tracking-wider text-[#B89758] font-semibold">
-              Client Concierge
-            </h4>
-            <p className="text-xs text-[#A8A196]">
-              Orders and delivery inquiries are handled directly on WhatsApp.
-            </p>
-            <button
-              onClick={onOpenWhatsAppConcierge}
-              className="inline-flex items-center gap-1.5 bg-[#25D366] hover:bg-[#20ba59] text-white px-4 py-2 rounded-sm text-xs font-semibold uppercase tracking-wider cursor-pointer transition-all shadow-sm"
-            >
-              <MessageCircle className="w-3.5 h-3.5" />
-              <span>Chat +971 50 882 1971</span>
-            </button>
-          </div>
-
-        </div>
-
-        {/* Bottom Strip */}
-        <div className="pt-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-[#80796E]">
-          <div className="flex items-center gap-2">
-            <span>Secure Payments:</span>
-            <span className="text-white font-mono bg-white/10 px-1.5 py-0.5 rounded text-[11px]">Pay (Apple Pay)</span>
-            <span className="text-white font-mono bg-white/10 px-1.5 py-0.5 rounded text-[11px]">Visa / Mastercard</span>
-          </div>
-
-          <p>© {new Date().getFullYear()} AL-ATHAR Collectible Design LLC. Registered in Dubai, UAE.</p>
         </div>
 
       </div>
+
+      {/* Floating Scroll-to-Top Button on Bottom Right matching screenshot */}
+      <button
+        onClick={scrollToTop}
+        className="fixed bottom-6 right-6 z-30 w-8 h-8 bg-white border border-[#DDD8CF] hover:border-black text-[#141414] flex items-center justify-center transition-all shadow-xs cursor-pointer"
+        aria-label="Scroll to top"
+      >
+        <ArrowUp className="w-3.5 h-3.5 stroke-[1.5]" />
+      </button>
     </footer>
   );
 }

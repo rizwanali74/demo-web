@@ -2,12 +2,9 @@ import React, { useState } from 'react';
 import { 
   X, 
   CheckCircle2, 
-  CreditCard, 
   ShieldCheck, 
   MapPin, 
-  Smartphone, 
   MessageCircle,
-  Truck,
   Sparkles
 } from 'lucide-react';
 
@@ -21,9 +18,9 @@ export default function ApplePayModal({
 }) {
   const [step, setStep] = useState('review'); // 'review' | 'processing' | 'success'
   const [selectedAddress, setSelectedAddress] = useState('Palm Jumeirah, Villa Frond M, Dubai, UAE');
-  const [customerPhone, setCustomerPhone] = useState('+971 50 491 8820');
-  const [customerName, setCustomerName] = useState('Sheikh Rashid Al Maktoum');
-  const [orderId, setOrderId] = useState(`ATH-${Math.floor(1000 + Math.random() * 9000)}-DXB`);
+  const [customerPhone] = useState('+971 50 491 8820');
+  const [customerName] = useState('Sheikh Rashid Al Maktoum');
+  const [orderId] = useState(() => `HUJ-${Math.floor(1000 + Math.random() * 9000)}-UAE`);
 
   const displayTotal = totalAED || (orderItem ? orderItem.priceAED : 0);
   const itemsList = orderItem ? [orderItem] : (cartItems || []);
@@ -49,7 +46,7 @@ export default function ApplePayModal({
   const handleSendWhatsAppNotification = () => {
     const text = `*NEW ORDER CONFIRMED [Apple Pay]*\nOrder Ref: #${orderId}\nTotal: AED ${displayTotal.toLocaleString()}\nClient: ${customerName}\nPhone: ${customerPhone}\nDelivery City: ${selectedAddress}\n\n*Items Ordered:*\n${itemsList.map(i => `- ${i.name} (${formatPrice(i.priceAED)})`).join('\n')}\n\nPlease confirm dispatch for UAE White Glove Delivery.`;
     const encoded = encodeURIComponent(text);
-    window.open(`https://wa.me/971508821971?text=${encoded}`, '_blank');
+    window.open(`https://wa.me/971501234567?text=${encoded}`, '_blank');
   };
 
   return (
@@ -80,7 +77,7 @@ export default function ApplePayModal({
             {/* Payment Card Simulation */}
             <div className="bg-[#2C2C2E] p-4 rounded-xl border border-white/5 flex items-center justify-between">
               <div className="flex items-center gap-3">
-                <div className="w-10 h-7 bg-gradient-to-r from-[#B89758] to-[#DFC486] rounded-md flex items-center justify-center text-black font-bold text-[10px]">
+                <div className="w-10 h-7 bg-gradient-to-r from-neutral-200 to-neutral-400 rounded-md flex items-center justify-center text-black font-bold text-[10px]">
                   CARD
                 </div>
                 <div>
@@ -95,7 +92,7 @@ export default function ApplePayModal({
             <div className="bg-[#2C2C2E] p-4 rounded-xl border border-white/5 space-y-2">
               <div className="flex items-center justify-between text-xs text-[#8E8E93]">
                 <span className="flex items-center gap-1.5">
-                  <MapPin className="w-3.5 h-3.5 text-[#B89758]" />
+                  <MapPin className="w-3.5 h-3.5 text-white" />
                   <span>White Glove Delivery Address</span>
                 </span>
                 <span className="text-[#30D158] text-[11px] font-medium">Free UAE Delivery</span>
@@ -104,7 +101,7 @@ export default function ApplePayModal({
               <select
                 value={selectedAddress}
                 onChange={(e) => setSelectedAddress(e.target.value)}
-                className="w-full bg-[#1C1C1E] border border-white/10 text-xs text-white p-2.5 rounded-lg focus:outline-none focus:border-[#B89758]"
+                className="w-full bg-[#1C1C1E] border border-white/10 text-xs text-white p-2.5 rounded-lg focus:outline-none focus:border-white"
               >
                 <option value="Palm Jumeirah, Villa Frond M, Dubai, UAE">Palm Jumeirah, Frond M, Dubai</option>
                 <option value="Saadiyat Cultural District, Abu Dhabi, UAE">Saadiyat Cultural District, Abu Dhabi</option>
@@ -136,7 +133,7 @@ export default function ApplePayModal({
             <div className="flex justify-between items-baseline pt-1">
               <div>
                 <span className="text-xs text-[#8E8E93] block">TOTAL PAYABLE</span>
-                <span className="text-[10px] text-[#B89758]">Processed directly in UAE Dirhams</span>
+                <span className="text-[10px] text-neutral-400">Processed directly in UAE Dirhams</span>
               </div>
               <span className="text-2xl font-bold font-mono tracking-tight text-white">
                 {formatPrice(displayTotal)}
@@ -173,7 +170,7 @@ export default function ApplePayModal({
             </div>
             <div>
               <h3 className="text-lg font-semibold text-white">Verifying Biometric Token...</h3>
-              <p className="text-xs text-[#8E8E93] mt-1">Transmitting order directly to AL-ATHAR Concierge</p>
+              <p className="text-xs text-[#8E8E93] mt-1">Transmitting order directly to HUJRAH Concierge</p>
             </div>
           </div>
         )}
@@ -186,7 +183,7 @@ export default function ApplePayModal({
             </div>
 
             <div className="space-y-1">
-              <span className="text-xs font-mono text-[#B89758] tracking-widest uppercase">
+              <span className="text-xs font-mono text-neutral-400 tracking-widest uppercase">
                 Payment Authorized
               </span>
               <h3 className="text-xl sm:text-2xl font-bold text-white">
@@ -231,7 +228,7 @@ export default function ApplePayModal({
                 onClick={onClose}
                 className="w-full bg-transparent hover:bg-white/10 text-[#8E8E93] hover:text-white py-2.5 rounded-xl text-xs transition-colors cursor-pointer"
               >
-                Return to Gallery
+                Return to Catalog
               </button>
             </div>
           </div>

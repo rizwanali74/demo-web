@@ -16,20 +16,20 @@ export default function WhatsAppOrderModal({ product, formatPrice, onClose }) {
   const handleOpenWhatsApp = () => {
     let message = '';
     if (product) {
-      message = `Hello AL-ATHAR Concierge,
+      message = `Hello HUJRAH // حجره Concierge,
 
 I would like to order:
 • Piece: ${product.name}
-• Ref: ${product.sku}
+• Ref: ${product.sku || product.id}
 • Price: AED ${product.priceAED.toLocaleString()}
 • Name: ${name || 'Client'}
 • City: ${city}
 
-Please confirm delivery availability.`;
+Please confirm delivery & dispatch availability.`;
     } else {
-      message = `Hello AL-ATHAR Concierge,
+      message = `Hello HUJRAH // حجره Concierge,
 
-I am inquiring about collectible pieces and delivery in ${city}.
+I am inquiring about furniture pieces, custom sizing, and delivery in ${city}.
 • Name: ${name || 'Client'}`;
     }
 

@@ -4,7 +4,8 @@ import {
   MessageCircle, 
   ShoppingBag, 
   ShieldCheck, 
-  Check 
+  Check, 
+  Truck
 } from 'lucide-react';
 
 export default function ProductDetailModal({ 
@@ -15,51 +16,61 @@ export default function ProductDetailModal({
   onWhatsAppOrder, 
   onAddToCart 
 }) {
-  if (!product) return null;
-
-  const [activeImage, setActiveImage] = useState(product.image);
+  const [activeImage, setActiveImage] = useState(product?.image || '');
+  const [selectedColor, setSelectedColor] = useState(product?.colors?.[0]?.name || '');
+  const [quantity, setQuantity] = useState(1);
   const [addedNotice, setAddedNotice] = useState(false);
 
+  if (!product) return null;
+
+  const currentImage = activeImage || product.image;
+
   const handleAdd = () => {
-    onAddToCart(product);
+    onAddToCart({
+      ...product,
+      selectedColor: selectedColor || (product.colors?.[0]?.name)
+    }, quantity);
     setAddedNotice(true);
-    setTimeout(() => setAddedNotice(false), 2000);
+    setTimeout(() => setAddedNotice(false), 2200);
   };
 
   return (
-    <div className="fixed inset-0 z-50 overflow-y-auto bg-black/60 backdrop-blur-sm flex items-center justify-center p-4 animate-fadeIn">
+    <div 
+      className="fixed inset-0 z-50 overflow-y-auto bg-black/60 backdrop-blur-sm flex items-center justify-center p-4 animate-fadeIn"
+      onClick={onClose}
+    >
       <div 
-        className="bg-[#FAF8F5] w-full max-w-3xl rounded-sm shadow-2xl border border-[#D5CEBE] overflow-hidden relative my-6"
+        className="bg-white w-full max-w-4xl rounded-sm shadow-2xl border border-[#EAE8E4] overflow-hidden relative my-6"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Close Button */}
         <button
           onClick={onClose}
-          className="absolute top-3 right-3 z-20 p-2 text-[#6B655D] hover:text-[#1C1A17] hover:bg-[#EDE8DE] rounded-full transition-colors cursor-pointer"
-          aria-label="Close"
+          className="absolute top-4 right-4 z-20 p-2 text-neutral-400 hover:text-black hover:bg-neutral-100 rounded-full transition-colors cursor-pointer"
+          aria-label="Close modal"
         >
-          <X className="w-5 h-5" />
+          <X className="w-5 h-5 stroke-[1.5]" />
         </button>
 
         <div className="grid grid-cols-1 md:grid-cols-2">
           
-          {/* Left: Image */}
-          <div className="bg-[#EDE8DE] p-6 flex flex-col justify-between border-b md:border-b-0 md:border-r border-[#E0D9CB]">
+          {/* Left: Gallery */}
+          <div className="bg-[#FAF9F6] p-6 sm:p-8 flex flex-col justify-between border-b md:border-b-0 md:border-r border-[#EAE8E4]">
             <div>
-              <div className="aspect-[4/5] rounded-sm overflow-hidden bg-white/40 border border-[#D8D1C2] mb-3">
+              <div className="aspect-[4/5] rounded-sm overflow-hidden bg-white border border-[#EAE8E4] mb-3 relative">
                 <img 
-                  src={activeImage} 
+                  src={currentImage} 
                   alt={product.name} 
                   className="w-full h-full object-cover object-center"
                 />
               </div>
 
               {/* Thumbnails */}
-              <div className="flex gap-2">
+              <div className="flex gap-2.5">
                 <button
                   onClick={() => setActiveImage(product.image)}
-                  className={`w-14 h-14 rounded-sm overflow-hidden border-2 cursor-pointer ${
-                    activeImage === product.image ? 'border-[#8C6D32]' : 'border-[#D5CEBE] opacity-70'
+                  className={`w-16 h-16 rounded-sm overflow-hidden border-2 cursor-pointer transition-all ${
+                    currentImage === product.image ? 'border-black' : 'border-transparent opacity-60 hover:opacity-100'
                   }`}
                 >
                   <img src={product.image} alt="" className="w-full h-full object-cover" />
@@ -67,8 +78,8 @@ export default function ProductDetailModal({
                 {product.secondaryImage && (
                   <button
                     onClick={() => setActiveImage(product.secondaryImage)}
-                    className={`w-14 h-14 rounded-sm overflow-hidden border-2 cursor-pointer ${
-                      activeImage === product.secondaryImage ? 'border-[#8C6D32]' : 'border-[#D5CEBE] opacity-70'
+                    className={`w-16 h-16 rounded-sm overflow-hidden border-2 cursor-pointer transition-all ${
+                      currentImage === product.secondaryImage ? 'border-black' : 'border-transparent opacity-60 hover:opacity-100'
                     }`}
                   >
                     <img src={product.secondaryImage} alt="" className="w-full h-full object-cover" />
@@ -77,96 +88,176 @@ export default function ProductDetailModal({
               </div>
             </div>
 
-            <div className="mt-4 text-[11px] text-[#6B655D] flex items-center gap-1.5">
-              <ShieldCheck className="w-3.5 h-3.5 text-[#8C6D32]" />
-              <span>Insured White Glove UAE Delivery Included</span>
+            <div className="mt-6 pt-4 border-t border-[#EAE8E4] space-y-2 text-[11px] text-[#736E67]">
+              <div className="flex items-center gap-2">
+                <Truck className="w-4 h-4 text-neutral-700" />
+                <span>Complimentary UAE White Glove delivery over 1,500 AED</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <ShieldCheck className="w-4 h-4 text-neutral-700" />
+                <span>Transit insurance & 5-year structural craftsmanship guarantee</span>
+              </div>
             </div>
           </div>
 
-          {/* Right: Clean Specifications & Ordering */}
-          <div className="p-6 sm:p-7 flex flex-col justify-between">
-            <div className="space-y-3">
+          {/* Right: Product Details, Finishes & CTAs */}
+          <div className="p-6 sm:p-8 flex flex-col justify-between">
+            <div className="space-y-4">
               
               <div>
-                <span className="text-[10px] uppercase tracking-wider text-[#8C6D32] font-semibold block mb-1">
-                  {product.originLabel}
-                </span>
+                <div className="flex items-center justify-between gap-2 mb-1">
+                  <span className="text-[10px] uppercase tracking-[0.2em] text-[#8C7A58] font-semibold">
+                    {product.categoryName || 'Sculptural Furniture'}
+                  </span>
+                  <span className="text-[10px] text-neutral-400 font-mono">
+                    {product.sku}
+                  </span>
+                </div>
 
-                <h3 className="font-serif-luxury text-2xl text-[#1C1A17] font-normal leading-tight">
-                  {product.name}
-                </h3>
+                <div className="flex items-baseline justify-between gap-3">
+                  <h3 className="text-2xl text-[#141414] font-light leading-snug">
+                    {product.name}
+                  </h3>
+                  {product.arabicName && (
+                    <span className="font-arabic-calligraphy text-base text-[#8C8476]">
+                      {product.arabicName}
+                    </span>
+                  )}
+                </div>
 
-                <p className="font-arabic-heritage text-sm text-[#7D7567]">
-                  {product.arabicName}
-                </p>
-
-                <div className="mt-2 flex items-baseline gap-2">
-                  <span className="font-heading-cinzel text-2xl font-bold text-[#1C1A17]">
+                {/* Price Display */}
+                <div className="mt-2.5 flex items-baseline gap-2.5">
+                  <span className="text-2xl font-semibold text-[#141414]">
                     {formatPrice(product.priceAED)}
                   </span>
-                  <span className="text-[11px] text-[#25D366] font-medium">In Stock</span>
+                  {product.compareAtPriceAED && (
+                    <span className="text-sm text-neutral-400 line-through font-light">
+                      {formatPrice(product.compareAtPriceAED)}
+                    </span>
+                  )}
+                  {product.inStock ? (
+                    <span className="text-xs bg-emerald-50 text-emerald-800 border border-emerald-200 px-2.5 py-0.5 rounded-full font-medium ml-2">
+                      In Stock
+                    </span>
+                  ) : (
+                    <span className="text-xs bg-neutral-100 text-neutral-600 border border-neutral-300 px-2.5 py-0.5 rounded-full font-medium ml-2">
+                      Made to Order
+                    </span>
+                  )}
                 </div>
               </div>
 
-              <p className="text-xs text-[#5A544A] leading-relaxed">
-                {product.description}
+              <p className="text-xs sm:text-sm text-[#555] font-light leading-relaxed">
+                {product.description || product.shortDescription}
               </p>
 
-              {/* Minimal Specs */}
-              <div className="pt-2 border-t border-[#E8E2D4] space-y-1.5 text-xs text-[#6B655D]">
+              {/* Color / Finish Selector */}
+              {product.colors && product.colors.length > 0 && (
+                <div className="pt-2">
+                  <label className="text-[11px] uppercase tracking-wider text-[#736E67] font-medium block mb-2">
+                    Select Finish: <span className="text-black font-semibold">{selectedColor || product.colors[0].name}</span>
+                  </label>
+                  <div className="flex items-center gap-2.5">
+                    {product.colors.map((c, i) => (
+                      <button
+                        key={i}
+                        onClick={() => setSelectedColor(c.name)}
+                        className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full border text-xs cursor-pointer transition-all ${
+                          (selectedColor || product.colors[0].name) === c.name 
+                            ? 'border-black bg-neutral-50 font-medium' 
+                            : 'border-neutral-200 hover:border-neutral-400'
+                        }`}
+                      >
+                        <span 
+                          style={{ backgroundColor: c.hex }} 
+                          className="w-3.5 h-3.5 rounded-full border border-black/10 shrink-0 inline-block" 
+                        />
+                        <span>{c.name}</span>
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Specifications Matrix */}
+              <div className="pt-3 border-t border-[#EAE8E4] space-y-2 text-xs text-[#736E67]">
                 <div className="flex justify-between py-0.5">
-                  <span>Materials:</span>
-                  <span className="text-[#1C1A17] font-medium text-right">{product.materials}</span>
+                  <span className="text-neutral-500">Materials:</span>
+                  <span className="text-[#141414] font-medium text-right max-w-[65%]">{product.materials}</span>
                 </div>
                 <div className="flex justify-between py-0.5">
-                  <span>Dimensions:</span>
-                  <span className="text-[#1C1A17] font-medium">{product.dimensions}</span>
+                  <span className="text-neutral-500">Dimensions:</span>
+                  <span className="text-[#141414] font-medium">{product.dimensions}</span>
                 </div>
                 <div className="flex justify-between py-0.5">
-                  <span>Weight:</span>
-                  <span className="text-[#1C1A17] font-medium">{product.weight}</span>
+                  <span className="text-neutral-500">Dispatch:</span>
+                  <span className="text-[#141414] font-medium">{product.leadTime}</span>
                 </div>
-                <div className="flex justify-between py-0.5">
-                  <span>Delivery:</span>
-                  <span className="text-[#1C1A17] font-medium">{product.leadTime}</span>
-                </div>
+                {product.specs && Object.entries(product.specs).map(([key, val]) => (
+                  <div key={key} className="flex justify-between py-0.5">
+                    <span className="text-neutral-500">{key}:</span>
+                    <span className="text-[#141414] font-medium text-right max-w-[65%]">{val}</span>
+                  </div>
+                ))}
               </div>
 
             </div>
 
             {/* CTAs */}
-            <div className="mt-6 pt-4 border-t border-[#E8E2D4] space-y-2">
+            <div className="mt-6 pt-4 border-t border-[#EAE8E4] space-y-2.5">
+              <div className="flex items-center gap-3">
+                {/* Quantity */}
+                <div className="flex items-center border border-[#DDD8CF] rounded-full px-3 py-1.5 text-xs text-[#141414]">
+                  <button 
+                    onClick={() => setQuantity(Math.max(1, quantity - 1))}
+                    className="px-2 py-0.5 text-neutral-500 hover:text-black cursor-pointer font-bold"
+                  >
+                    -
+                  </button>
+                  <span className="px-3 font-semibold">{quantity}</span>
+                  <button 
+                    onClick={() => setQuantity(quantity + 1)}
+                    className="px-2 py-0.5 text-neutral-500 hover:text-black cursor-pointer font-bold"
+                  >
+                    +
+                  </button>
+                </div>
+
+                {/* Add to Bag */}
+                <button
+                  onClick={handleAdd}
+                  className="flex-1 bg-white border border-[#141414] text-[#141414] hover:bg-[#141414] hover:text-white py-3 px-4 rounded-full flex items-center justify-center gap-2 cursor-pointer text-xs uppercase tracking-[0.16em] font-semibold transition-colors"
+                >
+                  {addedNotice ? (
+                    <>
+                      <Check className="w-4 h-4 text-emerald-600" />
+                      <span>Added to Bag</span>
+                    </>
+                  ) : (
+                    <>
+                      <ShoppingBag className="w-4 h-4" />
+                      <span>Add to Bag</span>
+                    </>
+                  )}
+                </button>
+              </div>
+
+              {/* Instant Apple Pay Button */}
               <button
                 onClick={() => onApplePay(product)}
-                className="w-full bg-black hover:bg-[#1A1A1A] text-white py-3 px-4 rounded-sm flex items-center justify-center gap-2 cursor-pointer font-semibold text-xs shadow-md"
+                className="w-full bg-black hover:bg-neutral-800 text-white py-3 px-4 rounded-full flex items-center justify-center gap-2 cursor-pointer font-medium text-xs shadow-sm transition-all"
               >
-                <span>Buy with</span>
-                <span className="text-lg leading-none font-bold">Pay</span>
+                <span>Instant Checkout with</span>
+                <span className="text-sm font-semibold">Pay</span>
               </button>
 
+              {/* WhatsApp Direct Order */}
               <button
                 onClick={() => onWhatsAppOrder(product)}
-                className="w-full bg-[#25D366] hover:bg-[#20ba59] text-white py-2.5 px-4 rounded-sm flex items-center justify-center gap-2 cursor-pointer font-semibold text-xs uppercase tracking-wider shadow-sm"
+                className="w-full bg-[#25D366] hover:bg-[#20ba59] text-white py-2.5 px-4 rounded-full flex items-center justify-center gap-2 cursor-pointer font-medium text-xs tracking-wider uppercase shadow-2xs transition-all"
               >
                 <MessageCircle className="w-4 h-4" />
-                <span>Order via WhatsApp</span>
-              </button>
-
-              <button
-                onClick={handleAdd}
-                className="w-full border border-[#D5CEBE] hover:bg-[#1C1A17] hover:text-white text-[#1C1A17] py-2 px-4 rounded-sm flex items-center justify-center gap-1.5 cursor-pointer text-xs uppercase tracking-wider transition-colors"
-              >
-                {addedNotice ? (
-                  <>
-                    <Check className="w-3.5 h-3.5 text-[#25D366]" />
-                    <span>Added to Bag</span>
-                  </>
-                ) : (
-                  <>
-                    <ShoppingBag className="w-3.5 h-3.5" />
-                    <span>Add to Bag</span>
-                  </>
-                )}
+                <span>Inquire & Order via WhatsApp</span>
               </button>
             </div>
 

@@ -1,39 +1,128 @@
 import React, { useState, useEffect } from 'react';
 import Header from './components/Header';
 import Hero from './components/Hero';
-import EmiratiCraftManifesto from './components/EmiratiCraftManifesto';
 import CatalogSection from './components/CatalogSection';
-import SpacesInteractive from './components/SpacesInteractive';
-import WhiteGloveDeliverySection from './components/WhiteGloveDeliverySection';
-import ProductDetailModal from './components/ProductDetailModal';
+import CustomFurnitureContactSection from './components/CustomFurnitureContactSection';
+import ShopPage from './components/ShopPage';
+import ContactPage from './components/ContactPage';
+import ProductDetailPage from './components/ProductDetailPage';
 import ApplePayModal from './components/ApplePayModal';
 import WhatsAppOrderModal from './components/WhatsAppOrderModal';
 import CartDrawer from './components/CartDrawer';
-import FloatingWhatsApp from './components/FloatingWhatsApp';
 import Footer from './components/Footer';
-import { PRODUCTS } from './data/products';
-import { CheckCircle2, MessageCircle } from 'lucide-react';
+import defaultData from './data/data.json';
+import { CheckCircle2 } from 'lucide-react';
 
 export default function App() {
-  // State
-  const [products] = useState(PRODUCTS);
+  // Page Routing State: 'home' | 'shop' | 'contact' | 'product'
+  const [currentPage, setCurrentPage] = useState('home');
+  const [selectedCategory, setSelectedCategory] = useState('all');
+  const [selectedProduct, setSelectedProduct] = useState(null);
+
+  // Products and Cart
+  const [products, setProducts] = useState(defaultData.products);
   const [cart, setCart] = useState([
-    // Pre-populate with one iconic piece for instant demo visual!
-    { ...PRODUCTS[1], quantity: 1 } // Dhafra Sculptural Vessel
+    { ...defaultData.products[0], quantity: 1, selectedColor: defaultData.products[0].colors?.[0]?.name }
   ]);
-  const [activeFilter, setActiveFilter] = useState('all');
   const [activeCurrency, setActiveCurrency] = useState('AED');
   const [searchQuery, setSearchQuery] = useState('');
-  
-  // Modals
-  const [quickViewProduct, setQuickViewProduct] = useState(null);
+
+  // Modals & Drawers
   const [applePayState, setApplePayState] = useState({ isOpen: false, orderItem: null, totalAED: null });
   const [whatsAppState, setWhatsAppState] = useState({ isOpen: false, product: null });
   const [cartOpen, setCartOpen] = useState(false);
   const [toastMessage, setToastMessage] = useState(null);
 
+  // Fetch from data.json (or later your production API URL)
+  useEffect(() => {
+    async function loadCatalog() {
+      try {
+        const res = await fetch('/data.json');
+        if (res.ok) {
+          const json = await res.json();
+          if (json.products && json.products.length > 0) {
+            setProducts(json.products);
+          }
+        }
+      } catch (err) {
+        console.info('Loaded fallback local catalog data:', err);
+      }
+    }
+    loadCatalog();
+  }, []);
+
+  // Hash-based routing for browser back/forward and deep linking
+  useEffect(() => {
+    const handleHashChange = () => {
+      const hash = window.location.hash;
+      if (hash.startsWith('#/product/')) {
+        const prodId = hash.replace('#/product/', '');
+        const found = products.find(p => p.id === prodId);
+        if (found) {
+          setSelectedProduct(found);
+          setCurrentPage('product');
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+          return;
+        }
+      }
+      if (hash.startsWith('#/shop')) {
+        const parts = hash.split('/');
+        const cat = parts[2] || 'all';
+        setSelectedCategory(cat);
+        setCurrentPage('shop');
+        setSelectedProduct(null);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        return;
+      }
+      if (hash === '#/contact') {
+        setCurrentPage('contact');
+        setSelectedProduct(null);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        return;
+      }
+      // Default to home
+      setCurrentPage('home');
+      setSelectedProduct(null);
+    };
+
+    handleHashChange();
+    window.addEventListener('hashchange', handleHashChange);
+    return () => window.removeEventListener('hashchange', handleHashChange);
+  }, [products]);
+
+  // Navigation Handlers
+  const handleNavigateHome = () => {
+    setCurrentPage('home');
+    setSelectedProduct(null);
+    window.location.hash = '';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const handleNavigateShop = (catId = 'all') => {
+    setSelectedCategory(catId);
+    setCurrentPage('shop');
+    setSelectedProduct(null);
+    window.location.hash = `#/shop/${catId}`;
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const handleNavigateContact = () => {
+    setCurrentPage('contact');
+    setSelectedProduct(null);
+    window.location.hash = '#/contact';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const handleOpenProductPage = (product) => {
+    setSelectedProduct(product);
+    setCurrentPage('product');
+    window.location.hash = `#/product/${product.id}`;
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   // Currency Converter
   const formatPrice = (priceAED) => {
+    if (!priceAED) return 'AED 0';
     if (activeCurrency === 'USD') {
       const usd = Math.round(priceAED / 3.6725);
       return `$${usd.toLocaleString()}`;
@@ -52,17 +141,20 @@ export default function App() {
   };
 
   // Cart operations
-  const handleAddToCart = (product) => {
+  const handleAddToCart = (product, quantity = 1) => {
     setCart(prev => {
-      const existing = prev.find(item => item.id === product.id);
+      const existing = prev.find(item => item.id === product.id && item.selectedColor === product.selectedColor);
       if (existing) {
         return prev.map(item => 
-          item.id === product.id ? { ...item, quantity: item.quantity + 1 } : item
+          (item.id === product.id && item.selectedColor === product.selectedColor) 
+            ? { ...item, quantity: item.quantity + quantity } 
+            : item
         );
       }
-      return [...prev, { ...product, quantity: 1 }];
+      return [...prev, { ...product, quantity }];
     });
     showToast(`Added "${product.name}" to your bag`);
+    setCartOpen(true);
   };
 
   const handleUpdateQuantity = (productId, newQty) => {
@@ -76,28 +168,8 @@ export default function App() {
     showToast('Piece removed from your bag');
   };
 
-  // Navigation Smooth Scroll
-  const handleNavigateSection = (sectionId) => {
-    if (sectionId === 'rare-imports') {
-      setActiveFilter('imports');
-      const el = document.getElementById('collection');
-      if (el) el.scrollIntoView({ behavior: 'smooth' });
-      return;
-    }
-
-    if (sectionId === 'emirati-craft') {
-      const el = document.getElementById('emirati-craft');
-      if (el) el.scrollIntoView({ behavior: 'smooth' });
-      return;
-    }
-
-    const el = document.getElementById(sectionId);
-    if (el) el.scrollIntoView({ behavior: 'smooth' });
-  };
-
   // Trigger Apple Pay for single product
   const handleDirectApplePay = (product) => {
-    setQuickViewProduct(null);
     setApplePayState({ isOpen: true, orderItem: product, totalAED: product.priceAED });
   };
 
@@ -109,7 +181,6 @@ export default function App() {
 
   // Trigger WhatsApp order for single product
   const handleWhatsAppOrder = (product) => {
-    setQuickViewProduct(null);
     setWhatsAppState({ isOpen: true, product });
   };
 
@@ -117,111 +188,119 @@ export default function App() {
   const handleCartWhatsApp = () => {
     setCartOpen(false);
     const subtotalAED = cart.reduce((acc, item) => acc + (item.priceAED * item.quantity), 0);
-    const itemsText = cart.map(item => `• ${item.name} (${item.quantity}x) - AED ${(item.priceAED * item.quantity).toLocaleString()}`).join('\n');
+    const itemsText = cart.map(item => `• ${item.name} (${item.quantity}x${item.selectedColor ? `, Finish: ${item.selectedColor}` : ''}) - AED ${(item.priceAED * item.quantity).toLocaleString()}`).join('\n');
     
     const message = `السلام عليكم ورحمة الله وبركاته
-Hello AL-ATHAR Concierge,
+Hello HUJRAH // حجره Concierge,
 
-I would like to place an order for the items in my collection bag:
+I would like to place an order for the pieces in my shopping bag:
 
 ${itemsText}
 
-Estimated Total: AED ${subtotalAED.toLocaleString()}
-Delivery: UAE White Glove Delivery
+Estimated Subtotal: AED ${subtotalAED.toLocaleString()}
+Delivery: UAE White Glove Room Placement
 
-Please confirm availability and coordinate delivery schedule.`;
+Please confirm stock availability and coordinate private delivery schedule.`;
 
     const encoded = encodeURIComponent(message);
-    window.open(`https://wa.me/971508821971?text=${encoded}`, '_blank');
-  };
-
-  // Quick View by ID (used by Mood Board)
-  const handleQuickViewById = (productId) => {
-    const found = products.find(p => p.id === productId);
-    if (found) setQuickViewProduct(found);
-  };
-
-  const handleApplePayById = (productId) => {
-    const found = products.find(p => p.id === productId);
-    if (found) handleDirectApplePay(found);
+    window.open(`https://wa.me/971501234567?text=${encoded}`, '_blank');
   };
 
   return (
-    <div className="min-h-screen bg-[#F8F6F0] text-[#1C1A17] flex flex-col font-sans selection:bg-[#B89758]/20 selection:text-[#1C1A17]">
+    <div className="min-h-screen bg-[#FAFAF9] text-[#141414] flex flex-col font-sans selection:bg-[#141414] selection:text-white">
       
       {/* Toast Notification */}
       {toastMessage && (
-        <div className="fixed top-24 right-6 z-50 bg-[#1C1A17] text-[#FAF8F5] text-xs py-3 px-4 rounded-sm shadow-2xl flex items-center gap-2.5 border border-white/10 animate-slideLeft">
-          <CheckCircle2 className="w-4 h-4 text-[#30D158]" />
+        <div className="fixed top-24 right-6 z-50 bg-[#141414] text-white text-xs py-3 px-4 rounded-full shadow-2xl flex items-center gap-2.5 border border-white/10 animate-fadeIn">
+          <CheckCircle2 className="w-4 h-4 text-emerald-400" />
           <span>{toastMessage}</span>
         </div>
       )}
 
-      {/* Main Header */}
+      {/* 3 NAVITEMS NAVBAR: HOME, SHOP (with categories dropdown), CONTACT US */}
       <Header
         cartCount={cart.reduce((a, b) => a + b.quantity, 0)}
         onOpenCart={() => setCartOpen(true)}
         activeCurrency={activeCurrency}
         onChangeCurrency={setActiveCurrency}
-        onOpenWhatsAppConcierge={() => setWhatsAppState({ isOpen: true, product: null })}
+        onNavigateHome={handleNavigateHome}
+        onNavigateShop={handleNavigateShop}
+        onNavigateContact={handleNavigateContact}
         searchQuery={searchQuery}
         onSearch={setSearchQuery}
-        onNavigateSection={handleNavigateSection}
+        currentPage={currentPage}
       />
 
-      {/* Hero Editorial Banner */}
-      <Hero
-        onExploreCollection={() => handleNavigateSection('collection')}
-        onExploreEmirati={() => handleNavigateSection('emirati-craft')}
+      {/* VIEW ROUTING */}
+      {currentPage === 'product' && selectedProduct && (
+        <ProductDetailPage
+          product={selectedProduct}
+          allProducts={products}
+          onBack={handleNavigateHome}
+          onSelectProduct={handleOpenProductPage}
+          formatPrice={formatPrice}
+          onAddToCart={handleAddToCart}
+          onApplePay={handleDirectApplePay}
+          onWhatsAppOrder={handleWhatsAppOrder}
+        />
+      )}
+
+      {currentPage === 'shop' && (
+        <ShopPage
+          products={products}
+          initialCategory={selectedCategory}
+          onBackToHome={handleNavigateHome}
+          onOpenProductPage={handleOpenProductPage}
+          formatPrice={formatPrice}
+        />
+      )}
+
+      {currentPage === 'contact' && (
+        <ContactPage
+          onBackToHome={handleNavigateHome}
+          onOpenWhatsAppConcierge={() => setWhatsAppState({ isOpen: true, product: null })}
+        />
+      )}
+
+      {currentPage === 'home' && (
+        <>
+          {/* Hero Editorial Banner */}
+          <Hero
+            onExploreCollection={() => handleNavigateShop('all')}
+            onOpenWhatsAppConcierge={() => setWhatsAppState({ isOpen: true, product: null })}
+          />
+
+          {/* Clean Catalog Preview: Only Image, Name & Price */}
+          <CatalogSection
+            products={products}
+            activeFilter="all"
+            setActiveFilter={handleNavigateShop}
+            searchQuery={searchQuery}
+            setSearchQuery={setSearchQuery}
+            formatPrice={formatPrice}
+            onOpenProductPage={handleOpenProductPage}
+          />
+
+          {/* Contact Section: Crafted Just For You / CONTACT US (matching Forma Object image) */}
+          <CustomFurnitureContactSection
+            onOpenWhatsAppConcierge={handleNavigateContact}
+          />
+        </>
+      )}
+
+      {/* Minimal Clean White Footer (matching Forma Object image) */}
+      <Footer
         onOpenWhatsAppConcierge={() => setWhatsAppState({ isOpen: true, product: null })}
-      />
-
-      {/* Core UAE Identity & Craftsmanship Spotlight */}
-      <EmiratiCraftManifesto
-        onFilterUAEHandmade={() => {
-          setActiveFilter('uae');
-          handleNavigateSection('collection');
+        onNavigateSection={(sectionId) => {
+          if (sectionId === 'contact-custom') {
+            handleNavigateContact();
+          } else {
+            handleNavigateHome();
+          }
         }}
       />
 
-      {/* Curated Product Catalogue */}
-      <CatalogSection
-        products={products}
-        activeFilter={activeFilter}
-        setActiveFilter={setActiveFilter}
-        searchQuery={searchQuery}
-        setSearchQuery={setSearchQuery}
-        formatPrice={formatPrice}
-        onQuickView={setQuickViewProduct}
-        onApplePayDirect={handleDirectApplePay}
-        onWhatsAppOrder={handleWhatsAppOrder}
-        onAddToCart={handleAddToCart}
-      />
-
-      {/* Spaces In Situ / Interactive Mood Board */}
-      <SpacesInteractive
-        onQuickViewById={handleQuickViewById}
-        onApplePayById={handleApplePayById}
-        formatPrice={formatPrice}
-      />
-
-      {/* White Glove UAE Delivery & Ordering Flow */}
-      <WhiteGloveDeliverySection
-        onOpenWhatsAppConcierge={() => setWhatsAppState({ isOpen: true, product: null })}
-      />
-
-      {/* Footer */}
-      <Footer
-        onOpenWhatsAppConcierge={() => setWhatsAppState({ isOpen: true, product: null })}
-        onNavigateSection={handleNavigateSection}
-      />
-
-      {/* Floating WhatsApp Action Button */}
-      <FloatingWhatsApp
-        onOpenConcierge={() => setWhatsAppState({ isOpen: true, product: null })}
-      />
-
-      {/* Shopping Bag Drawer */}
+      {/* Shopping Bag Slide-Over Drawer */}
       <CartDrawer
         isOpen={cartOpen}
         onClose={() => setCartOpen(false)}
@@ -233,18 +312,6 @@ Please confirm availability and coordinate delivery schedule.`;
         onWhatsAppCheckout={handleCartWhatsApp}
       />
 
-      {/* Product Quick View Modal */}
-      {quickViewProduct && (
-        <ProductDetailModal
-          product={quickViewProduct}
-          onClose={() => setQuickViewProduct(null)}
-          formatPrice={formatPrice}
-          onApplePay={handleDirectApplePay}
-          onWhatsAppOrder={handleWhatsAppOrder}
-          onAddToCart={handleAddToCart}
-        />
-      )}
-
       {/* Apple Pay Sheet Modal */}
       {applePayState.isOpen && (
         <ApplePayModal
@@ -255,7 +322,6 @@ Please confirm availability and coordinate delivery schedule.`;
           onClose={() => setApplePayState({ isOpen: false, orderItem: null, totalAED: null })}
           onOrderSuccess={(orderData) => {
             showToast(`Order #${orderData.orderId} placed via Apple Pay!`);
-            // Clear cart if paying for cart
             if (!applePayState.orderItem) setCart([]);
           }}
         />
