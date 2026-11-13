@@ -15,6 +15,7 @@ import CustomFurnitureContactSection from './components/home/CustomFurnitureCont
 import ShopPage from './pages/ShopPage';
 import ContactPage from './pages/ContactPage';
 import PrivacyPolicyPage from './pages/PrivacyPolicyPage';
+import CheckoutPage from './pages/CheckoutPage';
 import ProductDetailPage from './pages/ProductDetailPage';
 import AdminDashboard from './pages/admin/AdminDashboard';
 import AdminOverviewTab from './pages/admin/AdminOverviewTab';
@@ -131,7 +132,8 @@ export default function App() {
   const [activeCurrency, setActiveCurrency] = useState('AED');
   const [searchQuery, setSearchQuery] = useState('');
 
-  // Modals & Drawers
+  // Checkout, Modals & Drawers
+  const [checkoutState, setCheckoutState] = useState({ items: null, paymentMethod: 'Google Pay' });
   const [applePayState, setApplePayState] = useState({ isOpen: false, orderItem: null, totalAED: null });
   const [whatsAppState, setWhatsAppState] = useState({ isOpen: false, product: null });
   const [cartOpen, setCartOpen] = useState(false);
@@ -333,14 +335,18 @@ export default function App() {
     showToast('Studio contact information saved');
   };
 
-  // Direct Apple Pay & WhatsApp Checkouts
-  const handleDirectApplePay = (product) => {
-    setApplePayState({ isOpen: true, orderItem: product, totalAED: null });
+  // Direct Google Pay / Apple Pay Checkout Page & WhatsApp Checkout
+  const handleDirectApplePay = (product, method = 'Google Pay') => {
+    setCheckoutState({ items: [product], paymentMethod: method });
+    navigate('/checkout');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  const handleCartApplePay = (totalAED) => {
+  const handleCartApplePay = (_totalAED, method = 'Google Pay') => {
     setCartOpen(false);
-    setApplePayState({ isOpen: true, orderItem: null, totalAED });
+    setCheckoutState({ items: null, paymentMethod: method });
+    navigate('/checkout');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const handleWhatsAppOrder = (product) => {
@@ -484,6 +490,37 @@ Please confirm stock availability and coordinate private delivery schedule.`;
             <PrivacyPolicyPage
               onBackToHome={handleNavigateHome}
               studioInfo={studioInfo}
+            />
+          }
+        />
+        <Route
+          path="/checkout"
+          element={
+            <CheckoutPage
+              items={checkoutState.items || cart}
+              initialPaymentMethod={checkoutState.paymentMethod}
+              freeDeliveryThresholdAED={studioInfo.freeDeliveryThresholdAED || 1500}
+              formatPrice={formatPrice}
+              onBack={handleNavigateHome}
+              onCompleteOrder={(orderData) => {
+                const newOrder = {
+                  id: orderData.orderId,
+                  createdAt: new Date().toISOString(),
+                  customerName: orderData.name,
+                  customerPhone: orderData.phone,
+                  customerEmail: orderData.email || '',
+                  address: orderData.address,
+                  city: orderData.city,
+                  paymentMethod: orderData.paymentMethod,
+                  status: 'Confirmed',
+                  notes: orderData.notes || '',
+                  totalAED: orderData.totalAED,
+                  items: orderData.items || []
+                };
+                setOrders(prev => [newOrder, ...prev]);
+                showToast(`Order #${orderData.orderId} confirmed via ${orderData.paymentMethod}!`);
+                if (!checkoutState.items) setCart([]);
+              }}
             />
           }
         />
