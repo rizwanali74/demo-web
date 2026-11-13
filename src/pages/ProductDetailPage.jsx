@@ -287,19 +287,21 @@ export default function ProductDetailPage({
 
               {/* Quantity Stepper & Add to Bag CTA */}
               <div className="pt-4 space-y-3">
-                <div className="flex items-center gap-3">
+                <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
                   {/* Quantity Stepper */}
-                  <div className="flex items-center border border-[#DDD8CF] rounded-full bg-white px-3 py-2 text-sm text-[#141414]">
-                    <button 
+                  <div className="flex items-center justify-between sm:justify-center border border-[#DDD8CF] rounded-full bg-white px-4 h-12 text-sm text-[#141414] shrink-0">
+                    <button
                       onClick={() => setQuantity(Math.max(1, quantity - 1))}
-                      className="px-2 text-neutral-400 hover:text-black cursor-pointer font-bold"
+                      className="px-3 py-1 text-neutral-500 hover:text-black cursor-pointer font-bold"
+                      aria-label="Decrease quantity"
                     >
                       -
                     </button>
-                    <span className="px-3 font-semibold">{quantity}</span>
-                    <button 
+                    <span className="px-4 font-semibold">{quantity}</span>
+                    <button
                       onClick={() => setQuantity(quantity + 1)}
-                      className="px-2 text-neutral-400 hover:text-black cursor-pointer font-bold"
+                      className="px-3 py-1 text-neutral-500 hover:text-black cursor-pointer font-bold"
+                      aria-label="Increase quantity"
                     >
                       +
                     </button>
@@ -308,16 +310,16 @@ export default function ProductDetailPage({
                   {/* Primary Add to Bag Button */}
                   <button
                     onClick={handleAdd}
-                    className="flex-1 bg-[#141414] hover:bg-neutral-800 text-white py-3.5 px-6 rounded-full flex items-center justify-center gap-2 cursor-pointer text-xs uppercase tracking-[0.18em] font-semibold transition-all shadow-sm"
+                    className="w-full sm:flex-1 h-12 bg-[#141414] hover:bg-neutral-800 text-white px-5 rounded-full flex items-center justify-center gap-2 cursor-pointer text-[11px] sm:text-xs uppercase tracking-[0.16em] font-semibold transition-all shadow-sm whitespace-nowrap"
                   >
                     {addedNotice ? (
                       <>
-                        <Check className="w-4 h-4 text-emerald-400" />
+                        <Check className="w-4 h-4 shrink-0 text-emerald-400" />
                         <span>Added to Shopping Bag</span>
                       </>
                     ) : (
                       <>
-                        <ShoppingBag className="w-4 h-4" />
+                        <ShoppingBag className="w-4 h-4 shrink-0" />
                         <span>Add to Bag — {formatPrice(product.priceAED * quantity)}</span>
                       </>
                     )}
@@ -327,10 +329,10 @@ export default function ProductDetailPage({
                 {/* Instant Apple Pay & UAE COD Checkout Page */}
                 <button
                   onClick={() => onApplePay({ ...product, quantity, selectedColor }, 'Apple Pay')}
-                  className="w-full bg-black hover:bg-neutral-900 text-white py-3 px-4 rounded-full flex items-center justify-center gap-2.5 cursor-pointer text-xs font-medium shadow-sm transition-all"
+                  className="w-full h-12 bg-black hover:bg-neutral-900 text-white px-4 rounded-full flex items-center justify-center gap-2 cursor-pointer text-[11px] sm:text-xs font-medium shadow-sm transition-all whitespace-nowrap"
                 >
-                  <span className="uppercase tracking-wider">Checkout with</span>
-                  <ThemeApplePayIcon className="h-6 w-12" />
+                  <span className="uppercase tracking-wider">Checkout</span>
+                  <ThemeApplePayIcon className="h-6 w-12 shrink-0" />
                   <span className="text-neutral-400">•</span>
                   <span className="uppercase tracking-wider">UAE COD</span>
                 </button>
@@ -338,21 +340,21 @@ export default function ProductDetailPage({
                 {/* Direct WhatsApp Concierge Order */}
                 <button
                   onClick={() => onWhatsAppOrder({ ...product, quantity, selectedColor })}
-                  className="w-full bg-[#25D366] hover:bg-[#20ba59] text-white py-3 px-4 rounded-full flex items-center justify-center gap-2 cursor-pointer text-xs uppercase tracking-wider font-medium shadow-2xs transition-all"
+                  className="w-full min-h-12 bg-[#25D366] hover:bg-[#20ba59] text-white py-3 px-4 rounded-full flex items-center justify-center gap-2 cursor-pointer text-[11px] sm:text-xs uppercase tracking-wider font-medium shadow-2xs transition-all text-center"
                 >
-                  <ThemeWhatsAppIcon className="w-4 h-4" />
+                  <ThemeWhatsAppIcon className="w-4 h-4 shrink-0" />
                   <span>Order or Request Swatches via WhatsApp</span>
                 </button>
               </div>
 
               {/* Specifications Tabs / Accordion */}
               <div className="pt-6 border-t border-[#EAE8E4]">
-                <div className="flex border-b border-[#EAE8E4] text-xs uppercase tracking-wider">
+                <div className="flex border-b border-[#EAE8E4] text-[11px] sm:text-xs uppercase tracking-wider overflow-x-auto no-scrollbar">
                   <button
                     onClick={() => setActiveTab('description')}
-                    className={`pb-2.5 px-3 font-medium cursor-pointer transition-colors ${
-                      activeTab === 'description' 
-                        ? 'border-b-2 border-black text-black' 
+                    className={`pb-2.5 px-3 font-medium cursor-pointer transition-colors whitespace-nowrap shrink-0 ${
+                      activeTab === 'description'
+                        ? 'border-b-2 border-black text-black'
                         : 'text-neutral-400 hover:text-black'
                     }`}
                   >
@@ -360,9 +362,9 @@ export default function ProductDetailPage({
                   </button>
                   <button
                     onClick={() => setActiveTab('specs')}
-                    className={`pb-2.5 px-3 font-medium cursor-pointer transition-colors ${
-                      activeTab === 'specs' 
-                        ? 'border-b-2 border-black text-black' 
+                    className={`pb-2.5 px-3 font-medium cursor-pointer transition-colors whitespace-nowrap shrink-0 ${
+                      activeTab === 'specs'
+                        ? 'border-b-2 border-black text-black'
                         : 'text-neutral-400 hover:text-black'
                     }`}
                   >
@@ -370,9 +372,9 @@ export default function ProductDetailPage({
                   </button>
                   <button
                     onClick={() => setActiveTab('delivery')}
-                    className={`pb-2.5 px-3 font-medium cursor-pointer transition-colors ${
-                      activeTab === 'delivery' 
-                        ? 'border-b-2 border-black text-black' 
+                    className={`pb-2.5 px-3 font-medium cursor-pointer transition-colors whitespace-nowrap shrink-0 ${
+                      activeTab === 'delivery'
+                        ? 'border-b-2 border-black text-black'
                         : 'text-neutral-400 hover:text-black'
                     }`}
                   >
