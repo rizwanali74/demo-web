@@ -296,23 +296,16 @@ export default function ProductDetailPage({
                   </button>
                 </div>
 
-                {/* Instant Google Pay / Apple Pay Checkout Page */}
-                <div className="grid grid-cols-2 gap-2.5">
-                  <button
-                    onClick={() => onApplePay({ ...product, quantity, selectedColor }, 'Google Pay')}
-                    className="w-full bg-white hover:bg-[#FAFAF9] text-[#141414] border border-[#141414] py-3 px-3 rounded-full flex items-center justify-center gap-1.5 cursor-pointer text-xs font-medium shadow-2xs transition-all"
-                  >
-                    <span className="text-[11px] uppercase tracking-wider">Pay with</span>
-                    <span className="text-sm font-bold">G Pay</span>
-                  </button>
-                  <button
-                    onClick={() => onApplePay({ ...product, quantity, selectedColor }, 'Apple Pay')}
-                    className="w-full bg-black hover:bg-neutral-900 text-white py-3 px-3 rounded-full flex items-center justify-center gap-1.5 cursor-pointer text-xs font-medium shadow-sm transition-all"
-                  >
-                    <span className="text-[11px] uppercase tracking-wider">Pay with</span>
-                    <span className="text-sm font-bold">Pay</span>
-                  </button>
-                </div>
+                {/* Instant Apple Pay & UAE COD Checkout Page */}
+                <button
+                  onClick={() => onApplePay({ ...product, quantity, selectedColor }, 'Apple Pay')}
+                  className="w-full bg-black hover:bg-neutral-900 text-white py-3.5 px-4 rounded-full flex items-center justify-center gap-2 cursor-pointer text-xs font-medium shadow-sm transition-all"
+                >
+                  <span className="uppercase tracking-wider">Checkout with</span>
+                  <span className="text-base font-bold">Pay</span>
+                  <span className="text-neutral-400">•</span>
+                  <span className="uppercase tracking-wider">UAE COD</span>
+                </button>
 
                 {/* Direct WhatsApp Concierge Order */}
                 <button

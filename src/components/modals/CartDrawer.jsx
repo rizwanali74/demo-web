@@ -189,21 +189,16 @@ export default function CartDrawer({
               </div>
             </div>
 
-            {/* Google Pay & Apple Pay Checkout Buttons */}
-            <div className="grid grid-cols-2 gap-2.5">
-              <button
-                onClick={() => onApplePayCheckout(subtotalAED, 'Google Pay')}
-                className="w-full bg-white hover:bg-[#F5F4F0] text-[#141414] border border-[#141414] py-3 px-3 rounded-full flex items-center justify-center gap-1.5 shadow-2xs transition-all cursor-pointer"
-              >
-                <span className="text-[11px] font-medium uppercase tracking-wider">G Pay</span>
-              </button>
-              <button
-                onClick={() => onApplePayCheckout(subtotalAED, 'Apple Pay')}
-                className="w-full bg-black hover:bg-neutral-800 text-white py-3 px-3 rounded-full flex items-center justify-center gap-1.5 shadow-sm transition-all cursor-pointer"
-              >
-                <span className="text-sm font-bold leading-none">Pay</span>
-              </button>
-            </div>
+            {/* Apple Pay & UAE COD Checkout Button */}
+            <button
+              onClick={() => onApplePayCheckout(subtotalAED, 'Apple Pay')}
+              className="w-full bg-black hover:bg-neutral-800 text-white py-3.5 px-4 rounded-full flex items-center justify-center gap-2 shadow-sm transition-all cursor-pointer"
+            >
+              <span className="text-xs font-medium uppercase tracking-wider">Checkout with</span>
+              <span className="text-base font-bold leading-none">Pay</span>
+              <span className="text-neutral-400">•</span>
+              <span className="text-xs font-medium uppercase tracking-wider">UAE COD</span>
+            </button>
 
             {/* WhatsApp Direct Order Button */}
             <button

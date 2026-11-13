@@ -23,34 +23,34 @@ const EMIRATES = [
 
 const PAYMENT_METHODS = [
   {
-    id: 'Google Pay',
-    label: 'Google Pay',
-    badge: 'G Pay',
-    description: 'Fast express checkout with your Google account'
-  },
-  {
     id: 'Apple Pay',
     label: 'Apple Pay',
     badge: 'Pay',
     description: 'Instant Touch ID / Face ID checkout'
   },
   {
+    id: 'Cash on Delivery (UAE)',
+    label: 'Cash on Delivery (COD)',
+    badge: 'COD UAE',
+    description: 'Pay in cash upon White Glove delivery anywhere in the UAE'
+  },
+  {
+    id: 'Card on Delivery (UAE)',
+    label: 'Card on Delivery (POS)',
+    badge: 'POS UAE',
+    description: 'Pay via wireless card machine upon room placement'
+  },
+  {
     id: 'Credit / Debit Card',
     label: 'Credit or Debit Card',
     badge: 'Visa / MC',
     description: 'Encrypted UAE & international card processing'
-  },
-  {
-    id: 'Cash on Delivery',
-    label: 'Pay on White Glove Delivery',
-    badge: 'COD',
-    description: 'Pay by card or cash upon room placement'
   }
 ];
 
 export default function CheckoutPage({
   items = [],
-  initialPaymentMethod = 'Google Pay',
+  initialPaymentMethod = 'Apple Pay',
   freeDeliveryThresholdAED = 1500,
   formatPrice,
   onBack,

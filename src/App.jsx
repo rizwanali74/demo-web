@@ -133,7 +133,7 @@ export default function App() {
   const [searchQuery, setSearchQuery] = useState('');
 
   // Checkout, Modals & Drawers
-  const [checkoutState, setCheckoutState] = useState({ items: null, paymentMethod: 'Google Pay' });
+  const [checkoutState, setCheckoutState] = useState({ items: null, paymentMethod: 'Apple Pay' });
   const [applePayState, setApplePayState] = useState({ isOpen: false, orderItem: null, totalAED: null });
   const [whatsAppState, setWhatsAppState] = useState({ isOpen: false, product: null });
   const [cartOpen, setCartOpen] = useState(false);
@@ -335,14 +335,14 @@ export default function App() {
     showToast('Studio contact information saved');
   };
 
-  // Direct Google Pay / Apple Pay Checkout Page & WhatsApp Checkout
-  const handleDirectApplePay = (product, method = 'Google Pay') => {
+  // Direct Apple Pay & UAE COD Checkout Page & WhatsApp Checkout
+  const handleDirectApplePay = (product, method = 'Apple Pay') => {
     setCheckoutState({ items: [product], paymentMethod: method });
     navigate('/checkout');
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  const handleCartApplePay = (_totalAED, method = 'Google Pay') => {
+  const handleCartApplePay = (_totalAED, method = 'Apple Pay') => {
     setCartOpen(false);
     setCheckoutState({ items: null, paymentMethod: method });
     navigate('/checkout');
