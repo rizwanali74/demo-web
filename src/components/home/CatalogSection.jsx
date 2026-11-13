@@ -96,8 +96,8 @@ export default function CatalogSection({
           </div>
         )}
 
-        {/* Ultra-Clean Forma Object Product Grid: NO CLUTTER, JUST IMAGE, NAME, PRICE */}
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-5 sm:gap-x-7 gap-y-10 sm:gap-y-12">
+        {/* Ultra-Clean Forma Object Product Grid: 1 col on mobile, 2 on sm, 3 on md, 4 on lg */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-5 sm:gap-x-7 gap-y-10 sm:gap-y-12">
           {filteredProducts.map((product) => {
             const isHovered = hoveredProduct === product.id;
             return (
@@ -128,14 +128,14 @@ export default function CatalogSection({
 
                   {/* Clean Product Name, Arabic Name & Price */}
                   <div className="space-y-1">
-                    <div className="flex items-baseline justify-between gap-2">
-                      <h3 className="text-xs sm:text-sm font-normal text-[#141414] group-hover:opacity-70 transition-opacity leading-snug">
+                    <div className="flex flex-wrap items-baseline justify-between gap-x-2 gap-y-0.5">
+                      <h3 className="text-sm font-normal text-[#141414] group-hover:opacity-70 transition-opacity leading-snug">
                         {product.name}
                       </h3>
                       {product.arabicName && (
                         <span
                           dir="rtl"
-                          className="font-arabic text-[11px] sm:text-xs text-[#736E67] shrink-0"
+                          className="font-arabic text-xs text-[#736E67]"
                         >
                           {product.arabicName}
                         </span>
