@@ -1,20 +1,32 @@
 import React, { useState, useMemo } from 'react';
+import { useNavigate } from 'react-router-dom';
 import {
   Plus,
   Search,
   Edit3,
   Trash2
 } from 'lucide-react';
+import { useStore } from '../../hooks/useStore';
 
 export default function AdminProductsTab({
-  products,
-  categories = [],
-  onOpenAddProduct,
-  onOpenEditProduct,
-  onUpdateProduct,
-  onDeleteProduct,
-  formatPrice
+  products: propProducts,
+  categories: propCategories,
+  onOpenAddProduct: propOnOpenAddProduct,
+  onOpenEditProduct: propOnOpenEditProduct,
+  onUpdateProduct: propOnUpdateProduct,
+  onDeleteProduct: propOnDeleteProduct,
+  formatPrice: propFormatPrice
 }) {
+  const navigate = useNavigate();
+  const store = useStore();
+  const products = propProducts ?? store.products;
+  const categories = propCategories ?? store.categories;
+  const onOpenAddProduct = propOnOpenAddProduct ?? (() => navigate('/admin/products/new'));
+  const onOpenEditProduct = propOnOpenEditProduct ?? ((product) => navigate(`/admin/products/edit/${product.id}`));
+  const onUpdateProduct = propOnUpdateProduct ?? store.updateProduct;
+  const onDeleteProduct = propOnDeleteProduct ?? store.deleteProduct;
+  const formatPrice = propFormatPrice ?? store.formatPrice;
+
   const [searchQuery, setSearchQuery] = useState('');
   const [categoryFilter, setCategoryFilter] = useState('all');
 

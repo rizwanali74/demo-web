@@ -1,13 +1,24 @@
 import React, { useState, useMemo } from 'react';
+import { useParams } from 'react-router-dom';
+import { useStore } from '../hooks/useStore';
 
-export default function ShopPage({ 
-  products, 
-  categories = [],
-  initialCategory = 'all', 
-  onBackToHome,
-  onOpenProductPage, 
-  formatPrice 
+export default function ShopPage({
+  products: propProducts,
+  categories: propCategories,
+  initialCategory: propInitialCategory,
+  onBackToHome: propOnBackToHome,
+  onOpenProductPage: propOnOpenProductPage,
+  formatPrice: propFormatPrice
 }) {
+  const { category: routeCategory } = useParams();
+  const store = useStore();
+  const products = propProducts ?? store.products;
+  const categories = propCategories ?? store.categories;
+  const initialCategory = propInitialCategory ?? routeCategory ?? 'all';
+  const onBackToHome = propOnBackToHome ?? store.navigateHome;
+  const onOpenProductPage = propOnOpenProductPage ?? store.navigateProduct;
+  const formatPrice = propFormatPrice ?? store.formatPrice;
+
   const [selectedCat, setSelectedCat] = useState(null);
   const [selectedSort, setSelectedSort] = useState('featured');
   const [hoveredProduct, setHoveredProduct] = useState(null);

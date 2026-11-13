@@ -1,12 +1,19 @@
 import React, { useState } from 'react';
 import { MessageCircle, Mail, Phone, MapPin, CheckCircle2, Clock } from 'lucide-react';
+import { useStore } from '../hooks/useStore';
 
-export default function ContactPage({ 
-  onBackToHome, 
-  onOpenWhatsAppConcierge, 
-  studioInfo, 
-  onSubmitInquiry 
+export default function ContactPage({
+  onBackToHome: propOnBackToHome,
+  onOpenWhatsAppConcierge: propOnOpenWhatsAppConcierge,
+  studioInfo: propStudioInfo,
+  onSubmitInquiry: propOnSubmitInquiry
 }) {
+  const store = useStore();
+  const onBackToHome = propOnBackToHome ?? store.navigateHome;
+  const onOpenWhatsAppConcierge = propOnOpenWhatsAppConcierge ?? (() => store.openWhatsAppOrder(null));
+  const studioInfo = propStudioInfo ?? store.studioInfo;
+  const onSubmitInquiry = propOnSubmitInquiry ?? store.submitInquiry;
+
   const [formData, setFormData] = useState({
     name: '',
     email: '',

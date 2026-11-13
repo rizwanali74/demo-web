@@ -1,13 +1,13 @@
-import React from 'react';
 import { Navigate, useLocation } from 'react-router-dom';
+import { useStore } from '../../hooks/useStore';
 
-export default function ProtectedAdminRoute({ isAuthenticated, children }) {
+export default function ProtectedAdminRoute({ children }) {
   const location = useLocation();
+  const { superAdmin } = useStore();
 
-  if (!isAuthenticated) {
+  if (!superAdmin) {
     return <Navigate to="/admin/login" state={{ from: location }} replace />;
   }
 
   return children;
 }
-

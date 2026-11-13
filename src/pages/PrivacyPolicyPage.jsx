@@ -1,7 +1,12 @@
 import React from 'react';
 import { ArrowLeft } from 'lucide-react';
+import { useStore } from '../hooks/useStore';
 
-export default function PrivacyPolicyPage({ onBackToHome, studioInfo }) {
+export default function PrivacyPolicyPage({ onBackToHome: propOnBackToHome, studioInfo: propStudioInfo }) {
+  const store = useStore();
+  const onBackToHome = propOnBackToHome ?? store.navigateHome;
+  const studioInfo = propStudioInfo ?? store.studioInfo;
+
   const contactEmail = studioInfo?.email || 'info@hujrah.ae';
   const contactPhone = studioInfo?.phone || '+971 50 123 4567';
 

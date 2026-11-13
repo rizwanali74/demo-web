@@ -227,24 +227,6 @@ export default function Header({
               </span>
             </button>
 
-            {/* Track Order Animated Truck Icon */}
-            <button
-              onClick={onNavigateTrackOrder}
-              className={`group p-1.5 transition-all cursor-pointer flex items-center gap-1.5 ${
-                currentPage === 'track-order' ? 'text-black' : 'text-[#141414] hover:opacity-80'
-              }`}
-              aria-label="Track Order"
-              title="Track Order"
-            >
-              <AnimatedDeliveryTruckIcon
-                className="w-7 h-5 group-hover:translate-x-0.5 transition-transform"
-                isMoving={currentPage === 'track-order'}
-              />
-              <span className="hidden lg:inline text-[10px] uppercase tracking-[0.16em] font-medium">
-                Track
-              </span>
-            </button>
-
             {/* TODO: Remove temporary Admin button when protected route auth is implemented */}
             <button
               onClick={onNavigateAdmin}

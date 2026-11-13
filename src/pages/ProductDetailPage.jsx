@@ -1,38 +1,61 @@
 import React, { useState, useEffect } from 'react';
-import { 
-  ArrowLeft, 
-  ShoppingBag, 
-  ShieldCheck, 
-  Truck, 
-  Check, 
-  ChevronRight, 
+import { useParams, Navigate } from 'react-router-dom';
+import {
+  ArrowLeft,
+  ShoppingBag,
+  ShieldCheck,
+  Truck,
+  Check,
+  ChevronRight,
   Share2
 } from 'lucide-react';
 import { ThemeApplePayIcon, ThemeWhatsAppIcon } from '../components/common/ThemeIcons';
+import { useStore } from '../hooks/useStore';
 
-export default function ProductDetailPage({ 
-  product, 
-  allProducts,
-  onBack, 
-  onSelectProduct,
-  formatPrice, 
-  onAddToCart, 
-  onApplePay, 
-  onWhatsAppOrder 
+export default function ProductDetailPage({
+  product: propProduct,
+  allProducts: propAllProducts,
+  onBack: propOnBack,
+  onSelectProduct: propOnSelectProduct,
+  formatPrice: propFormatPrice,
+  onAddToCart: propOnAddToCart,
+  onApplePay: propOnApplePay,
+  onWhatsAppOrder: propOnWhatsAppOrder
 }) {
+  const { productId } = useParams();
+  const store = useStore();
+  const allProducts = propAllProducts ?? store.products;
+  const product = propProduct ?? allProducts.find(p => p.id === productId);
+  const onBack = propOnBack ?? store.navigateHome;
+  const onSelectProduct = propOnSelectProduct ?? store.navigateProduct;
+  const formatPrice = propFormatPrice ?? store.formatPrice;
+  const onAddToCart = propOnAddToCart ?? store.addToCart;
+  const onApplePay = propOnApplePay ?? store.startDirectCheckout;
+  const onWhatsAppOrder = propOnWhatsAppOrder ?? store.openWhatsAppOrder;
+
   const [selectedImage, setSelectedImage] = useState(product?.image);
   const [selectedColor, setSelectedColor] = useState(product?.colors?.[0]?.name || '');
   const [quantity, setQuantity] = useState(1);
   const [addedNotice, setAddedNotice] = useState(false);
   const [activeTab, setActiveTab] = useState('description');
   const [copiedLink, setCopiedLink] = useState(false);
+  const [prevProductId, setPrevProductId] = useState(product?.id);
+
+  if (product?.id !== prevProductId) {
+    setPrevProductId(product?.id);
+    setSelectedImage(product?.image);
+    setSelectedColor(product?.colors?.[0]?.name || '');
+    setQuantity(1);
+  }
 
   // Scroll to top when product changes
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, [product?.id]);
 
-  if (!product) return null;
+  if (!product) {
+    return <Navigate to="/shop/all" replace />;
+  }
 
   const currentImg = selectedImage || product.image;
 

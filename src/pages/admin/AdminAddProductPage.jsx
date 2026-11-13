@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
-import { 
-  ArrowLeft, 
-  Check, 
-  Image as ImageIcon, 
-  Plus, 
-  X 
+import { useParams, useNavigate, Navigate } from 'react-router-dom';
+import {
+  ArrowLeft,
+  Check,
+  Image as ImageIcon,
+  Plus,
+  X
 } from 'lucide-react';
+import { useStore } from '../../hooks/useStore';
 
 const EMPTY_PRODUCT = {
   id: '',
@@ -32,13 +34,24 @@ const EMPTY_PRODUCT = {
 };
 
 export default function AdminAddProductPage({
-  categories,
-  initialProduct = null,
-  totalProductsCount = 0,
-  onSaveProduct,
-  onCancel,
-  formatPrice
+  categories: propCategories,
+  initialProduct: propInitialProduct,
+  totalProductsCount: propTotalProductsCount,
+  onSaveProduct: propOnSaveProduct,
+  onCancel: propOnCancel,
+  formatPrice: propFormatPrice
 }) {
+  const { productId } = useParams();
+  const navigate = useNavigate();
+  const store = useStore();
+  const categories = propCategories ?? store.categories;
+  const matchedProduct = productId ? store.products.find(p => p.id === productId) : null;
+  const initialProduct = propInitialProduct !== undefined ? propInitialProduct : matchedProduct;
+  const totalProductsCount = propTotalProductsCount ?? store.products.length;
+  const onSaveProduct = propOnSaveProduct ?? store.saveProductFromAdmin;
+  const onCancel = propOnCancel ?? (() => navigate('/admin/products'));
+  const formatPrice = propFormatPrice ?? store.formatPrice;
+
   const defaultCat = categories[0] || { id: 'sofas-seating', name: 'Sofas & Seating' };
 
   const [formState, setFormState] = useState(() => {
@@ -64,6 +77,10 @@ export default function AdminAddProductPage({
   const [newColorHex, setNewColorHex] = useState('#D8CEBE');
   const [newSpecKey, setNewSpecKey] = useState('');
   const [newSpecVal, setNewSpecVal] = useState('');
+
+  if (productId && !matchedProduct && propInitialProduct === undefined) {
+    return <Navigate to="/admin/products" replace />;
+  }
 
   const handleSubmit = (e) => {
     e.preventDefault();

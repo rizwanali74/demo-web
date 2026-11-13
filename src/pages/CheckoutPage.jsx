@@ -14,6 +14,7 @@ import {
   ThemeShieldIcon,
   ThemeUAECashIcon
 } from '../components/common/ThemeIcons';
+import { useStore } from '../hooks/useStore';
 
 const EMIRATES = [
   'Dubai',
@@ -54,14 +55,23 @@ const PAYMENT_METHODS = [
 ];
 
 export default function CheckoutPage({
-  items = [],
-  initialPaymentMethod = 'Apple Pay',
-  freeDeliveryThresholdAED = 1500,
-  formatPrice,
-  onBack,
-  onTrackOrder,
-  onCompleteOrder
+  items: propItems,
+  initialPaymentMethod: propInitialPaymentMethod,
+  freeDeliveryThresholdAED: propFreeDeliveryThresholdAED,
+  formatPrice: propFormatPrice,
+  onBack: propOnBack,
+  onTrackOrder: propOnTrackOrder,
+  onCompleteOrder: propOnCompleteOrder
 }) {
+  const store = useStore();
+  const items = propItems ?? store.checkoutState.items ?? store.cart;
+  const initialPaymentMethod = propInitialPaymentMethod ?? store.checkoutState.paymentMethod ?? 'Apple Pay';
+  const freeDeliveryThresholdAED = propFreeDeliveryThresholdAED ?? store.studioInfo.freeDeliveryThresholdAED ?? 1500;
+  const formatPrice = propFormatPrice ?? store.formatPrice;
+  const onBack = propOnBack ?? store.navigateHome;
+  const onTrackOrder = propOnTrackOrder ?? store.navigateTrackOrder;
+  const onCompleteOrder = propOnCompleteOrder ?? store.completeOrder;
+
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
   const [email, setEmail] = useState('');

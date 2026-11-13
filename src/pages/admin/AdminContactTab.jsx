@@ -10,16 +10,24 @@ import {
   Eye,
   X
 } from 'lucide-react';
+import { useStore } from '../../hooks/useStore';
 
 const INQUIRY_STATUSES = ['New', 'In Progress', 'Replied', 'Archived'];
 
 export default function AdminContactTab({
-  studioInfo,
-  onUpdateStudioInfo,
-  inquiries,
-  onUpdateInquiryStatus,
-  onDeleteInquiry
+  studioInfo: propStudioInfo,
+  onUpdateStudioInfo: propOnUpdateStudioInfo,
+  inquiries: propInquiries,
+  onUpdateInquiryStatus: propOnUpdateInquiryStatus,
+  onDeleteInquiry: propOnDeleteInquiry
 }) {
+  const store = useStore();
+  const studioInfo = propStudioInfo ?? store.studioInfo;
+  const onUpdateStudioInfo = propOnUpdateStudioInfo ?? store.updateStudioInfo;
+  const inquiries = propInquiries ?? store.inquiries;
+  const onUpdateInquiryStatus = propOnUpdateInquiryStatus ?? store.updateInquiryStatus;
+  const onDeleteInquiry = propOnDeleteInquiry ?? store.deleteInquiry;
+
   const [formInfo, setFormInfo] = useState(studioInfo);
   const [savedNotice, setSavedNotice] = useState(false);
   const [inquiryFilter, setInquiryFilter] = useState('All');

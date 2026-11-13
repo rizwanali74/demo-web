@@ -1,4 +1,5 @@
 import React, { useMemo } from 'react';
+import { useNavigate } from 'react-router-dom';
 import {
   TrendingUp,
   ShoppingBag,
@@ -8,15 +9,25 @@ import {
   Clock
 } from 'lucide-react';
 import { ORDER_STATUSES } from '../../data/adminMockData';
+import { useStore } from '../../hooks/useStore';
 
 export default function AdminOverviewTab({
-  products = [],
-  categories = [],
-  orders = [],
-  inquiries = [],
-  formatPrice,
-  onSwitchTab
+  products: propProducts,
+  categories: propCategories,
+  orders: propOrders,
+  inquiries: propInquiries,
+  formatPrice: propFormatPrice,
+  onSwitchTab: propOnSwitchTab
 }) {
+  const navigate = useNavigate();
+  const store = useStore();
+  const products = propProducts ?? store.products;
+  const categories = propCategories ?? store.categories;
+  const orders = propOrders ?? store.orders;
+  const inquiries = propInquiries ?? store.inquiries;
+  const formatPrice = propFormatPrice ?? store.formatPrice;
+  const onSwitchTab = propOnSwitchTab ?? ((tab) => navigate(`/admin/${tab}`));
+
   const stats = useMemo(() => {
     const validOrders = orders.filter(o => o.status !== 'Cancelled');
     const totalRevenueAED = validOrders.reduce((sum, o) => sum + (Number(o.totalAED) || 0), 0);

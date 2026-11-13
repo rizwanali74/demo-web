@@ -1,19 +1,27 @@
 import React, { useState } from 'react';
-import { 
-  Plus, 
-  Edit3, 
-  Trash2, 
-  Check, 
-  FolderTree 
+import {
+  Plus,
+  Edit3,
+  Trash2,
+  Check,
+  FolderTree
 } from 'lucide-react';
+import { useStore } from '../../hooks/useStore';
 
 export default function AdminCategoriesPage({
-  categories,
-  products,
-  onAddCategory,
-  onUpdateCategory,
-  onDeleteCategory
+  categories: propCategories,
+  products: propProducts,
+  onAddCategory: propOnAddCategory,
+  onUpdateCategory: propOnUpdateCategory,
+  onDeleteCategory: propOnDeleteCategory
 }) {
+  const store = useStore();
+  const categories = propCategories ?? store.categories;
+  const products = propProducts ?? store.products;
+  const onAddCategory = propOnAddCategory ?? store.addCategory;
+  const onUpdateCategory = propOnUpdateCategory ?? store.updateCategory;
+  const onDeleteCategory = propOnDeleteCategory ?? store.deleteCategory;
+
   const [editingCat, setEditingCat] = useState(null);
   const [name, setName] = useState('');
   const [slug, setSlug] = useState('');

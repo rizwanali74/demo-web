@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate, useLocation, Link, Navigate } from 'react-router-dom';
 import { ShieldCheck, Lock, Mail, Eye, EyeOff, ArrowLeft, AlertCircle } from 'lucide-react';
+import { useStore } from '../../hooks/useStore';
 
 // TODO: Replace with real backend authentication API (POST /api/auth/login)
 const SUPERADMIN_CREDENTIALS = {
@@ -10,9 +11,13 @@ const SUPERADMIN_CREDENTIALS = {
   name: 'SuperAdmin'
 };
 
-export default function AdminLoginPage({ isAuthenticated, onLogin }) {
+export default function AdminLoginPage({ isAuthenticated: propIsAuthenticated, onLogin: propOnLogin }) {
   const navigate = useNavigate();
   const location = useLocation();
+  const store = useStore();
+  const isAuthenticated = propIsAuthenticated ?? Boolean(store.superAdmin);
+  const onLogin = propOnLogin ?? store.loginSuperAdmin;
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useParams } from 'react-router-dom';
 import {
   ArrowLeft,
   CheckCircle2,
@@ -10,6 +11,7 @@ import {
   MapPin
 } from 'lucide-react';
 import { AnimatedDeliveryTruckIcon } from '../components/common/ThemeIcons';
+import { useStore } from '../hooks/useStore';
 
 const TRACKING_STEPS = [
   { key: 'Pending', label: 'Order Received', desc: 'Awaiting studio confirmation', progress: 12 },
@@ -20,14 +22,29 @@ const TRACKING_STEPS = [
 ];
 
 export default function TrackOrderPage({
-  orders = [],
-  initialTrackingId = '',
-  studioInfo,
-  formatPrice,
-  onBackToHome
+  orders: propOrders,
+  initialTrackingId: propInitialTrackingId,
+  studioInfo: propStudioInfo,
+  formatPrice: propFormatPrice,
+  onBackToHome: propOnBackToHome
 }) {
+  const { orderId } = useParams();
+  const store = useStore();
+  const orders = propOrders ?? store.orders;
+  const initialTrackingId = propInitialTrackingId ?? orderId ?? '';
+  const studioInfo = propStudioInfo ?? store.studioInfo;
+  const formatPrice = propFormatPrice ?? store.formatPrice;
+  const onBackToHome = propOnBackToHome ?? store.navigateHome;
+
   const [queryId, setQueryId] = useState(initialTrackingId);
   const [searchedId, setSearchedId] = useState(initialTrackingId);
+  const [prevOrderId, setPrevOrderId] = useState(orderId);
+
+  if (orderId !== prevOrderId) {
+    setPrevOrderId(orderId);
+    setQueryId(orderId || '');
+    setSearchedId(orderId || '');
+  }
 
   const normalizedSearch = searchedId.trim().replace(/^#/, '').toLowerCase();
   const matchedOrder = normalizedSearch

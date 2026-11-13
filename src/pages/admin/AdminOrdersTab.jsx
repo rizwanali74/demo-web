@@ -1,22 +1,28 @@
 import React, { useState, useMemo } from 'react';
 import { createPortal } from 'react-dom';
-import { 
-  Search, 
-  Eye, 
-  X, 
-  MessageCircle, 
-  MapPin, 
-  Phone, 
-  Mail, 
-  CreditCard 
+import {
+  Search,
+  Eye,
+  X,
+  MessageCircle,
+  MapPin,
+  Phone,
+  Mail,
+  CreditCard
 } from 'lucide-react';
 import { ORDER_STATUSES } from '../../data/adminMockData';
+import { useStore } from '../../hooks/useStore';
 
-export default function AdminOrdersTab({ 
-  orders, 
-  onUpdateOrderStatus, 
-  formatPrice 
+export default function AdminOrdersTab({
+  orders: propOrders,
+  onUpdateOrderStatus: propOnUpdateOrderStatus,
+  formatPrice: propFormatPrice
 }) {
+  const store = useStore();
+  const orders = propOrders ?? store.orders;
+  const onUpdateOrderStatus = propOnUpdateOrderStatus ?? store.updateOrderStatus;
+  const formatPrice = propFormatPrice ?? store.formatPrice;
+
   const [statusFilter, setStatusFilter] = useState('All');
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedOrder, setSelectedOrder] = useState(null);
