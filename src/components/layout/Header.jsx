@@ -309,14 +309,6 @@ export default function Header({
               <span>Track Order</span>
             </button>
 
-            <button
-              onClick={() => { onNavigateTrackOrder(); setMobileMenuOpen(false); }}
-              className={`text-left py-2 border-b border-[#EAE8E4] flex items-center gap-2 ${currentPage === 'track-order' ? 'font-bold text-black' : 'text-[#141414]'}`}
-            >
-              <AnimatedDeliveryTruckIcon className="w-6 h-4" isMoving />
-              <span>Track Order</span>
-            </button>
-
             {/* TODO: Remove temporary Admin button when protected route auth is implemented */}
             <button
               onClick={() => { onNavigateAdmin(); setMobileMenuOpen(false); }}
