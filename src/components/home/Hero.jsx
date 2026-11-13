@@ -24,7 +24,7 @@ export default function Hero({ onExploreCollection, onOpenWhatsAppConcierge }) {
         <div className="relative rounded-sm overflow-hidden shadow-sm border border-[#E2DED6] group">
           <div className="relative h-[440px] sm:h-[540px] lg:h-[620px] w-full overflow-hidden bg-[#ECE8E1]">
             <img
-              src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=1800&q=85"
+              src="/images/hero.jpg"
               alt="HUJRAH Modern Minimalist Living Space with Sculptural Dune Sofa and Travertine"
               className="w-full h-full object-cover object-center transform transition-transform duration-1000 group-hover:scale-103"
             />

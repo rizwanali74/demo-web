@@ -2,6 +2,7 @@ import React, { useState, useMemo } from 'react';
 
 export default function ShopPage({ 
   products, 
+  categories = [],
   initialCategory = 'all', 
   onBackToHome,
   onOpenProductPage, 
@@ -17,13 +18,19 @@ export default function ShopPage({
     setSelectedCat(cat);
   };
 
+  const dynamicTabs = categories.length > 0
+    ? categories.map(c => ({ id: c.id, label: c.name, title: c.name }))
+    : [
+        { id: 'sofas-seating', label: 'Sofas & Seating', title: 'Sofas & Modular Seating' },
+        { id: 'lounge-chairs', label: 'Lounge Chairs', title: 'Lounge & Accent Chairs' },
+        { id: 'tables', label: 'Tables', title: 'Coffee, Side & Dining Tables' },
+        { id: 'lighting', label: 'Lighting', title: 'Architectural Lighting & Lamps' },
+        { id: 'decor-objects', label: 'Objects & Mirrors', title: 'Sculptural Objects & Mirrors' }
+      ];
+
   const categoryTabs = [
     { id: 'all', label: 'All Objects', title: 'The Complete Collection' },
-    { id: 'sofas-seating', label: 'Sofas & Seating', title: 'Sofas & Modular Seating' },
-    { id: 'lounge-chairs', label: 'Lounge Chairs', title: 'Lounge & Accent Chairs' },
-    { id: 'tables', label: 'Tables', title: 'Coffee, Side & Dining Tables' },
-    { id: 'lighting', label: 'Lighting', title: 'Architectural Lighting & Lamps' },
-    { id: 'decor-objects', label: 'Objects & Mirrors', title: 'Sculptural Objects & Mirrors' },
+    ...dynamicTabs,
     { id: 'in-stock', label: 'Ready to Ship', title: 'In-Stock Pieces (UAE 48h)' }
   ];
 
@@ -31,13 +38,9 @@ export default function ShopPage({
 
   const filteredProducts = useMemo(() => {
     return products.filter(product => {
-      if (activeCategory === 'sofas-seating' && product.category !== 'sofas-seating') return false;
-      if (activeCategory === 'lounge-chairs' && product.category !== 'lounge-chairs') return false;
-      if (activeCategory === 'tables' && product.category !== 'tables') return false;
-      if (activeCategory === 'lighting' && product.category !== 'lighting') return false;
-      if (activeCategory === 'decor-objects' && product.category !== 'decor-objects') return false;
-      if (activeCategory === 'in-stock' && !product.inStock) return false;
-      return true;
+      if (activeCategory === 'all') return true;
+      if (activeCategory === 'in-stock') return Boolean(product.inStock);
+      return product.category === activeCategory;
     }).sort((a, b) => {
       if (selectedSort === 'price-asc') return a.priceAED - b.priceAED;
       if (selectedSort === 'price-desc') return b.priceAED - a.priceAED;
@@ -141,11 +144,21 @@ export default function ShopPage({
                     )}
                   </div>
 
-                  {/* Clean Product Name & Price ONLY */}
+                  {/* Clean Product Name, Arabic Name & Price */}
                   <div className="space-y-1">
-                    <h3 className="text-xs sm:text-sm font-normal text-[#141414] group-hover:opacity-70 transition-opacity leading-snug">
-                      {product.name}
-                    </h3>
+                    <div className="flex items-baseline justify-between gap-2">
+                      <h3 className="text-xs sm:text-sm font-normal text-[#141414] group-hover:opacity-70 transition-opacity leading-snug">
+                        {product.name}
+                      </h3>
+                      {product.arabicName && (
+                        <span
+                          dir="rtl"
+                          className="font-arabic text-[11px] sm:text-xs text-[#736E67] shrink-0"
+                        >
+                          {product.arabicName}
+                        </span>
+                      )}
+                    </div>
                     
                     <div className="flex items-baseline gap-2">
                       <span className="text-xs sm:text-sm font-semibold text-[#141414]">

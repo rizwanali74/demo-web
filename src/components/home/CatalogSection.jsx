@@ -126,11 +126,21 @@ export default function CatalogSection({
                     )}
                   </div>
 
-                  {/* Clean Product Name & Price ONLY (like Forma Object) */}
+                  {/* Clean Product Name, Arabic Name & Price */}
                   <div className="space-y-1">
-                    <h3 className="text-xs sm:text-sm font-normal text-[#141414] group-hover:opacity-70 transition-opacity leading-snug">
-                      {product.name}
-                    </h3>
+                    <div className="flex items-baseline justify-between gap-2">
+                      <h3 className="text-xs sm:text-sm font-normal text-[#141414] group-hover:opacity-70 transition-opacity leading-snug">
+                        {product.name}
+                      </h3>
+                      {product.arabicName && (
+                        <span
+                          dir="rtl"
+                          className="font-arabic text-[11px] sm:text-xs text-[#736E67] shrink-0"
+                        >
+                          {product.arabicName}
+                        </span>
+                      )}
+                    </div>
                     
                     <div className="flex items-baseline gap-2">
                       <span className="text-xs sm:text-sm font-semibold text-[#141414]">

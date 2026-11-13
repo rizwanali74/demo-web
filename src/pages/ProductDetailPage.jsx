@@ -194,7 +194,7 @@ export default function ProductDetailPage({
                 </h1>
 
                 {product.arabicName && (
-                  <p className="font-arabic-calligraphy text-lg text-[#8C8476]">
+                  <p dir="rtl" className="font-arabic text-lg sm:text-xl text-[#736E67] text-left">
                     {product.arabicName}
                   </p>
                 )}

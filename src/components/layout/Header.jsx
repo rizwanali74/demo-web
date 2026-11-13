@@ -5,17 +5,20 @@ import {
   Menu,
   X,
   ChevronDown,
-  ArrowRight
+  ArrowRight,
+  LayoutDashboard
 } from 'lucide-react';
 
 export default function Header({
   cartCount,
   onOpenCart,
-  activeCurrency,
-  onChangeCurrency,
+  activeCurrency: _activeCurrency,
+  onChangeCurrency: _onChangeCurrency,
   onNavigateHome,
   onNavigateShop,
   onNavigateContact,
+  onNavigateAdmin,
+  categories: propCategories = [],
   onSearch,
   searchQuery,
   currentPage
@@ -26,11 +29,15 @@ export default function Header({
 
   const categories = [
     { id: 'all', name: 'All Objects' },
-    { id: 'sofas-seating', name: 'Sofas & Modular' },
-    { id: 'lounge-chairs', name: 'Lounge Chairs' },
-    { id: 'tables', name: 'Coffee & Dining Tables' },
-    { id: 'lighting', name: 'Architectural Lighting' },
-    { id: 'decor-objects', name: 'Objects & Mirrors' },
+    ...(propCategories.length > 0
+      ? propCategories
+      : [
+          { id: 'sofas-seating', name: 'Sofas & Modular' },
+          { id: 'lounge-chairs', name: 'Lounge Chairs' },
+          { id: 'tables', name: 'Coffee & Dining Tables' },
+          { id: 'lighting', name: 'Architectural Lighting' },
+          { id: 'decor-objects', name: 'Objects & Mirrors' }
+        ]),
     { id: 'in-stock', name: 'Ready to Ship (UAE 48h)' }
   ];
 
@@ -196,6 +203,16 @@ export default function Header({
               )}
             </div>
 
+            {/* TODO: Remove temporary Admin button when protected route auth is implemented */}
+            <button
+              onClick={onNavigateAdmin}
+              className="hidden sm:inline-flex items-center gap-1.5 text-[10px] uppercase tracking-[0.16em] border border-[#DDD8CF] hover:border-black px-3 py-1.5 rounded-full text-[#141414] font-medium transition-colors cursor-pointer"
+              title="Open Admin Dashboard (Temporary Access)"
+            >
+              <LayoutDashboard className="w-3.5 h-3.5" />
+              <span>Admin</span>
+            </button>
+
             {/* Shopping Bag Icon with count badge */}
             <button
               onClick={onOpenCart}
@@ -251,6 +268,15 @@ export default function Header({
               className={`text-left py-2 border-b border-[#EAE8E4] ${currentPage === 'contact' ? 'font-bold text-black' : 'text-[#141414]'}`}
             >
               Contact Us
+            </button>
+
+            {/* TODO: Remove temporary Admin button when protected route auth is implemented */}
+            <button
+              onClick={() => { onNavigateAdmin(); setMobileMenuOpen(false); }}
+              className="text-left py-2 text-[#141414] font-semibold flex items-center gap-2"
+            >
+              <LayoutDashboard className="w-4 h-4" />
+              <span>Admin Dashboard</span>
             </button>
           </nav>
         </div>

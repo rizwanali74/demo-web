@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { ArrowUp } from 'lucide-react';
 
-export default function Footer({ onOpenWhatsAppConcierge, onNavigateSection }) {
+export default function Footer({ onOpenWhatsAppConcierge, onNavigateSection, studioInfo }) {
   const [email, setEmail] = useState('');
   const [submitted, setSubmitted] = useState(false);
 
@@ -94,6 +94,14 @@ export default function Footer({ onOpenWhatsAppConcierge, onNavigateSection }) {
               </li>
               <li>
                 <button 
+                  onClick={() => onNavigateSection('privacy-policy')} 
+                  className="hover:text-black transition-colors cursor-pointer"
+                >
+                  Privacy policy
+                </button>
+              </li>
+              <li>
+                <button 
                   onClick={() => onNavigateSection('contact-custom')} 
                   className="hover:text-black transition-colors cursor-pointer"
                 >
@@ -118,8 +126,8 @@ export default function Footer({ onOpenWhatsAppConcierge, onNavigateSection }) {
             </h4>
             
             <div className="space-y-2 text-xs text-[#444] font-light">
-              <p className="tracking-wide">+971 50 123 4567</p>
-              <p>info@hujrah.ae</p>
+              <p className="tracking-wide">{studioInfo?.phone || '+971 50 123 4567'}</p>
+              <p>{studioInfo?.email || 'info@hujrah.ae'}</p>
               
               <div className="pt-1">
                 <button
@@ -134,7 +142,7 @@ export default function Footer({ onOpenWhatsAppConcierge, onNavigateSection }) {
               <div className="flex items-center gap-3.5 pt-3 text-[#141414]">
                 {/* Instagram Icon */}
                 <a 
-                  href="https://instagram.com" 
+                  href={studioInfo?.instagramUrl || 'https://instagram.com'} 
                   target="_blank" 
                   rel="noopener noreferrer"
                   className="hover:opacity-60 transition-opacity"
@@ -149,7 +157,7 @@ export default function Footer({ onOpenWhatsAppConcierge, onNavigateSection }) {
                 
                 {/* TikTok Icon */}
                 <a 
-                  href="https://tiktok.com" 
+                  href={studioInfo?.tiktokUrl || 'https://tiktok.com'} 
                   target="_blank" 
                   rel="noopener noreferrer"
                   className="hover:opacity-60 transition-opacity"

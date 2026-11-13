@@ -1,7 +1,12 @@
 import React, { useState } from 'react';
 import { MessageCircle, Mail, Phone, MapPin, CheckCircle2, Clock } from 'lucide-react';
 
-export default function ContactPage({ onBackToHome, onOpenWhatsAppConcierge }) {
+export default function ContactPage({ 
+  onBackToHome, 
+  onOpenWhatsAppConcierge, 
+  studioInfo, 
+  onSubmitInquiry 
+}) {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -14,6 +19,9 @@ export default function ContactPage({ onBackToHome, onOpenWhatsAppConcierge }) {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (formData.name && formData.email) {
+      if (onSubmitInquiry) {
+        onSubmitInquiry(formData);
+      }
       setSubmitted(true);
       setTimeout(() => {
         setSubmitted(false);
@@ -194,15 +202,15 @@ export default function ContactPage({ onBackToHome, onOpenWhatsAppConcierge }) {
               <div className="space-y-3 text-xs text-[#555] font-light">
                 <div className="flex items-center gap-3">
                   <Phone className="w-4 h-4 text-neutral-800 shrink-0" />
-                  <span>+971 50 123 4567</span>
+                  <span>{studioInfo?.phone || '+971 50 123 4567'}</span>
                 </div>
                 <div className="flex items-center gap-3">
                   <Mail className="w-4 h-4 text-neutral-800 shrink-0" />
-                  <span>info@hujrah.ae</span>
+                  <span>{studioInfo?.email || 'info@hujrah.ae'}</span>
                 </div>
                 <div className="flex items-center gap-3">
                   <Clock className="w-4 h-4 text-neutral-800 shrink-0" />
-                  <span>Saturday – Thursday: 10:00 AM – 8:00 PM (GST)</span>
+                  <span>{studioInfo?.workingHours || 'Saturday – Thursday: 10:00 AM – 8:00 PM (GST)'}</span>
                 </div>
               </div>
             </div>
@@ -218,7 +226,7 @@ export default function ContactPage({ onBackToHome, onOpenWhatsAppConcierge }) {
                   <MapPin className="w-4 h-4 text-neutral-800 shrink-0 mt-0.5" />
                   <div>
                     <strong className="text-[#141414] font-medium block">Al Ain Studio & Atelier</strong>
-                    <span>Industrial Area, Al Ain, United Arab Emirates</span>
+                    <span>{studioInfo?.alAinAddress || 'Industrial Area, Al Ain, United Arab Emirates'}</span>
                   </div>
                 </div>
 
@@ -226,7 +234,7 @@ export default function ContactPage({ onBackToHome, onOpenWhatsAppConcierge }) {
                   <MapPin className="w-4 h-4 text-neutral-800 shrink-0 mt-0.5" />
                   <div>
                     <strong className="text-[#141414] font-medium block">Dubai Design District (d3)</strong>
-                    <span>Building 6, Dubai, UAE (By Private Appointment)</span>
+                    <span>{studioInfo?.dubaiAddress || 'Building 6, Dubai, UAE (By Private Appointment)'}</span>
                   </div>
                 </div>
               </div>

@@ -39,8 +39,8 @@
         { "name": "Warm Sand", "hex": "#D8CEBE" },
         { "name": "Charcoal Velvet", "hex": "#302E2B" }
       ],
-      "image": "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=1200&q=80",
-      "secondaryImage": "https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?auto=format&fit=crop&w=1200&q=80",
+      "image": "/images/hero.jpg",
+      "secondaryImage": "/images/living_scene.jpg",
       "shortDescription": "Low-slung modular sofa with architectural curves and deeply plush textured bouclé upholstery.",
       "description": "Embodying the quiet restraint of sculptural minimalism, the Dune Modular Sofa balances grounded low proportions with supreme ergonomic comfort. Each module is crafted with an inner solid beech structure and wrapped in stain-resistant tactile bouclé.",
       "specs": {
@@ -71,7 +71,7 @@
         { "name": "Olive Wool", "hex": "#4D5343" },
         { "name": "Terracotta", "hex": "#A85D44" }
       ],
-      "image": "https://images.unsplash.com/photo-1580481077195-c3a821a58875?auto=format&fit=crop&w=1200&q=80",
+      "image": "https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?auto=format&fit=crop&w=1200&q=80",
       "secondaryImage": "https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?auto=format&fit=crop&w=1200&q=80",
       "shortDescription": "An iconic spherical silhouette nestled within a bent steel framework.",
       "description": "A striking focal point for conversation areas and modern salons. The Palla chair pairs generous curvilinear cushioning with a gleaming polished chrome undercarriage.",
@@ -164,7 +164,7 @@
         { "name": "Ebonized Black Oak", "hex": "#1F1D1B" }
       ],
       "image": "https://images.unsplash.com/photo-1503602642458-232111445657?auto=format&fit=crop&w=1200&q=80",
-      "secondaryImage": "https://images.unsplash.com/photo-1580481077195-c3a821a58875?auto=format&fit=crop&w=1200&q=80",
+      "secondaryImage": "https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?auto=format&fit=crop&w=1200&q=80",
       "shortDescription": "Sculpted solid oak backrest paired with ancestral hand-woven cord seating.",
       "description": "Engineered with subtle joint work and harmonious proportions, the Nara dining chair provides ergonomic lumbar support for extended evening gatherings.",
       "specs": {

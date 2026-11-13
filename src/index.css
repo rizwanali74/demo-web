@@ -32,8 +32,10 @@
   }
 }
 
+.font-arabic,
 .font-arabic-calligraphy {
-  font-family: 'Amiri', serif;
+  font-family: 'IBM Plex Sans Arabic', 'Amiri', sans-serif;
+  line-height: 1.5;
 }
 
 /* Custom Minimalist Scrollbar */
