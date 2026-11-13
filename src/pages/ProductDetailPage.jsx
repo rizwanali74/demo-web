@@ -347,44 +347,53 @@ export default function ProductDetailPage({
                 </button>
               </div>
 
-              {/* Specifications Tabs / Accordion */}
+              {/* Specifications Tabs / Mobile Segmented Control */}
               <div className="pt-6 border-t border-[#EAE8E4]">
-                <div className="flex border-b border-[#EAE8E4] text-[11px] sm:text-xs uppercase tracking-wider overflow-x-auto no-scrollbar">
-                  <button
-                    onClick={() => setActiveTab('description')}
-                    className={`pb-2.5 px-3 font-medium cursor-pointer transition-colors whitespace-nowrap shrink-0 ${
-                      activeTab === 'description'
-                        ? 'border-b-2 border-black text-black'
-                        : 'text-neutral-400 hover:text-black'
-                    }`}
-                  >
-                    Description
-                  </button>
-                  <button
-                    onClick={() => setActiveTab('specs')}
-                    className={`pb-2.5 px-3 font-medium cursor-pointer transition-colors whitespace-nowrap shrink-0 ${
-                      activeTab === 'specs'
-                        ? 'border-b-2 border-black text-black'
-                        : 'text-neutral-400 hover:text-black'
-                    }`}
-                  >
-                    Dimensions & Specs
-                  </button>
-                  <button
-                    onClick={() => setActiveTab('delivery')}
-                    className={`pb-2.5 px-3 font-medium cursor-pointer transition-colors whitespace-nowrap shrink-0 ${
-                      activeTab === 'delivery'
-                        ? 'border-b-2 border-black text-black'
-                        : 'text-neutral-400 hover:text-black'
-                    }`}
-                  >
-                    White Glove Delivery
-                  </button>
+                {/* Mobile Segmented Pill Switcher */}
+                <div className="grid grid-cols-3 sm:hidden bg-[#F3F0EA] p-1 rounded-full border border-[#E5E0D8] text-[11px] uppercase tracking-wider">
+                  {[
+                    { id: 'description', label: 'Details' },
+                    { id: 'specs', label: 'Specs' },
+                    { id: 'delivery', label: 'Delivery' }
+                  ].map((tab) => (
+                    <button
+                      key={tab.id}
+                      onClick={() => setActiveTab(tab.id)}
+                      className={`py-2 px-2 rounded-full font-medium cursor-pointer transition-all text-center ${
+                        activeTab === tab.id
+                          ? 'bg-white text-[#141414] shadow-xs font-semibold'
+                          : 'text-[#6B655B] hover:text-[#141414]'
+                      }`}
+                    >
+                      {tab.label}
+                    </button>
+                  ))}
+                </div>
+
+                {/* Desktop Editorial Underline Tabs */}
+                <div className="hidden sm:flex border-b border-[#EAE8E4] text-xs uppercase tracking-wider">
+                  {[
+                    { id: 'description', label: 'Description' },
+                    { id: 'specs', label: 'Dimensions & Specs' },
+                    { id: 'delivery', label: 'White Glove Delivery' }
+                  ].map((tab) => (
+                    <button
+                      key={tab.id}
+                      onClick={() => setActiveTab(tab.id)}
+                      className={`pb-2.5 px-3 font-medium cursor-pointer transition-colors whitespace-nowrap ${
+                        activeTab === tab.id
+                          ? 'border-b-2 border-black text-black'
+                          : 'text-neutral-400 hover:text-black'
+                      }`}
+                    >
+                      {tab.label}
+                    </button>
+                  ))}
                 </div>
 
                 <div className="pt-4 text-xs text-[#666] leading-relaxed">
                   {activeTab === 'description' && (
-                    <div className="space-y-3">
+                    <div className="space-y-3 bg-white/80 sm:bg-transparent border border-[#EAE8E4] sm:border-0 rounded-xl sm:rounded-none p-4 sm:p-0">
                       <p>{product.description}</p>
                       <p className="text-[#141414] font-medium">
                         Custom sizing and bespoke commercial configurations are available upon request through our Al Ain & Dubai ateliers.
@@ -393,35 +402,35 @@ export default function ProductDetailPage({
                   )}
 
                   {activeTab === 'specs' && (
-                    <div className="space-y-2">
-                      <div className="flex justify-between py-1 border-b border-[#F0EEE9]">
-                        <span className="text-neutral-400">Materials:</span>
-                        <span className="text-[#141414] font-medium text-right">{product.materials}</span>
-                      </div>
-                      <div className="flex justify-between py-1 border-b border-[#F0EEE9]">
-                        <span className="text-neutral-400">Dimensions:</span>
-                        <span className="text-[#141414] font-medium">{product.dimensions}</span>
-                      </div>
-                      <div className="flex justify-between py-1 border-b border-[#F0EEE9]">
-                        <span className="text-neutral-400">Lead Time:</span>
-                        <span className="text-[#141414] font-medium">{product.leadTime}</span>
-                      </div>
-                      {product.specs && Object.entries(product.specs).map(([k, v]) => (
-                        <div key={k} className="flex justify-between py-1 border-b border-[#F0EEE9]">
-                          <span className="text-neutral-400">{k}:</span>
-                          <span className="text-[#141414] font-medium text-right">{v}</span>
+                    <div className="bg-white/80 sm:bg-transparent border border-[#EAE8E4] sm:border-0 rounded-xl sm:rounded-none px-4 sm:px-0 divide-y divide-[#F0EEE9]">
+                      {[
+                        { label: 'Materials', value: product.materials },
+                        { label: 'Dimensions', value: product.dimensions },
+                        { label: 'Lead Time', value: product.leadTime },
+                        ...Object.entries(product.specs || {}).map(([label, value]) => ({ label, value }))
+                      ].map((row) => (
+                        <div
+                          key={row.label}
+                          className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-1 sm:gap-6 py-3"
+                        >
+                          <span className="text-[10px] uppercase tracking-[0.14em] text-[#8C7A58] font-medium sm:text-xs sm:normal-case sm:tracking-normal sm:text-neutral-400 sm:font-normal shrink-0">
+                            {row.label}
+                          </span>
+                          <span className="text-xs text-[#141414] font-medium leading-relaxed sm:text-right">
+                            {row.value}
+                          </span>
                         </div>
                       ))}
                     </div>
                   )}
 
                   {activeTab === 'delivery' && (
-                    <div className="space-y-2">
+                    <div className="space-y-2.5 bg-white/80 sm:bg-transparent border border-[#EAE8E4] sm:border-0 rounded-xl sm:rounded-none p-4 sm:p-0">
                       <p>
-                        <strong>UAE Wide:</strong> Complimentary for orders above 1,500 AED. Delivered within 24-48 hours for in-stock pieces.
+                        <strong className="text-[#141414]">UAE Wide:</strong> Complimentary for orders above 1,500 AED. Delivered within 24-48 hours for in-stock pieces.
                       </p>
                       <p>
-                        <strong>White Glove Service:</strong> Our two-person logistics specialists deliver directly into your room of choice, assemble where necessary, and remove all packing refuse.
+                        <strong className="text-[#141414]">White Glove Service:</strong> Our two-person logistics specialists deliver directly into your room of choice, assemble where necessary, and remove all packing refuse.
                       </p>
                     </div>
                   )}
