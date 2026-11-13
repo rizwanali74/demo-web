@@ -15,3 +15,4 @@ export default function ToastBanner({ offsetClass = 'top-24' }) {
     </div>
   );
 }
+
