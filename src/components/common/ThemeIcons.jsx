@@ -142,3 +142,108 @@ export function ThemeSearchIcon({ className = 'w-5 h-5' }) {
     </svg>
   );
 }
+
+/**
+ * Colorful Instagram Gradient SVG
+ */
+export function ThemeInstagramIcon({ className = 'w-5 h-5' }) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className={className} aria-hidden="true">
+      <defs>
+        <linearGradient id="hujrah-ig-grad" x1="2" y1="22" x2="22" y2="2" gradientUnits="userSpaceOnUse">
+          <stop offset="0%" stopColor="#F59E0B" />
+          <stop offset="50%" stopColor="#EC4899" />
+          <stop offset="100%" stopColor="#8B5CF6" />
+        </linearGradient>
+      </defs>
+      <rect x="2" y="2" width="20" height="20" rx="5.5" fill="url(#hujrah-ig-grad)" />
+      <circle cx="12" cy="12" r="4.2" stroke="#FFFFFF" strokeWidth="1.8" />
+      <circle cx="17.5" cy="6.5" r="1.2" fill="#FFFFFF" />
+    </svg>
+  );
+}
+
+/**
+ * Colorful TikTok SVG
+ */
+export function ThemeTikTokIcon({ className = 'w-5 h-5' }) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className={className} aria-hidden="true">
+      <rect x="2" y="2" width="20" height="20" rx="5.5" fill="#141414" />
+      <path
+        d="M14.7 6.5c.6 1.2 1.6 2 2.9 2.2v2.3c-1.1 0-2.1-.3-2.9-.9v4.1a4 4 0 11-3.4-3.95v2.2a1.8 1.8 0 101.3 1.75V6.5h2.1z"
+        fill="#25F4EE"
+        transform="translate(-0.5, -0.4)"
+      />
+      <path
+        d="M14.7 6.5c.6 1.2 1.6 2 2.9 2.2v2.3c-1.1 0-2.1-.3-2.9-.9v4.1a4 4 0 11-3.4-3.95v2.2a1.8 1.8 0 101.3 1.75V6.5h2.1z"
+        fill="#FE2C55"
+        transform="translate(0.5, 0.4)"
+      />
+      <path
+        d="M14.7 6.5c.6 1.2 1.6 2 2.9 2.2v2.3c-1.1 0-2.1-.3-2.9-.9v4.1a4 4 0 11-3.4-3.95v2.2a1.8 1.8 0 101.3 1.75V6.5h2.1z"
+        fill="#FFFFFF"
+      />
+    </svg>
+  );
+}
+
+/**
+ * Colorful WhatsApp SVG
+ */
+export function ThemeWhatsAppIcon({ className = 'w-5 h-5' }) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className={className} aria-hidden="true">
+      <circle cx="12" cy="12" r="10" fill="#25D366" />
+      <path
+        d="M16.5 14.3c-.2-.1-1.3-.6-1.5-.7-.2-.1-.3-.1-.5.1-.1.2-.5.7-.7.8-.1.1-.2.2-.4.1-.2-.1-.9-.3-1.7-1.1-.6-.6-1.1-1.3-1.2-1.5-.1-.2 0-.3.1-.4l.4-.4c.1-.1.1-.2.2-.4.1-.1 0-.3 0-.4 0-.1-.5-1.2-.7-1.6-.2-.4-.4-.4-.5-.4h-.4c-.2 0-.4.1-.6.3-.2.2-.8.8-.8 1.9 0 1.1.8 2.2.9 2.3.1.2 1.6 2.4 3.8 3.4.5.2.9.4 1.3.5.5.2 1 .1 1.4.1.4-.1 1.3-.5 1.5-1 .2-.5.2-.9.1-1-.1-.1-.2-.1-.4-.2z"
+        fill="#FFFFFF"
+      />
+    </svg>
+  );
+}
+
+/**
+ * Crisp Apple Pay Badge SVG
+ */
+export function ThemeApplePayIcon({ className = 'h-6 w-12' }) {
+  return (
+    <svg viewBox="0 0 64 28" fill="none" xmlns="http://www.w3.org/2000/svg" className={className} aria-hidden="true">
+      <rect x="0.75" y="0.75" width="62.5" height="26.5" rx="6" fill="#141414" stroke="#8C7A58" strokeWidth="1.2" />
+      <path
+        d="M19.2 10.6c.5-.6.9-1.5.8-2.4-.8 0-1.7.5-2.2 1.1-.5.5-.9 1.4-.8 2.3.9.1 1.7-.4 2.2-1zm.8 1.2c-1.2-.1-2.2.7-2.8.7-.6 0-1.5-.7-2.4-.6-1.2 0-2.4.7-3 1.8-1.3 2.2-.3 5.5.9 7.3.6.9 1.3 1.9 2.3 1.8.9 0 1.3-.6 2.4-.6s1.4.6 2.4.6c1 0 1.6-.9 2.2-1.8.7-1 1-2 1-2-.1 0-1.9-.7-1.9-2.8 0-1.8 1.5-2.6 1.5-2.7-.8-1.2-2.1-1.3-2.6-1.4z"
+        fill="#FFFFFF"
+      />
+      <text x="27" y="18.2" fill="#FFFFFF" fontSize="10.5" fontWeight="600" fontFamily="Plus Jakarta Sans, sans-serif">
+        Pay
+      </text>
+    </svg>
+  );
+}
+
+/**
+ * Colorful UAE Cash on Delivery Banknote SVG
+ */
+export function ThemeUAECashIcon({ className = 'w-6 h-5' }) {
+  return (
+    <svg viewBox="0 0 32 24" fill="none" xmlns="http://www.w3.org/2000/svg" className={className} aria-hidden="true">
+      <rect x="1.5" y="3.5" width="29" height="17" rx="3" fill="#ECFDF5" stroke="#10B981" strokeWidth="1.5" />
+      <circle cx="16" cy="12" r="4" fill="#10B981" />
+      <circle cx="6.5" cy="12" r="1.2" fill="#8C7A58" />
+      <circle cx="25.5" cy="12" r="1.2" fill="#8C7A58" />
+    </svg>
+  );
+}
+
+/**
+ * Colorful Gold-Chip Card / POS SVG
+ */
+export function ThemeCardPosIcon({ className = 'w-6 h-5' }) {
+  return (
+    <svg viewBox="0 0 32 24" fill="none" xmlns="http://www.w3.org/2000/svg" className={className} aria-hidden="true">
+      <rect x="1.5" y="3.5" width="29" height="17" rx="3" fill="#141414" stroke="#8C7A58" strokeWidth="1.4" />
+      <rect x="1.5" y="7" width="29" height="3.2" fill="#8C7A58" />
+      <rect x="5" y="13" width="5.5" height="4" rx="1" fill="#FBBF24" />
+    </svg>
+  );
+}

@@ -2,13 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { 
   ArrowLeft, 
   ShoppingBag, 
-  MessageCircle, 
   ShieldCheck, 
   Truck, 
   Check, 
   ChevronRight, 
   Share2
 } from 'lucide-react';
+import { ThemeApplePayIcon, ThemeWhatsAppIcon } from '../components/common/ThemeIcons';
 
 export default function ProductDetailPage({ 
   product, 
@@ -299,10 +299,10 @@ export default function ProductDetailPage({
                 {/* Instant Apple Pay & UAE COD Checkout Page */}
                 <button
                   onClick={() => onApplePay({ ...product, quantity, selectedColor }, 'Apple Pay')}
-                  className="w-full bg-black hover:bg-neutral-900 text-white py-3.5 px-4 rounded-full flex items-center justify-center gap-2 cursor-pointer text-xs font-medium shadow-sm transition-all"
+                  className="w-full bg-black hover:bg-neutral-900 text-white py-3 px-4 rounded-full flex items-center justify-center gap-2.5 cursor-pointer text-xs font-medium shadow-sm transition-all"
                 >
                   <span className="uppercase tracking-wider">Checkout with</span>
-                  <span className="text-base font-bold">Pay</span>
+                  <ThemeApplePayIcon className="h-6 w-12" />
                   <span className="text-neutral-400">•</span>
                   <span className="uppercase tracking-wider">UAE COD</span>
                 </button>
@@ -312,7 +312,7 @@ export default function ProductDetailPage({
                   onClick={() => onWhatsAppOrder({ ...product, quantity, selectedColor })}
                   className="w-full bg-[#25D366] hover:bg-[#20ba59] text-white py-3 px-4 rounded-full flex items-center justify-center gap-2 cursor-pointer text-xs uppercase tracking-wider font-medium shadow-2xs transition-all"
                 >
-                  <MessageCircle className="w-4 h-4" />
+                  <ThemeWhatsAppIcon className="w-4 h-4" />
                   <span>Order or Request Swatches via WhatsApp</span>
                 </button>
               </div>

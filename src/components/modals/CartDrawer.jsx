@@ -4,12 +4,14 @@ import {
   Trash2, 
   Plus, 
   Minus, 
-  ShoppingBag, 
-  ArrowRight, 
-  MessageCircle, 
   ShieldCheck, 
   Truck
 } from 'lucide-react';
+import {
+  ThemeApplePayIcon,
+  ThemeBagIcon,
+  ThemeWhatsAppIcon
+} from '../components/common/ThemeIcons';
 
 export default function CartDrawer({ 
   isOpen, 
@@ -40,7 +42,7 @@ export default function CartDrawer({
         {/* Drawer Header */}
         <div className="p-5 border-b border-[#EAE8E4] flex items-center justify-between bg-[#FAFAF9]">
           <div className="flex items-center gap-2.5">
-            <ShoppingBag className="w-5 h-5 text-[#141414] stroke-[1.5]" />
+            <ThemeBagIcon className="w-5 h-5" />
             <h3 className="text-sm uppercase tracking-[0.18em] font-semibold text-[#141414]">
               Shopping Bag ({cartItems.reduce((a, b) => a + b.quantity, 0)})
             </h3>
@@ -192,10 +194,10 @@ export default function CartDrawer({
             {/* Apple Pay & UAE COD Checkout Button */}
             <button
               onClick={() => onApplePayCheckout(subtotalAED, 'Apple Pay')}
-              className="w-full bg-black hover:bg-neutral-800 text-white py-3.5 px-4 rounded-full flex items-center justify-center gap-2 shadow-sm transition-all cursor-pointer"
+              className="w-full bg-black hover:bg-neutral-800 text-white py-3 px-4 rounded-full flex items-center justify-center gap-2.5 shadow-sm transition-all cursor-pointer"
             >
               <span className="text-xs font-medium uppercase tracking-wider">Checkout with</span>
-              <span className="text-base font-bold leading-none">Pay</span>
+              <ThemeApplePayIcon className="h-6 w-12" />
               <span className="text-neutral-400">•</span>
               <span className="text-xs font-medium uppercase tracking-wider">UAE COD</span>
             </button>
@@ -205,7 +207,7 @@ export default function CartDrawer({
               onClick={onWhatsAppCheckout}
               className="w-full bg-[#25D366] hover:bg-[#20ba59] text-white py-3 px-4 rounded-full flex items-center justify-center gap-2 text-xs uppercase tracking-wider font-medium cursor-pointer shadow-2xs transition-all"
             >
-              <MessageCircle className="w-4 h-4" />
+              <ThemeWhatsAppIcon className="w-4 h-4" />
               <span>Checkout Order via WhatsApp</span>
             </button>
 

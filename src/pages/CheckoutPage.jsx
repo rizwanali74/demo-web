@@ -8,8 +8,11 @@ import {
   Truck
 } from 'lucide-react';
 import {
+  ThemeApplePayIcon,
+  ThemeCardPosIcon,
   ThemeOrderConfirmedIcon,
-  ThemeShieldIcon
+  ThemeShieldIcon,
+  ThemeUAECashIcon
 } from '../components/common/ThemeIcons';
 
 const EMIRATES = [
@@ -318,9 +321,13 @@ export default function CheckoutPage({
                       >
                         <div className="flex items-center justify-between gap-2 mb-1">
                           <span className="font-medium text-[#141414]">{pm.label}</span>
-                          <span className="text-[11px] font-bold px-2 py-0.5 rounded-full bg-[#141414] text-white">
-                            {pm.badge}
-                          </span>
+                          {pm.id === 'Apple Pay' ? (
+                            <ThemeApplePayIcon className="h-6 w-14" />
+                          ) : pm.id === 'Cash on Delivery (UAE)' ? (
+                            <ThemeUAECashIcon className="w-7 h-5" />
+                          ) : (
+                            <ThemeCardPosIcon className="w-7 h-5" />
+                          )}
                         </div>
                         <p className="text-[11px] text-neutral-500 font-light">{pm.description}</p>
                       </button>
