@@ -179,10 +179,10 @@ export default function Header({
             <div className="relative">
               <button
                 onClick={() => setSearchOpen(!searchOpen)}
-                className="p-2 hover:text-neutral-500 transition-colors cursor-pointer"
+                className="p-2 hover:opacity-75 transition-opacity cursor-pointer"
                 aria-label="Search collection"
               >
-                <Search className="w-5 h-5 stroke-[1.5]" />
+                <ThemeSearchIcon className="w-5 h-5" />
               </button>
 
               {searchOpen && (
@@ -299,21 +299,6 @@ export default function Header({
             >
               <AnimatedDeliveryTruckIcon className="w-6 h-4" isMoving />
               <span>Track Order</span>
-            </button>
-
-            {/* Track Order Truck Icon */}
-            <button
-              onClick={onNavigateTrackOrder}
-              className={`p-2 transition-colors cursor-pointer flex items-center gap-1.5 ${
-                currentPage === 'track-order' ? 'text-black' : 'text-[#141414] hover:text-neutral-500'
-              }`}
-              aria-label="Track Order"
-              title="Track Order"
-            >
-              <Truck className="w-5 h-5 stroke-[1.5]" />
-              <span className="hidden lg:inline text-[10px] uppercase tracking-[0.16em] font-medium">
-                Track
-              </span>
             </button>
 
             {/* TODO: Remove temporary Admin button when protected route auth is implemented */}
