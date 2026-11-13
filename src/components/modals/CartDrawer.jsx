@@ -11,7 +11,7 @@ import {
   ThemeApplePayIcon,
   ThemeBagIcon,
   ThemeWhatsAppIcon
-} from '../components/common/ThemeIcons';
+} from '../common/ThemeIcons';
 
 export default function CartDrawer({ 
   isOpen, 
@@ -78,8 +78,8 @@ export default function CartDrawer({
         <div className="flex-1 overflow-y-auto p-5 space-y-4">
           {cartItems.length === 0 ? (
             <div className="text-center py-20 space-y-4">
-              <div className="w-16 h-16 rounded-full bg-[#F5F4F0] flex items-center justify-center mx-auto text-neutral-400">
-                <ShoppingBag className="w-7 h-7 stroke-[1.2]" />
+              <div className="w-16 h-16 rounded-full bg-[#F5F4F0] flex items-center justify-center mx-auto">
+                <ThemeBagIcon className="w-8 h-8" />
               </div>
               <div>
                 <h4 className="text-lg font-light text-[#141414]">Your bag is empty</h4>
