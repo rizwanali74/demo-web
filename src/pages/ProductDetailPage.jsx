@@ -36,11 +36,16 @@ export default function ProductDetailPage({
 
   const currentImg = selectedImage || product.image;
 
-  const handleAdd = () => {
-    onAddToCart({
-      ...product,
-      selectedColor: selectedColor || product.colors?.[0]?.name
-    }, quantity);
+  const handleAdd = (e) => {
+    const rect = e?.currentTarget?.getBoundingClientRect?.() || null;
+    onAddToCart(
+      {
+        ...product,
+        selectedColor: selectedColor || product.colors?.[0]?.name
+      },
+      quantity,
+      rect
+    );
     setAddedNotice(true);
     setTimeout(() => setAddedNotice(false), 2500);
   };

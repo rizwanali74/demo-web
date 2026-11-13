@@ -15,6 +15,7 @@ import {
 
 export default function Header({
   cartCount,
+  cartBounce = false,
   onOpenCart,
   activeCurrency: _activeCurrency,
   onChangeCurrency: _onChangeCurrency,
@@ -226,6 +227,24 @@ export default function Header({
               </span>
             </button>
 
+            {/* Track Order Animated Truck Icon */}
+            <button
+              onClick={onNavigateTrackOrder}
+              className={`group p-1.5 transition-all cursor-pointer flex items-center gap-1.5 ${
+                currentPage === 'track-order' ? 'text-black' : 'text-[#141414] hover:opacity-80'
+              }`}
+              aria-label="Track Order"
+              title="Track Order"
+            >
+              <AnimatedDeliveryTruckIcon
+                className="w-7 h-5 group-hover:translate-x-0.5 transition-transform"
+                isMoving={currentPage === 'track-order'}
+              />
+              <span className="hidden lg:inline text-[10px] uppercase tracking-[0.16em] font-medium">
+                Track
+              </span>
+            </button>
+
             {/* TODO: Remove temporary Admin button when protected route auth is implemented */}
             <button
               onClick={onNavigateAdmin}
@@ -238,13 +257,20 @@ export default function Header({
 
             {/* Shopping Bag Icon with count badge */}
             <button
+              id="navbar-cart-icon"
               onClick={onOpenCart}
-              className="relative p-2 hover:opacity-80 transition-opacity cursor-pointer flex items-center"
+              className={`relative p-2 hover:opacity-80 transition-transform duration-300 cursor-pointer flex items-center ${
+                cartBounce ? 'scale-125' : 'scale-100'
+              }`}
               aria-label="Shopping Bag"
             >
               <ThemeBagIcon className="w-5 h-5" />
               {cartCount > 0 && (
-                <span className="absolute top-0 right-0 bg-[#8C7A58] text-white text-[9px] w-4 h-4 rounded-full flex items-center justify-center font-bold shadow-xs">
+                <span
+                  className={`absolute top-0 right-0 bg-[#8C7A58] text-white text-[9px] w-4 h-4 rounded-full flex items-center justify-center font-bold shadow-xs transition-transform duration-300 ${
+                    cartBounce ? 'scale-125 bg-emerald-600' : 'scale-100'
+                  }`}
+                >
                   {cartCount}
                 </span>
               )}
@@ -291,6 +317,14 @@ export default function Header({
               className={`text-left py-2 border-b border-[#EAE8E4] ${currentPage === 'contact' ? 'font-bold text-black' : 'text-[#141414]'}`}
             >
               Contact Us
+            </button>
+
+            <button
+              onClick={() => { onNavigateTrackOrder(); setMobileMenuOpen(false); }}
+              className={`text-left py-2 border-b border-[#EAE8E4] flex items-center gap-2 ${currentPage === 'track-order' ? 'font-bold text-black' : 'text-[#141414]'}`}
+            >
+              <AnimatedDeliveryTruckIcon className="w-6 h-4" isMoving />
+              <span>Track Order</span>
             </button>
 
             <button

@@ -152,6 +152,8 @@ export default function App() {
   const [applePayState, setApplePayState] = useState({ isOpen: false, orderItem: null, totalAED: null });
   const [whatsAppState, setWhatsAppState] = useState({ isOpen: false, product: null });
   const [cartOpen, setCartOpen] = useState(false);
+  const [cartBounce, setCartBounce] = useState(false);
+  const [flyingItem, setFlyingItem] = useState(null);
   const [toastMessage, setToastMessage] = useState(null);
 
   // Fetch from data.json (or later your production API URL)
@@ -247,8 +249,8 @@ export default function App() {
     setTimeout(() => setToastMessage(null), 3500);
   };
 
-  // Cart operations
-  const handleAddToCart = (product, quantity = 1) => {
+  // Cart operations (floating animation to navbar bag; drawer opens only on navbar click)
+  const handleAddToCart = (product, quantity = 1, sourceRect = null) => {
     setCart(prev => {
       const existing = prev.find(item => item.id === product.id && item.selectedColor === product.selectedColor);
       if (existing) {
@@ -260,8 +262,41 @@ export default function App() {
       }
       return [...prev, { ...product, quantity }];
     });
+
+    const cartEl = document.getElementById('navbar-cart-icon');
+    const targetRect = cartEl ? cartEl.getBoundingClientRect() : null;
+
+    if (targetRect) {
+      const fromX = sourceRect ? sourceRect.left + sourceRect.width / 2 - 24 : window.innerWidth / 2 - 24;
+      const fromY = sourceRect ? sourceRect.top + sourceRect.height / 2 - 24 : window.innerHeight / 2 - 24;
+      const toX = targetRect.left + targetRect.width / 2 - 24;
+      const toY = targetRect.top + targetRect.height / 2 - 24;
+
+      const animId = Date.now();
+      setFlyingItem({
+        id: animId,
+        image: product.image,
+        fromX,
+        fromY,
+        dx: toX - fromX,
+        dy: toY - fromY,
+        active: false
+      });
+
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          setFlyingItem(curr => (curr && curr.id === animId ? { ...curr, active: true } : curr));
+        });
+      });
+
+      setTimeout(() => {
+        setCartBounce(true);
+        setFlyingItem(curr => (curr && curr.id === animId ? null : curr));
+        setTimeout(() => setCartBounce(false), 450);
+      }, 620);
+    }
+
     showToast(`Added "${product.name}" to your bag`);
-    setCartOpen(true);
   };
 
   const handleUpdateQuantity = (productId, newQty) => {
@@ -413,10 +448,29 @@ Please confirm stock availability and coordinate private delivery schedule.`;
         </div>
       )}
 
+      {/* Floating Product-to-Bag Animation */}
+      {flyingItem && (
+        <div
+          className="fixed z-[120] pointer-events-none w-12 h-14 rounded-sm overflow-hidden border-2 border-[#8C7A58] shadow-xl bg-white"
+          style={{
+            left: `${flyingItem.fromX}px`,
+            top: `${flyingItem.fromY}px`,
+            transform: flyingItem.active
+              ? `translate3d(${flyingItem.dx}px, ${flyingItem.dy}px, 0) scale(0.25)`
+              : 'translate3d(0, 0, 0) scale(1)',
+            opacity: flyingItem.active ? 0.25 : 1,
+            transition: 'transform 620ms cubic-bezier(0.22, 1, 0.36, 1), opacity 620ms ease'
+          }}
+        >
+          <img src={flyingItem.image} alt="" className="w-full h-full object-cover" />
+        </div>
+      )}
+
       {/* Storefront Header (hidden on /admin routes) */}
       {!isAdminRoute && (
         <Header
           cartCount={cart.reduce((a, b) => a + b.quantity, 0)}
+          cartBounce={cartBounce}
           onOpenCart={() => setCartOpen(true)}
           activeCurrency={activeCurrency}
           onChangeCurrency={setActiveCurrency}
