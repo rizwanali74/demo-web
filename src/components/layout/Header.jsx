@@ -6,7 +6,8 @@ import {
   X,
   ChevronDown,
   ArrowRight,
-  LayoutDashboard
+  LayoutDashboard,
+  Truck
 } from 'lucide-react';
 
 export default function Header({
@@ -17,6 +18,7 @@ export default function Header({
   onNavigateHome,
   onNavigateShop,
   onNavigateContact,
+  onNavigateTrackOrder,
   onNavigateAdmin,
   categories: propCategories = [],
   onSearch,
@@ -203,6 +205,21 @@ export default function Header({
               )}
             </div>
 
+            {/* Track Order Truck Icon */}
+            <button
+              onClick={onNavigateTrackOrder}
+              className={`p-2 transition-colors cursor-pointer flex items-center gap-1.5 ${
+                currentPage === 'track-order' ? 'text-black' : 'text-[#141414] hover:text-neutral-500'
+              }`}
+              aria-label="Track Order"
+              title="Track Order"
+            >
+              <Truck className="w-5 h-5 stroke-[1.5]" />
+              <span className="hidden lg:inline text-[10px] uppercase tracking-[0.16em] font-medium">
+                Track
+              </span>
+            </button>
+
             {/* TODO: Remove temporary Admin button when protected route auth is implemented */}
             <button
               onClick={onNavigateAdmin}
@@ -268,6 +285,29 @@ export default function Header({
               className={`text-left py-2 border-b border-[#EAE8E4] ${currentPage === 'contact' ? 'font-bold text-black' : 'text-[#141414]'}`}
             >
               Contact Us
+            </button>
+
+            <button
+              onClick={() => { onNavigateTrackOrder(); setMobileMenuOpen(false); }}
+              className={`text-left py-2 border-b border-[#EAE8E4] flex items-center gap-2 ${currentPage === 'track-order' ? 'font-bold text-black' : 'text-[#141414]'}`}
+            >
+              <Truck className="w-4 h-4" />
+              <span>Track Order</span>
+            </button>
+
+            {/* Track Order Truck Icon */}
+            <button
+              onClick={onNavigateTrackOrder}
+              className={`p-2 transition-colors cursor-pointer flex items-center gap-1.5 ${
+                currentPage === 'track-order' ? 'text-black' : 'text-[#141414] hover:text-neutral-500'
+              }`}
+              aria-label="Track Order"
+              title="Track Order"
+            >
+              <Truck className="w-5 h-5 stroke-[1.5]" />
+              <span className="hidden lg:inline text-[10px] uppercase tracking-[0.16em] font-medium">
+                Track
+              </span>
             </button>
 
             {/* TODO: Remove temporary Admin button when protected route auth is implemented */}

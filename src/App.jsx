@@ -16,6 +16,7 @@ import ShopPage from './pages/ShopPage';
 import ContactPage from './pages/ContactPage';
 import PrivacyPolicyPage from './pages/PrivacyPolicyPage';
 import CheckoutPage from './pages/CheckoutPage';
+import TrackOrderPage from './pages/TrackOrderPage';
 import ProductDetailPage from './pages/ProductDetailPage';
 import AdminDashboard from './pages/admin/AdminDashboard';
 import AdminOverviewTab from './pages/admin/AdminOverviewTab';
@@ -75,6 +76,19 @@ function ProductDetailRouteWrapper({
       onAddToCart={onAddToCart}
       onApplePay={onApplePay}
       onWhatsAppOrder={onWhatsAppOrder}
+    />
+  );
+}
+
+function TrackOrderRouteWrapper({ orders, studioInfo, formatPrice, onBackToHome }) {
+  const { orderId } = useParams();
+  return (
+    <TrackOrderPage
+      orders={orders}
+      initialTrackingId={orderId || ''}
+      studioInfo={studioInfo}
+      formatPrice={formatPrice}
+      onBackToHome={onBackToHome}
     />
   );
 }
@@ -173,6 +187,11 @@ export default function App() {
 
   const handleNavigateContact = () => {
     navigate('/contact');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const handleNavigateTrackOrder = (orderId = '') => {
+    navigate(orderId ? `/track-order/${orderId}` : '/track-order');
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
@@ -377,9 +396,11 @@ Please confirm stock availability and coordinate private delivery schedule.`;
     ? 'shop'
     : location.pathname.startsWith('/contact')
       ? 'contact'
-      : location.pathname.startsWith('/product')
-        ? 'product'
-        : 'home';
+      : location.pathname.startsWith('/track-order')
+        ? 'track-order'
+        : location.pathname.startsWith('/product')
+          ? 'product'
+          : 'home';
 
   return (
     <div className="min-h-screen bg-[#FAFAF9] text-[#141414] flex flex-col font-sans selection:bg-[#141414] selection:text-white">
@@ -401,6 +422,7 @@ Please confirm stock availability and coordinate private delivery schedule.`;
           onNavigateHome={handleNavigateHome}
           onNavigateShop={handleNavigateShop}
           onNavigateContact={handleNavigateContact}
+          onNavigateTrackOrder={() => handleNavigateTrackOrder()}
           onNavigateAdmin={handleNavigateAdmin}
           categories={categories}
           searchQuery={searchQuery}
@@ -502,6 +524,7 @@ Please confirm stock availability and coordinate private delivery schedule.`;
               freeDeliveryThresholdAED={studioInfo.freeDeliveryThresholdAED || 1500}
               formatPrice={formatPrice}
               onBack={handleNavigateHome}
+              onTrackOrder={(orderId) => handleNavigateTrackOrder(orderId)}
               onCompleteOrder={(orderData) => {
                 const newOrder = {
                   id: orderData.orderId,
@@ -521,6 +544,28 @@ Please confirm stock availability and coordinate private delivery schedule.`;
                 showToast(`Order #${orderData.orderId} confirmed via ${orderData.paymentMethod}!`);
                 if (!checkoutState.items) setCart([]);
               }}
+            />
+          }
+        />
+        <Route
+          path="/track-order"
+          element={
+            <TrackOrderRouteWrapper
+              orders={orders}
+              studioInfo={studioInfo}
+              formatPrice={formatPrice}
+              onBackToHome={handleNavigateHome}
+            />
+          }
+        />
+        <Route
+          path="/track-order/:orderId"
+          element={
+            <TrackOrderRouteWrapper
+              orders={orders}
+              studioInfo={studioInfo}
+              formatPrice={formatPrice}
+              onBackToHome={handleNavigateHome}
             />
           }
         />
@@ -653,6 +698,8 @@ Please confirm stock availability and coordinate private delivery schedule.`;
             onNavigateSection={(sectionId) => {
               if (sectionId === 'contact-custom') {
                 handleNavigateContact();
+              } else if (sectionId === 'track-order') {
+                handleNavigateTrackOrder();
               } else if (sectionId === 'privacy-policy') {
                 navigate('/privacy-policy');
                 window.scrollTo({ top: 0, behavior: 'smooth' });

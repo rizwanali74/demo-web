@@ -54,6 +54,7 @@ export default function CheckoutPage({
   freeDeliveryThresholdAED = 1500,
   formatPrice,
   onBack,
+  onTrackOrder,
   onCompleteOrder
 }) {
   const [name, setName] = useState('');
@@ -133,15 +134,25 @@ export default function CheckoutPage({
             </div>
 
             <p className="text-xs text-neutral-500 font-light leading-relaxed">
-              Our White Glove concierge team will contact you on <strong>{confirmedOrder.phone}</strong> to schedule your delivery window.
+              Your Tracking ID (<strong>{confirmedOrder.orderId}</strong>) has been sent to your email. Our White Glove concierge team will contact you on <strong>{confirmedOrder.phone}</strong> to schedule your delivery window.
             </p>
 
-            <button
-              onClick={onBack}
-              className="bg-[#141414] hover:bg-neutral-800 text-white px-8 py-3 rounded-full text-xs uppercase tracking-[0.18em] font-medium cursor-pointer transition-colors"
-            >
-              Continue Exploring Collection
-            </button>
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
+              {onTrackOrder && (
+                <button
+                  onClick={() => onTrackOrder(confirmedOrder.orderId)}
+                  className="w-full sm:w-auto border border-[#141414] text-[#141414] hover:bg-[#FAFAF9] px-7 py-3 rounded-full text-xs uppercase tracking-[0.18em] font-medium cursor-pointer transition-colors"
+                >
+                  Track This Order
+                </button>
+              )}
+              <button
+                onClick={onBack}
+                className="w-full sm:w-auto bg-[#141414] hover:bg-neutral-800 text-white px-8 py-3 rounded-full text-xs uppercase tracking-[0.18em] font-medium cursor-pointer transition-colors"
+              >
+                Continue Exploring
+              </button>
+            </div>
           </div>
         </div>
       </div>

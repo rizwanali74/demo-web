@@ -94,6 +94,14 @@ export default function Footer({ onOpenWhatsAppConcierge, onNavigateSection, stu
               </li>
               <li>
                 <button 
+                  onClick={() => onNavigateSection('track-order')} 
+                  className="hover:text-black transition-colors cursor-pointer"
+                >
+                  Track Order
+                </button>
+              </li>
+              <li>
+                <button 
                   onClick={() => onNavigateSection('privacy-policy')} 
                   className="hover:text-black transition-colors cursor-pointer"
                 >
