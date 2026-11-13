@@ -1,14 +1,16 @@
 import React, { useState } from 'react';
 import {
   ArrowLeft,
-  CheckCircle2,
   CreditCard,
   Lock,
   MapPin,
-  ShieldCheck,
   Smartphone,
   Truck
 } from 'lucide-react';
+import {
+  ThemeOrderConfirmedIcon,
+  ThemeShieldIcon
+} from '../components/common/ThemeIcons';
 
 const EMIRATES = [
   'Dubai',
@@ -102,9 +104,7 @@ export default function CheckoutPage({
       <div className="bg-[#FAFAF9] min-h-[70vh] py-14 sm:py-20">
         <div className="max-w-2xl mx-auto px-4 sm:px-6">
           <div className="bg-white border border-[#EAE8E4] rounded-sm p-8 sm:p-10 text-center space-y-5 shadow-2xs">
-            <div className="w-14 h-14 bg-emerald-50 border border-emerald-200 rounded-full flex items-center justify-center mx-auto text-emerald-700">
-              <CheckCircle2 className="w-7 h-7" />
-            </div>
+            <ThemeOrderConfirmedIcon className="w-16 h-16 mx-auto" />
 
             <div className="space-y-1.5">
               <span className="text-[10px] uppercase tracking-[0.24em] text-[#8C7A58] font-semibold block">
@@ -399,7 +399,7 @@ export default function CheckoutPage({
               </div>
 
               <div className="bg-[#FAFAF9] border border-[#EAE8E4] rounded-xs p-3 flex items-start gap-2.5 text-[11px] text-neutral-500">
-                <ShieldCheck className="w-4 h-4 text-neutral-700 shrink-0 mt-0.5" />
+                <ThemeShieldIcon className="w-5 h-5 shrink-0" />
                 <span>5-Year Structural Guarantee & white glove room placement across all UAE Emirates.</span>
               </div>
             </div>

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import {
   ArrowLeft,
   CheckCircle2,
@@ -6,17 +6,17 @@ import {
   MessageCircle,
   Package,
   Search,
-  Truck,
   AlertCircle,
   MapPin
 } from 'lucide-react';
+import { AnimatedDeliveryTruckIcon } from '../components/common/ThemeIcons';
 
 const TRACKING_STEPS = [
-  { key: 'Pending', label: 'Order Received', desc: 'Awaiting studio confirmation' },
-  { key: 'Confirmed', label: 'Confirmed', desc: 'Order verified by HUJRAH Studio' },
-  { key: 'In Production', label: 'In Production', desc: 'Crafted & prepared at our UAE atelier' },
-  { key: 'Out for Delivery', label: 'Out for Delivery', desc: 'White Glove team en route' },
-  { key: 'Delivered', label: 'Delivered', desc: 'Placed & unboxed in your space' }
+  { key: 'Pending', label: 'Order Received', desc: 'Awaiting studio confirmation', progress: 12 },
+  { key: 'Confirmed', label: 'Confirmed', desc: 'Order verified by HUJRAH Studio', progress: 34 },
+  { key: 'In Production', label: 'In Production', desc: 'Crafted & prepared at our UAE atelier', progress: 58 },
+  { key: 'Out for Delivery', label: 'Out for Delivery', desc: 'White Glove team en route', progress: 84 },
+  { key: 'Delivered', label: 'Delivered', desc: 'Placed & unboxed in your space', progress: 100 }
 ];
 
 export default function TrackOrderPage({
@@ -28,13 +28,6 @@ export default function TrackOrderPage({
 }) {
   const [queryId, setQueryId] = useState(initialTrackingId);
   const [searchedId, setSearchedId] = useState(initialTrackingId);
-
-  useEffect(() => {
-    if (initialTrackingId) {
-      setQueryId(initialTrackingId);
-      setSearchedId(initialTrackingId);
-    }
-  }, [initialTrackingId]);
 
   const normalizedSearch = searchedId.trim().replace(/^#/, '').toLowerCase();
   const matchedOrder = normalizedSearch
@@ -49,6 +42,9 @@ export default function TrackOrderPage({
   const activeStepIndex = matchedOrder
     ? TRACKING_STEPS.findIndex(s => s.key === matchedOrder.status)
     : -1;
+
+  const progressPercent =
+    activeStepIndex >= 0 ? TRACKING_STEPS[activeStepIndex].progress : 12;
 
   const handleWhatsAppSupport = (order) => {
     const num = studioInfo?.whatsappNumber || '971501234567';
@@ -69,22 +65,24 @@ export default function TrackOrderPage({
 
         {/* Header & Search Form */}
         <div className="bg-white border border-[#EAE8E4] rounded-sm p-6 sm:p-8 space-y-6">
-          <div className="max-w-xl space-y-2">
-            <span className="inline-flex items-center gap-1.5 text-[10px] uppercase tracking-[0.24em] text-[#8C7A58] font-semibold">
-              <Truck className="w-3.5 h-3.5" />
-              <span>Order Tracking</span>
-            </span>
-            <h1 className="text-2xl sm:text-3xl font-light tracking-tight text-[#141414]">
-              Track Your HUJRAH Order
-            </h1>
-            <p className="text-xs sm:text-[13px] text-[#635E57] font-light leading-relaxed">
-              Enter the Tracking ID sent to your email or WhatsApp upon order confirmation to view live production and White Glove UAE delivery status.
-            </p>
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div className="max-w-xl space-y-2">
+              <span className="inline-flex items-center gap-2 text-[10px] uppercase tracking-[0.24em] text-[#8C7A58] font-semibold">
+                <AnimatedDeliveryTruckIcon className="w-7 h-5" isMoving />
+                <span>Live UAE Delivery Tracking</span>
+              </span>
+              <h1 className="text-2xl sm:text-3xl font-light tracking-tight text-[#141414]">
+                Track Your HUJRAH Order
+              </h1>
+              <p className="text-xs sm:text-[13px] text-[#635E57] font-light leading-relaxed">
+                Enter the Tracking ID sent to your email or WhatsApp upon order confirmation to view live production and White Glove UAE delivery status.
+              </p>
+            </div>
           </div>
 
           <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3">
             <div className="relative flex-1">
-              <Search className="w-4 h-4 text-neutral-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
+              <Search className="w-4 h-4 text-[#8C7A58] absolute left-3.5 top-1/2 -translate-y-1/2" />
               <input
                 type="text"
                 required
@@ -176,44 +174,78 @@ export default function TrackOrderPage({
               </button>
             </div>
 
-            {/* Fulfillment Progress Stepper */}
-            <div className="p-6 sm:p-8 border-b border-[#EAE8E4]">
+            {/* Animated Running Truck Road + Fulfillment Stepper */}
+            <div className="p-6 sm:p-8 border-b border-[#EAE8E4] space-y-6">
               {matchedOrder.status === 'Cancelled' ? (
                 <div className="p-4 bg-red-50 border border-red-200 rounded-sm text-xs text-red-700">
                   This order has been cancelled. Please reach out to our concierge team if you need assistance.
                 </div>
               ) : (
-                <div className="grid grid-cols-1 sm:grid-cols-5 gap-4">
-                  {TRACKING_STEPS.map((step, idx) => {
-                    const isCompleted = activeStepIndex >= idx;
-                    const isCurrent = activeStepIndex === idx;
-                    return (
+                <>
+                  {/* Animated Delivery Road Track */}
+                  <div className="bg-[#FAFAF9] border border-[#EAE8E4] rounded-sm px-5 pt-9 pb-5 relative overflow-hidden">
+                    <div className="flex items-center justify-between text-[10px] uppercase tracking-[0.18em] text-[#8C7A58] font-semibold mb-4">
+                      <span>UAE Atelier</span>
+                      <span className="text-emerald-700">
+                        {matchedOrder.status === 'Delivered' ? 'Arrived at Destination' : 'White Glove En Route'}
+                      </span>
+                    </div>
+
+                    <div className="relative h-3 bg-[#EAE8E4] rounded-full overflow-visible">
+                      {/* Active Gradient Fill */}
                       <div
-                        key={step.key}
-                        className={`p-3.5 rounded-sm border transition-all ${
-                          isCurrent
-                            ? 'border-black bg-[#FAFAF9]'
-                            : isCompleted
-                              ? 'border-emerald-200 bg-emerald-50/40'
-                              : 'border-[#EAE8E4] bg-white opacity-55'
-                        }`}
+                        className="h-full rounded-full bg-gradient-to-r from-[#8C7A58] via-[#C9A96E] to-[#10B981] transition-all duration-700"
+                        style={{ width: `${progressPercent}%` }}
+                      />
+                      {/* Animated Road Dashes */}
+                      <div className="absolute inset-x-2 top-1/2 -translate-y-1/2 h-[2px] animate-road-dash opacity-60 pointer-events-none" />
+
+                      {/* Running Truck Icon */}
+                      <div
+                        className="absolute -top-8 transition-all duration-700 ease-out"
+                        style={{ left: `calc(${Math.min(Math.max(progressPercent, 8), 94)}% - 24px)` }}
                       >
-                        <div className="flex items-center justify-between mb-2">
-                          <span className="text-[10px] font-mono text-neutral-400">0{idx + 1}</span>
-                          {isCompleted ? (
-                            <CheckCircle2 className={`w-4 h-4 ${isCurrent ? 'text-black' : 'text-emerald-600'}`} />
-                          ) : (
-                            <Clock className="w-4 h-4 text-neutral-300" />
-                          )}
-                        </div>
-                        <div className="text-xs font-semibold text-[#141414]">{step.label}</div>
-                        <p className="text-[11px] text-neutral-500 font-light mt-0.5 leading-snug">
-                          {step.desc}
-                        </p>
+                        <AnimatedDeliveryTruckIcon
+                          className="w-12 h-8 drop-shadow-sm"
+                          isMoving={matchedOrder.status !== 'Delivered'}
+                        />
                       </div>
-                    );
-                  })}
-                </div>
+                    </div>
+                  </div>
+
+                  {/* 5-Step Status Cards */}
+                  <div className="grid grid-cols-1 sm:grid-cols-5 gap-3.5">
+                    {TRACKING_STEPS.map((step, idx) => {
+                      const isCompleted = activeStepIndex >= idx;
+                      const isCurrent = activeStepIndex === idx;
+                      return (
+                        <div
+                          key={step.key}
+                          className={`p-3.5 rounded-sm border transition-all ${
+                            isCurrent
+                              ? 'border-[#8C7A58] bg-[#FAF8F3] shadow-2xs'
+                              : isCompleted
+                                ? 'border-emerald-200 bg-emerald-50/40'
+                                : 'border-[#EAE8E4] bg-white opacity-55'
+                          }`}
+                        >
+                          <div className="flex items-center justify-between mb-2">
+                            <span className="text-[10px] font-mono text-neutral-400">0{idx + 1}</span>
+                            {isCompleted ? (
+                              <CheckCircle2 className={`w-4 h-4 ${isCurrent ? 'text-[#8C7A58]' : 'text-emerald-600'}`} />
+                            ) : (
+                              <Clock className="w-4 h-4 text-neutral-300" />
+                            )}
+                          </div>
+                          <div className="text-xs font-semibold text-[#141414]">{step.label}</div>
+                          <p className="text-[11px] text-neutral-500 font-light mt-0.5 leading-snug">
+                            {step.desc}
+                          </p>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </>
               )}
             </div>
 
@@ -225,7 +257,7 @@ export default function TrackOrderPage({
                     Delivery Destination
                   </span>
                   <div className="flex items-start gap-2 text-[#141414]">
-                    <MapPin className="w-3.5 h-3.5 text-neutral-500 shrink-0 mt-0.5" />
+                    <MapPin className="w-3.5 h-3.5 text-[#8C7A58] shrink-0 mt-0.5" />
                     <span>{matchedOrder.address}</span>
                   </div>
                   <div className="text-neutral-500 pt-1">
@@ -245,7 +277,7 @@ export default function TrackOrderPage({
 
               <div className="md:col-span-7 space-y-3">
                 <div className="flex items-center gap-1.5 text-[10px] uppercase tracking-wider text-neutral-400 font-semibold">
-                  <Package className="w-3.5 h-3.5" />
+                  <Package className="w-3.5 h-3.5 text-[#8C7A58]" />
                   <span>Ordered Pieces ({matchedOrder.items?.length || 0})</span>
                 </div>
                 <div className="border border-[#EAE8E4] rounded-sm divide-y divide-[#F0EEE9]">

@@ -1,14 +1,17 @@
 import React, { useState } from 'react';
 import {
-  ShoppingBag,
   Search,
   Menu,
   X,
   ChevronDown,
   ArrowRight,
-  LayoutDashboard,
-  Truck
+  LayoutDashboard
 } from 'lucide-react';
+import {
+  AnimatedDeliveryTruckIcon,
+  ThemeBagIcon,
+  ThemeSearchIcon
+} from '../common/ThemeIcons';
 
 export default function Header({
   cartCount,
@@ -205,16 +208,19 @@ export default function Header({
               )}
             </div>
 
-            {/* Track Order Truck Icon */}
+            {/* Track Order Animated Truck Icon */}
             <button
               onClick={onNavigateTrackOrder}
-              className={`p-2 transition-colors cursor-pointer flex items-center gap-1.5 ${
-                currentPage === 'track-order' ? 'text-black' : 'text-[#141414] hover:text-neutral-500'
+              className={`group p-1.5 transition-all cursor-pointer flex items-center gap-1.5 ${
+                currentPage === 'track-order' ? 'text-black' : 'text-[#141414] hover:opacity-80'
               }`}
               aria-label="Track Order"
               title="Track Order"
             >
-              <Truck className="w-5 h-5 stroke-[1.5]" />
+              <AnimatedDeliveryTruckIcon
+                className="w-7 h-5 group-hover:translate-x-0.5 transition-transform"
+                isMoving={currentPage === 'track-order'}
+              />
               <span className="hidden lg:inline text-[10px] uppercase tracking-[0.16em] font-medium">
                 Track
               </span>
@@ -226,19 +232,19 @@ export default function Header({
               className="hidden sm:inline-flex items-center gap-1.5 text-[10px] uppercase tracking-[0.16em] border border-[#DDD8CF] hover:border-black px-3 py-1.5 rounded-full text-[#141414] font-medium transition-colors cursor-pointer"
               title="Open Admin Dashboard (Temporary Access)"
             >
-              <LayoutDashboard className="w-3.5 h-3.5" />
+              <LayoutDashboard className="w-3.5 h-3.5 text-[#8C7A58]" />
               <span>Admin</span>
             </button>
 
             {/* Shopping Bag Icon with count badge */}
             <button
               onClick={onOpenCart}
-              className="relative p-2 hover:text-neutral-500 transition-colors cursor-pointer flex items-center"
+              className="relative p-2 hover:opacity-80 transition-opacity cursor-pointer flex items-center"
               aria-label="Shopping Bag"
             >
-              <ShoppingBag className="w-5 h-5 stroke-[1.5]" />
+              <ThemeBagIcon className="w-5 h-5" />
               {cartCount > 0 && (
-                <span className="absolute top-0 right-0 bg-[#141414] text-white text-[9px] w-4 h-4 rounded-full flex items-center justify-center font-bold">
+                <span className="absolute top-0 right-0 bg-[#8C7A58] text-white text-[9px] w-4 h-4 rounded-full flex items-center justify-center font-bold shadow-xs">
                   {cartCount}
                 </span>
               )}
@@ -291,7 +297,7 @@ export default function Header({
               onClick={() => { onNavigateTrackOrder(); setMobileMenuOpen(false); }}
               className={`text-left py-2 border-b border-[#EAE8E4] flex items-center gap-2 ${currentPage === 'track-order' ? 'font-bold text-black' : 'text-[#141414]'}`}
             >
-              <Truck className="w-4 h-4" />
+              <AnimatedDeliveryTruckIcon className="w-6 h-4" isMoving />
               <span>Track Order</span>
             </button>
 

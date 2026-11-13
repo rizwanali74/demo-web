@@ -1,0 +1,144 @@
+import React from 'react';
+
+/**
+ * HUJRAH Theme-Colored Animated Delivery Truck SVG
+ * Palette: Charcoal (#141414), Warm Desert Gold (#8C7A58 / #D8C39E), Emerald (#10B981)
+ */
+export function AnimatedDeliveryTruckIcon({ className = 'w-6 h-6', isMoving = true }) {
+  return (
+    <svg
+      viewBox="0 0 64 44"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      className={`${className} ${isMoving ? 'animate-truck-drive' : ''}`}
+      aria-hidden="true"
+    >
+      {/* Motion Speed Lines */}
+      {isMoving && (
+        <g className="animate-speed-lines">
+          <line x1="2" y1="14" x2="10" y2="14" stroke="#C9A96E" strokeWidth="2" strokeLinecap="round" />
+          <line x1="0" y1="20" x2="8" y2="20" stroke="#8C7A58" strokeWidth="2" strokeLinecap="round" />
+          <line x1="4" y1="26" x2="11" y2="26" stroke="#D8C39E" strokeWidth="2" strokeLinecap="round" />
+        </g>
+      )}
+
+      {/* Cargo Box */}
+      <rect x="11" y="8" width="29" height="22" rx="3" fill="#141414" />
+      <rect x="13" y="10" width="25" height="18" rx="1.5" fill="#23211E" />
+      {/* Gold Accent Stripe */}
+      <rect x="11" y="23" width="29" height="3.5" fill="#C9A96E" />
+      {/* HUJRAH emblem dot on cargo */}
+      <circle cx="25.5" cy="17" r="3.5" fill="#8C7A58" opacity="0.9" />
+      <path d="M24 17l1 1 2.2-2.2" stroke="#FAFAF9" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round" />
+
+      {/* Cab */}
+      <path
+        d="M40 13h9.5c1.5 0 2.8.8 3.5 2.1l3.3 6.2c.5.9.7 1.9.7 2.9V28c0 1.1-.9 2-2 2H40V13z"
+        fill="#8C7A58"
+      />
+      {/* Cab Window */}
+      <path
+        d="M42.5 15.5h6.2c.8 0 1.5.4 1.9 1.1l2.2 4.1H42.5v-5.2z"
+        fill="#FAFAF9"
+      />
+      {/* Headlight */}
+      <rect x="55" y="24.5" width="2.5" height="2.5" rx="1" fill="#FBBF24" />
+
+      {/* Chassis */}
+      <rect x="10" y="29.5" width="47" height="2.5" rx="1.25" fill="#141414" />
+
+      {/* Rear Wheel */}
+      <g className={isMoving ? 'origin-[21px_34px] animate-wheel-spin' : ''}>
+        <circle cx="21" cy="34" r="5.5" fill="#141414" stroke="#FAFAF9" strokeWidth="1.5" />
+        <circle cx="21" cy="34" r="2" fill="#C9A96E" />
+      </g>
+
+      {/* Front Wheel */}
+      <g className={isMoving ? 'origin-[47px_34px] animate-wheel-spin' : ''}>
+        <circle cx="47" cy="34" r="5.5" fill="#141414" stroke="#FAFAF9" strokeWidth="1.5" />
+        <circle cx="47" cy="34" r="2" fill="#C9A96E" />
+      </g>
+    </svg>
+  );
+}
+
+/**
+ * Colorful Theme Shopping Bag SVG
+ */
+export function ThemeBagIcon({ className = 'w-5 h-5' }) {
+  return (
+    <svg viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg" className={className} aria-hidden="true">
+      <path
+        d="M9.5 10V8a4.5 4.5 0 019 0v2"
+        stroke="#8C7A58"
+        strokeWidth="1.8"
+        strokeLinecap="round"
+      />
+      <path
+        d="M5.5 10h17l1.3 12.2a2 2 0 01-2 2.3H6.2a2 2 0 01-2-2.3L5.5 10z"
+        fill="#141414"
+        stroke="#141414"
+        strokeWidth="1.2"
+      />
+      <path d="M5.8 14.5h16.4" stroke="#C9A96E" strokeWidth="1.6" />
+      <circle cx="14" cy="19" r="1.6" fill="#C9A96E" />
+    </svg>
+  );
+}
+
+/**
+ * Colorful Theme Verified Shield SVG (Emerald & Gold)
+ */
+export function ThemeShieldIcon({ className = 'w-5 h-5' }) {
+  return (
+    <svg viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg" className={className} aria-hidden="true">
+      <path
+        d="M14 3l8.5 3.6v6.7c0 5.4-3.6 10.3-8.5 11.7-4.9-1.4-8.5-6.3-8.5-11.7V6.6L14 3z"
+        fill="#ECFDF5"
+        stroke="#10B981"
+        strokeWidth="1.8"
+      />
+      <path
+        d="M10.5 14.2l2.4 2.4 4.8-4.8"
+        stroke="#047857"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
+/**
+ * Colorful Animated Order Confirmed Burst SVG
+ */
+export function ThemeOrderConfirmedIcon({ className = 'w-12 h-12' }) {
+  return (
+    <svg viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg" className={className} aria-hidden="true">
+      <circle cx="28" cy="28" r="24" fill="#ECFDF5" stroke="#10B981" strokeWidth="2" />
+      <circle cx="28" cy="28" r="18" fill="#10B981" className="animate-soft-pulse" />
+      <path
+        d="M20.5 28.5l5 5 10-10"
+        stroke="#FFFFFF"
+        strokeWidth="3"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <circle cx="11" cy="13" r="2" fill="#C9A96E" />
+      <circle cx="46" cy="14" r="1.8" fill="#8C7A58" />
+      <circle cx="44" cy="44" r="2" fill="#C9A96E" />
+    </svg>
+  );
+}
+
+/**
+ * Colorful Theme Search Magnifier SVG
+ */
+export function ThemeSearchIcon({ className = 'w-5 h-5' }) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className={className} aria-hidden="true">
+      <circle cx="10.5" cy="10.5" r="6.5" fill="#FAFAF9" stroke="#141414" strokeWidth="1.7" />
+      <path d="M15.5 15.5L20 20" stroke="#8C7A58" strokeWidth="2.2" strokeLinecap="round" />
+    </svg>
+  );
+}

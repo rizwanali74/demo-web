@@ -84,6 +84,7 @@ function TrackOrderRouteWrapper({ orders, studioInfo, formatPrice, onBackToHome 
   const { orderId } = useParams();
   return (
     <TrackOrderPage
+      key={orderId || 'default'}
       orders={orders}
       initialTrackingId={orderId || ''}
       studioInfo={studioInfo}
